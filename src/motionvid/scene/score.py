@@ -185,7 +185,7 @@ def _typography(tl, tels, G):
         is_split = bool(el.get("split"))
         for k, (i, c, t) in enumerate(times):
             rng = np.random.default_rng(seed_of(T.id, i))
-            f = base * 2 ** (math.floor(k / G["semitone_every"]) / 12) * 2 ** (rng.uniform(-G["jitter_cents"], G["jitter_cents"]) / 1200)
+            f = base * 2 ** ((k / G["semitone_every"]) / 12) * 2 ** (rng.uniform(-G["jitter_cents"] * 0.35, G["jitter_cents"] * 0.35) / 1200)
             xc = float(np.interp(t, T.ts, T.x)) - tot / 2 + (i + 0.5) * 0.58 * size
             g = G["tick_db"] - (5.0 if is_split else 0.0) + rng.uniform(-G["vel_jitter_db"], G["vel_jitter_db"]) - 0.12 * min(k, 15)
             out.append(_ev(t, "tick", g, pan_of(xc / W, G), f"{T.id}: glyph {c!r} #{k}", freq=f))
