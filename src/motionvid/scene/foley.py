@@ -62,11 +62,9 @@ def motion_bed(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
     pn = pink_noise(n, rng) * 0.95
     cutoff = 180.0 + me * 1400.0
     filtered = biquad_tv(drone + pn, cutoff, 1.15, "lp", block=256)
-    # Add tactile upper-band movement sheen when motion_energy > 0.1 so brightness tracks motion speed
-    sheen = biquad_tv(pn, 2200.0 + me * 2400.0, 1.0, "bp", block=256) * (me ** 1.2) * 0.48
     gain_db = -34.0 + me * 16.0
     gain = 10.0 ** (gain_db / 20.0)
-    sig = (filtered + sheen) * gain
+    sig = filtered * gain
     buf[:n] += _stereo_pan(sig, px, width=max(0.72, float(G.get("pan_width", 0.65))))
     # Continuous sub-bass mass coupling for non-text shape expansions (50 Hz sine burst on positive d(area)/dt)
     shaped = [T for T in tels if T.kind != "text"]
@@ -97,13 +95,16 @@ def texture(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
         n, tt, f = _slice(ts, i0, i1)
         if n < 64:
             continue
-        env = np.clip(f(sm) / 1.1, 0, 1.5)
+        s_ref = max(1.2, float(np.percentile(sm[sm > 0.03], 92)) if (sm > 0.03).any() else 1.2)
+        sp_norm = np.clip(f(sm) / s_ref, 0.0, 1.35)
         pn = pink_noise(n, rng)
-        felt = biquad_tv(pn, 300.0 + 600.0 * np.clip(env, 0, 1), 1.1, "bp") * 0.9
-        brush = biquad_tv(rng.standard_normal(n), 2800.0 + 2600.0 * np.clip(env, 0, 1), 0.9, "bp") * (env ** 1.15) * 0.65
-        g = 10 ** ((G["texture_db"] + 5.0) / 20)
+        felt = biquad_tv(pn, 300.0 + 600.0 * np.clip(sp_norm, 0, 1), 1.1, "bp") * (sp_norm ** 0.85) * 0.85
+        # dB-linear 2-8 kHz brightness scaling with speed so log-band energy tracks speed linearly
+        brush_db = G["texture_db"] - 7.0 + 20.0 * sp_norm
+        brush = biquad_tv(rng.standard_normal(n), 3200.0 + 2200.0 * np.clip(sp_norm, 0, 1), 0.85, "bp") * (10.0 ** (brush_db / 20.0))
+        g_felt = 10.0 ** ((G["texture_db"] + 4.0) / 20.0)
         xn_pan = np.clip(0.5 + (f(vx) - 0.5) * 1.55, 0.0, 1.0)
-        _add(buf, ts, i0, _stereo((felt + brush) * (env ** 0.85) * g, xn_pan, G))
+        _add(buf, ts, i0, _stereo(felt * g_felt + brush, xn_pan, G))
         count += 1
     return count
 

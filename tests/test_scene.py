@@ -86,9 +86,49 @@ def test_agency_dsp_rules_polyphony_and_timbre(out):
     for i in range(len(pt) - 3):
         assert pt[i + 3] - pt[i] >= 0.3, f"More than 3 shape pops in 300ms at {pt[i]}"
     # Verify whoosh contains locked sub-bass weight layer (< 100 Hz)
-    w_sig, _ = V.whoosh(0.19, 0.5, 0.8, np.random.default_rng(7))
+    w_sig, _ = V.whoosh(0.16, 0.18, 0.8, np.random.default_rng(7))
     sp = np.abs(np.fft.rfft(w_sig))
     freqs = np.fft.rfftfreq(len(w_sig), 1 / 48000)
     sub_e = float((sp[(freqs >= 35) & (freqs <= 100)] ** 2).mean())
     mid_e = float((sp[(freqs >= 1500) & (freqs <= 3500)] ** 2).mean())
     assert sub_e > mid_e, "Whoosh must have locked sub-bass weight layer stronger than high-mid hiss"
+
+
+def test_launch_v05_five_root_bugs_fixed():
+    from motionvid.scene.telemetry import build, motion_curves
+
+    l_tl = json.loads((ROOT / "examples" / "launch.json").read_text())
+    audio, info = render(l_tl)
+    evs = info["events"]
+    # 1. Suction anticipation sweep: starts 0.25s before crystal (5.75s -> 6.00s and 12.47s -> 12.72s)
+    suctions = [e for e in evs if e["role"] == "suction"]
+    crystals = [e for e in evs if e["role"] == "crystal"]
+    assert [e["t"] for e in suctions] == [5.75, 12.47]
+    assert [e["t"] for e in crystals] == [6.0, 12.72]
+    for s_ev, c_ev in zip(suctions, crystals):
+        assert round(s_ev["t"] + s_ev["p"]["dur"], 2) == c_ev["t"]
+    # 2. Sub + impact locked on every cut with 0 ms offset; whoosh pre=0.16s, post=0.18s
+    cuts = [c["t"] for c in l_tl["cuts"]]
+    assert cuts == [3.2, 6.6, 10.2, 13.4]
+    for tc in cuts:
+        at_cut = {e["role"]: e for e in evs if abs(e["t"] - tc) < 1e-4}
+        assert {"sub", "impact", "whoosh"} <= set(at_cut)
+        assert at_cut["whoosh"]["p"]["pre"] == 0.16 and at_cut["whoosh"]["p"]["post"] == 0.18
+    # No early sub pre-bloom 130 ms before cuts
+    subs = [e["t"] for e in evs if e["role"] == "sub"]
+    assert all(all(abs(st - (tc - 0.13)) > 0.05 for tc in cuts) for st in subs)
+    # 3. Pitched pluck strictly 1 hero arrival per scene (5 scenes -> 5 plucks), zero text plucks
+    plucks = [e for e in evs if e["role"] == "pluck"]
+    assert len(plucks) == 5
+    # 4. Continuous motion bed active across 3.5-5.8s, 8.1-9.4s, and 10.6-12.6s
+    tels = build(l_tl)
+    me, px = motion_curves(tels)
+    assert me.min() >= 0.0 and me.max() <= 1.0 and px.min() >= -1.0 and px.max() <= 1.0
+    for a, b in ((3.5, 5.8), (8.1, 9.4), (10.6, 12.6)):
+        seg = audio[int(a * 48000):int(b * 48000)]
+        rms_db = 10 * np.log10((seg ** 2).mean() + 1e-20)
+        assert rms_db > -32.0, f"Dead air in {a}..{b}s: {rms_db:.1f} dBFS"
+    # 5. Climax riser at 12.85s -> 13.40s, zero discrete triggers after 15.40s
+    risers = [e for e in evs if e["role"] == "riser"]
+    assert len(risers) == 1 and risers[0]["t"] == 12.85 and risers[0]["p"]["dur"] == 0.55
+    assert max(e["t"] for e in evs) <= 15.40

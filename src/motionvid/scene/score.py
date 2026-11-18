@@ -155,6 +155,8 @@ def _phrases(tl, notes, G):
 def _typography(tl, tels, G):
     """Replace all text plucks with ultra-short non-pitched tactile micro-clicks (`tick`) with +-3 dB jitter."""
     out, W = [], tl["width"]
+    prev_end_t = -9.0
+    k_offset = 0
     for T in tels:
         el = T.el
         if T.kind != "text":
@@ -171,27 +173,23 @@ def _typography(tl, tels, G):
         elif el.get("type"):
             ty = el["type"]
             times = [(i, c, ty["t"] + i / ty["cps"]) for i, c in enumerate(text[:int(ty["n"])]) if not c.isspace()]
-        else:
-            # Whole-card text reveal (e.g. 48 KHZ, 0 BYTES, 25.8X SYNC): single tactile micro-click
-            op, fw = T.op, int(0.25 * HZ)
-            for i in range(len(op) - fw):
-                if op[i] <= 0.05 and op[i + fw] >= 0.9:
-                    t_card = first_cross(op, 0.5, i, i + fw) / HZ
-                    out.append(_ev(t_card, "tick", G["tick_db"] + 1.5, pan_of(float(np.interp(t_card, T.ts, T.xn)), G),
-                                   f"{T.id}: card micro-click", freq=520.0))
-                    break
-            continue
         if not times:
             continue
+        if times[0][2] - prev_end_t <= 0.45:
+            k_offset += len(times)
+        else:
+            k_offset = 0
+        prev_end_t = times[-1][2]
         base = snap_pent(float(np.clip(520 * (120 / size) ** 0.2, 430, 680)))
         tot = len(text) * 0.58 * size
         is_split = bool(el.get("split"))
         vj = max(3.0, float(G.get("vel_jitter_db", 3.0)))
         for k, (i, c, t) in enumerate(times):
             rng = np.random.default_rng(seed_of(T.id, i))
-            f = base * 2 ** ((k / G["semitone_every"]) / 12) * 2 ** (rng.uniform(-G["jitter_cents"] * 0.35, G["jitter_cents"] * 0.35) / 1200)
+            kk = k + k_offset
+            f = base * 2 ** ((kk / G["semitone_every"]) / 12) * 2 ** (rng.uniform(-G["jitter_cents"] * 0.12, G["jitter_cents"] * 0.12) / 1200)
             xc = float(np.interp(t, T.ts, T.x)) - tot / 2 + (i + 0.5) * 0.58 * size
-            g = G["tick_db"] - (3.5 if is_split else 0.0) + rng.uniform(-vj, vj) - 0.1 * min(k, 15)
+            g = G["tick_db"] + (3.5 if not is_split else 2.0) + rng.uniform(-vj, vj) - 0.06 * min(k, 15)
             out.append(_ev(t, "tick", g, pan_of(xc / W, G), f"{T.id}: glyph {c!r} #{k}", freq=f))
     return out
 

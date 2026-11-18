@@ -97,7 +97,7 @@ def impact(s: float, rng: np.random.Generator):
     mid_punch = _tri(TAU * np.cumsum(f_mid) / SR) * (1.0 - np.exp(-t / 0.0015)) * np.exp(-t / 0.038) * 0.72
     # 3. 5 ms high-passed click (> 2.2 kHz)
     hp_noise = biquad_tv(rng.standard_normal(len(t)), 2200.0, 0.85, "hp")
-    click = hp_noise * np.exp(-t / 0.0022) * (0.55 + 0.30 * s)
+    click = hp_noise * np.exp(-t / 0.0024) * (0.34 + 0.18 * s)
     # Soft-clipper (tanh)
     y = np.tanh(1.65 * (sub * 1.15 + mid_punch + click))
     return taper(norm(y), 4.0), 0
@@ -105,7 +105,7 @@ def impact(s: float, rng: np.random.Generator):
 
 def whoosh(pre: float, post: float, s: float, rng: np.random.Generator):
     """Pink noise -> 24dB/oct resonant LPF (Q=2.2) peaking at event.time then sweeping exponentially 2.6 kHz -> 120 Hz, + sub weight."""
-    tail_len = max(post, 0.34)
+    tail_len = max(post, 0.38)
     t = _t(pre + tail_len)
     u_pre = np.clip(t / max(pre, 1e-4), 0.0, 1.0)
     u_post = np.clip((t - pre) / max(post, 1e-4), 0.0, 1.0)
@@ -114,18 +114,16 @@ def whoosh(pre: float, post: float, s: float, rng: np.random.Generator):
     fc_post = 2600.0 * ((120.0 / 2600.0) ** (u_post ** 0.85))
     fc = np.where(t <= pre, fc_pre, fc_post)
     env_pre = u_pre ** 3.4
-    env_post = np.exp(-(t - pre) / max(0.065, post * 0.42)) + 0.14 * np.exp(-(t - pre) / 0.22)
+    env_post = np.exp(-(t - pre) / max(0.065, post * 0.45)) + 0.78 * np.exp(-(t - pre) / 0.58)
     env = np.where(t <= pre, env_pre, env_post)
-    air_lp = lpf24_tv(pink_noise(len(t), rng), fc, q=2.2) * env * 0.85
-    # Crisp crest transient at the cut peak so 2-8 kHz envelope peaks right on the cut frame
-    crest = biquad_tv(rng.standard_normal(len(t)), 2800.0, 1.1, "bp") * np.exp(-((t - pre) / 0.018) ** 2) * (0.28 + 0.15 * s)
-    tail_air = biquad_tv(pink_noise(len(t), rng), 2600.0, 0.9, "bp") * np.where(t > pre, np.exp(-(t - pre) / 0.24), u_pre ** 4.0) * 0.11
+    air_lp = lpf24_tv(pink_noise(len(t), rng), fc, q=2.2) * env * 0.88
+    tail_air = biquad_tv(pink_noise(len(t), rng), 2600.0, 0.9, "bp") * np.where(t > pre, np.exp(-(t - pre) / 0.58), u_pre ** 3.8) * (1.05 + 0.25 * s)
     # Sub-bass weight layer (92 Hz -> 36 Hz over 190 ms) peaking at the cut frame
     u_w = np.clip((t - (pre - 0.05)) / 0.19, 0.0, 1.0)
     f_sub = 36.0 + (92.0 - 36.0) * ((1.0 - u_w) ** 1.5)
     w_env = np.where(t <= pre, u_pre ** 3.8, np.exp(-(t - pre) / 0.095))
-    weight = np.sin(TAU * np.cumsum(f_sub) / SR) * w_env * (1.05 + 0.35 * s)
-    return taper(norm(air_lp + crest + tail_air + weight), 4.0), int(round(pre * SR))
+    weight = np.sin(TAU * np.cumsum(f_sub) / SR) * w_env * (1.20 + 0.35 * s)
+    return taper(norm(air_lp + tail_air + weight), 4.0), int(round(pre * SR))
 
 
 def riser(dur: float, rng: np.random.Generator):
@@ -166,20 +164,20 @@ def pluck(freq: float, dur: float, rng: np.random.Generator, bell: bool = False,
 
 
 def text_tick(freq: float, rng: np.random.Generator):
-    """Ultra-short (18-24 ms) non-pitched tactile micro-click: 1.4-2.8 kHz bandpass noise + stationary damped 1.6 kHz body, zero pitch drop."""
-    t = _t(0.024)
+    """Ultra-short (18-30 ms) non-pitched tactile micro-click: 1.4-2.8 kHz bandpass noise + stationary damped body, zero pitch drop."""
+    t = _t(0.030)
     # Map glyph frequency hint into [1400 Hz, 2800 Hz] bandpass/resonator center with ZERO pitch envelope over time
-    fc = float(np.clip(1400.0 + (freq - 420.0) * 3.2, 1400.0, 2800.0))
+    fc = float(np.clip(1400.0 + (freq - 420.0) * 2.4, 1400.0, 2800.0))
     # 3 ms attack, 15 ms exponential decay
     att = np.clip(t / 0.003, 0.0, 1.0)
-    dec = np.exp(-np.maximum(0.0, t - 0.003) / 0.0055)
+    dec = np.exp(-np.maximum(0.0, t - 0.003) / 0.011)
     env = att * dec
-    bp_noise = biquad_tv(rng.standard_normal(len(t)), fc, 1.8, "bp") * env * 0.75
-    hp_imp = biquad_tv(rng.standard_normal(len(t)), 2400.0, 0.8, "hp") * np.exp(-t / 0.002) * 0.45
-    # Damped stationary body (zero pitch sweep) so spectral peak tracks `fc` cleanly without any water-drop chirp
-    body = (np.sin(TAU * fc * t) + 0.35 * np.sin(TAU * 1600.0 * t)) * env * np.exp(-t / 0.008) * 0.55
-    air = biquad_tv(rng.standard_normal(len(t)), 9800.0, 0.7, "hp") * np.exp(-t / 0.0018) * 0.22
-    return taper(norm(bp_noise + hp_imp + body + air), 1.5), 0
+    bp_noise = biquad_tv(rng.standard_normal(len(t)), fc, 2.4, "bp") * env * 0.42
+    hp_imp = biquad_tv(rng.standard_normal(len(t)), 2400.0, 0.8, "hp") * np.exp(-t / 0.0022) * 0.25
+    # Damped stationary resonator at `fc` (zero pitch sweep over time)
+    body = np.sin(TAU * fc * t) * env * 1.45
+    air = biquad_tv(rng.standard_normal(len(t)), 9800.0, 0.7, "hp") * np.exp(-t / 0.002) * 0.22
+    return taper(norm(bp_noise + hp_imp + body + air), 2.0), 0
 
 
 tick = text_tick
@@ -187,15 +185,15 @@ tick = text_tick
 
 def crystal(rng: np.random.Generator):
     """Two detuned high-frequency sine/triangle partials (2093 Hz + 3136 Hz, +7 cents detune) with 120 ms glassy decay."""
-    t = _t(0.16)
+    t = _t(0.12)
     det = 2.0 ** (7.0 / 1200.0)  # +7 cents detune
     f1a, f1b = 2093.0, 2093.0 * det
     f2a, f2b = 3136.0, 3136.0 * det
     p1 = 0.65 * (np.sin(TAU * f1a * t) + np.sin(TAU * f1b * t)) + 0.35 * (_tri(TAU * f1a * t) + _tri(TAU * f1b * t))
     p2 = 0.65 * (np.sin(TAU * f2a * t) + np.sin(TAU * f2b * t)) + 0.35 * (_tri(TAU * f2a * t) + _tri(TAU * f2b * t))
-    env = (1.0 - np.exp(-t / 0.001)) * np.exp(-t / 0.048)  # 120 ms glassy decay (-22 dB at 120 ms)
-    shimmer = biquad_tv(rng.standard_normal(len(t)), 9600.0, 0.75, "hp") * np.exp(-t / 0.012) * 0.22
-    return taper(norm((0.58 * p1 + 0.42 * p2) * env + shimmer), 3.0), 0
+    env = (1.0 - np.exp(-t / 0.001)) * np.exp(-t / 0.032)  # 120 ms glassy decay window
+    shimmer = biquad_tv(rng.standard_normal(len(t)), 9600.0, 0.75, "hp") * np.exp(-t / 0.010) * 0.22
+    return taper(norm((0.58 * p1 + 0.42 * p2) * env + shimmer), 4.0), 0
 
 
 def pad(freqs, dur: float, rng: np.random.Generator):
