@@ -7,3 +7,8 @@ Loop (`python -m motionvid rsi`): measure → mutate → select on DEV → gate 
 - Anti-gaming: holdout seeds ≥ 10000 are never used for selection; benchmark numbers in STATUS.md must come from files in
   `bench/results/`; tests may only be strengthened.
 - Known weakness: labels are synthetic. Replace with human labels before trusting gains beyond ~0.95 F1.
+
+## Scene audio loop (session 3)
+`python -m motionvid rsi --scene`: mutate 3 of `params.BOUNDS` in `scene_genome.json`, evaluate FlawBench score and pass counts on dev (showreel.json) and
+holdout (reel2.json). Accept only if dev score rises by more than 0.002, holdout score does not drop, and no pass count drops. Result so far: 6 cycles, 0 accepted
+(saturated at 9/9 dev, 8/9 holdout). The remaining failure is structural (pan tracking on symmetric motion), so it needs a code proposal, gated the same way.

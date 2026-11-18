@@ -12,3 +12,4 @@ Modifications: natural.py `_owl_hoot` crash fix for very short hoots. Everything
 src/motionvid/ (timeline, cues, compose, genome, preview, cli, rsi/) is original.
 
 Third-party: NumPy (BSD-3-Clause).
+src/motionvid/scene/ (the default engine since v0.3) is original work and does not import src/motionvid/sonic/.

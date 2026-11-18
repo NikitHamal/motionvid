@@ -22,15 +22,21 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
 - `src/motionvid/rsi/` ground truth (`gt.py`) + loop (`loop.py`). `bench/motionsync.py` sync/throughput/dynamics bench.
 - `docs/SKILL.md` how an LLM writes timelines. `docs/` architecture, benchmarks, RSI rules, roadmap, decisions.
 
+- `src/motionvid/scene/` the scene audio engine (default): `telemetry.py` (240 Hz element signals), `score.py` (events, phrasing, humanization), `foley.py`
+  (continuous layers), `voices.py` (DSP voices), `master.py` (reverb, tilt, glue, LUFS, true-peak limiter), `engine.py`, `params.py` + `scene_genome.json` (RSI tunes these).
+- `bench/soundaudit.py` FlawBench (9 audio flaws as numbers, classic vs scene). `src/motionvid/rsi/scene_loop.py` scene RSI (`motionvid rsi --scene`).
+- `examples/showreel.py` (v0.2/v0.3 visuals), `examples/reel2.py` (v0.4, 60 fps). `docs/versions.json` registry. `docs/DESIGN.md` design rules and owner preferences.
+
 ## Surfaces (what ships)
 - Frames: `docs/engine/render.js` (+`xray.js`) is the ONE canvas engine for site, Studio (`src/App.tsx`), `preview.py` and `tools/render_video.mjs`.
   Schema additions live there and in `timeline.py` (easings are parity-tested). Element kinds: rrect, circle, ring, blob, text.
 - Video: `python -m motionvid video tl.json out/ --xray` -> `final.mp4` (+`xray.mp4`). Audio by Python, frames by Node, mux by ffmpeg-static.
 - Site: `docs/index.html` (GitHub Pages, plain HTML/CSS/JS). Studio: `npm run build` -> `dist/index.html` (single file).
-- Media: `python scripts/build_media.py` regenerates everything in `docs/media/` from `examples/showreel.py`. Never hand-edit those files.
-- Gates: `pytest -q` (24 tests) and `python bench/reelcheck.py` (baseline in `bench/results/reelcheck.json`).
+- Media: `python scripts/build_media.py` rebuilds v0.3 and v0.4 in `docs/media/` (+ `flawbench.json`). v0.1 and v0.2 are frozen: never rebuild or delete any version. Never hand-edit generated files.
+- New version recipe: write `examples/<name>.py`, add it to `BUILDS` in `scripts/build_media.py`, add an entry to `docs/versions.json`, run build, update STATUS.
+- Gates: `pytest -q` (41 tests), FlawBench via `python bench/soundaudit.py` and `python bench/reelcheck.py` (baseline in `bench/results/reelcheck.json`).
 
-## Design rules (tested in tests/test_rules.py)
+## Design rules: see `docs/DESIGN.md` (tested in tests/test_rules.py)
 Material 3 Expressive: solid color containers, extra-large shapes, spring motion, Bricolage Grotesque. No box/text shadows, no emojis,
 no LIVE badges, no blue/purple gradients (palette: cream, ink, coral, lime, butter, pink, mint). Cut taglines and helper text;
 if a screen needs them to make sense, fix the layout.
@@ -46,7 +52,11 @@ if a screen needs them to make sense, fix the layout.
 - Keep files < ~300 lines; prefer new modules over growing old ones.
 
 ## Environment notes
-- Sandbox: 4 CPU, ~3 GB RAM, no GPU, no uvx/claude CLI, no system browser libs (Playwright Chromium cannot launch: libnspr4 missing).
+- Sandbox: `pip install --break-system-packages numpy scipy pytest`; the platform preview serves `docs/` through an untracked stub package.json (`/tmp/health_server.js`): never commit that stub, the real package.json is the Studio's. 4 CPU, ~3 GB RAM, no GPU, no uvx/claude CLI, no system browser libs (Playwright Chromium cannot launch: libnspr4 missing).
   `pip install --break-system-packages numpy pytest`; `npm install` provides ffmpeg-static + @napi-rs/canvas (works offline of system ffmpeg).
 - The repo root also holds the Vite Studio app (package.json, src/*.tsx). Python package is `src/motionvid`.
 - MoLab box (CPU-only, then GPU later) can't be paired from this sandbox (no `uvx`/`claude`); GPU work is queued in ROADMAP "GPU phase".
+
+## RSI quick start
+`python -m motionvid rsi --scene --cycles 6` mutates `scene_genome.json`, scores dev (showreel) and holdout (reel2) on FlawBench, appends to `LEDGER.jsonl`.
+Parameter RSI has plateaued (6/6 rejected, session 3); the next gains are code-level (STATUS next action 2). Never edit CHECKS thresholds or tests to pass.

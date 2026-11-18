@@ -1,15 +1,40 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 2 · Box: 4 CPU / 3 GB / no GPU.
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 3 · Box: 4 CPU / 3 GB / no GPU.
 
 ## Next actions (do top first)
-1. **Visual QA in a real browser**: site (`docs/index.html`) and Studio were verified by build + Node tests only (sandbox cannot launch
-   Chromium). Open both, fix anything off, then record a screenshot set in `docs/media/`.
-2. **Human decision + labels for 'what is the hit' of broad sounds** (whoosh, riser, noise_sweep, paper_rustle, glitch); calibrate
-   per-role anchors in `compose.py`. Gate: `bench/motionsync.py` both detectors no worse than the table below.
-3. RSI cycle 3 on ReelCheck: p95 error 70.7 ms and within-1-frame 0.769 are dominated by overlapping/broad cues. Try code-level
-   change (cluster-aware anchoring) and keep only if `bench/reelcheck.py` improves with all gates green.
-4. Music bed on a beat grid (`render/music.py` vendored, unused); `motionvid video --bed` is wired for textures only.
-5. More example timelines (20 real launch videos), MCP server for agents, GPU phase per `docs/ROADMAP.md`.
+1. **Visual QA in a real browser**: site (`docs/index.html`) and Studio are verified by build, Node tests and rule tests only (sandbox cannot launch
+   Chromium). Open both; confirm play/pause toggles, nav hover never shows a square corner, version buttons switch audio+timeline. Screenshot to `docs/media/`.
+2. **Code-level audio gains (parameter RSI has plateaued)**: Reel II holdout fails `pan_corr` (0.44 < 0.5) and `sub_coupling` is 0.75 (v0.3: 0.89).
+   Ideas: pan the dominant mover only when several elements move symmetrically; add sub to ring/pop clusters; occlusion (do not sound elements hidden under a flood).
+3. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits; see `docs/ROADMAP.md` G1. Keep 0-byte engine as the baseline gate.
+4. Human labels for "what is the hit" of broad sounds (whoosh, riser); calibrate classic anchors. Gate: `bench/motionsync.py` both detectors no worse.
+5. Music bed on a beat grid (`render/music.py` vendored, unused); MCP server for agents; 20 real launch timelines.
+
+## DONE (session 3)
+- **Scene audio engine** (`src/motionvid/scene/`, 0 weights, English-only, ~900 lines): sound is bound to continuous scene telemetry, not only trigger times.
+  area growth -> pitch-dropping sub (95->42 Hz); x(t) -> constant-power pan in [-0.65, 0.65], per sample for moving layers; speed -> filtered-noise texture
+  (300 Hz rest -> 4.5 kHz peak) + servo hum; width rate -> rubbery stretch tone; lobe-amp rate -> shimmer; glyph triggers from each character's real easing curve
+  (whitespace skipped, +-45 cents, +-2.5 dB, +1 semitone per 3.5 glyphs); scale pops phrase into an A-minor pentatonic cascade; collapses get suction + 3-6 kHz crystal;
+  every cut gets a whoosh that ramps up 190-210 ms early and peaks on the cut frame; chord bed + room tone remove dead air;
+  master bus = 10% short room reverb (HP 250 Hz send) -> tilt EQ (+3 dB < 85 Hz, +2.5 dB > 9 kHz) -> 2:1 glue (10/80 ms) -> -16 LUFS -> -1.0 dBTP limiter.
+- **FlawBench** (`bench/soundaudit.py`): the nine flaws from the expert review as numbers, thresholds from the review text. Same timeline, same checks:
+  | reel | classic (v0.2 sound) | scene (new) |
+  |---|---|---|
+  | showreel (dev) | 2/9, score 0.41 | **9/9, score 0.94** (2.3x) |
+  | Reel II (holdout) | 2/9, score 0.41 | **8/9, score 0.91** (2.2x) |
+  Honest notes: the review overstated two things. The classic mix already has strong 20-80 Hz energy (+5 dB vs mids) and 3 click variants, so those raw
+  metrics passed for v0.2; what was missing was *coupling* (sub on growth: 0.78 -> 0.89, glyph phrasing rho 0.40 -> 0.96), dead air (5.5 s -> 0), pre-roll,
+  pan tracking, tails and loudness (-22.1 LUFS, -0.96 dBTP -> -16.0, -1.0). Composite score is our own proxy, not a listening test.
+- **Reel II** (`examples/reel2.py`): 20.4 s, 60 fps, 81 elements, six scenes, real motion blur (`--blur 3`, tools/render_video.mjs sub-frame accumulation).
+- **Evolution kept**: `docs/media/v0.1..v0.4/`, registry `docs/versions.json` drives the site player and cards. v0.1/v0.2 are frozen and never rebuilt.
+  v0.3 = v0.2 visuals + scene sound; v0.4 = Reel II + scene sound.
+- **Site**: play/pause fixed (inline-svg `hidden` is unreliable; now `data-playing` + CSS), GitHub logo in the button, nav hover no longer flashes square corners
+  (cause: spring easing overshoot made the interpolated radius negative, clamped to 0). Rule is now a test. Studio had the same bug, fixed.
+- **RSI**: `motionvid rsi --scene` (dev + holdout, accept only if nothing regresses). 6 cycles run, 0 accepted: parameter space is saturated, see next action 2.
+- Tests 24 -> 41 (scene determinism, master limits, pre-roll, humanization, voice anchors, FlawBench gate, radius/play-pause/GitHub/version-media rules).
+- Mix-level ReelCheck cannot judge the dense scene engine (a 70 % envelope crossing picks the loudest neighbour); isolated impacts on the mix: median 2.4-3.6 ms,
+  78-80 % within one 30 fps frame. Per-voice anchors are gated in tests instead.
+- Not done: MoLab pairing (no `claude`/`uvx` in the sandbox), GPU phase, browser QA.
 
 ## DONE (session 2)
 - **Real frame renderer** (was next-action 2): `tools/render_video.mjs` (Node canvas + ffmpeg-static) and `motionvid video`.

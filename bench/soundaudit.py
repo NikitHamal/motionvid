@@ -147,14 +147,14 @@ def judge(m: dict) -> dict:
     return {"passes": sum(res.values()), "of": len(res), "score": round(float(np.mean(sc)), 3), "detail": res}
 
 
-def run(tl_path: Path, G: dict | None = None) -> dict:
+def run(tl_path: Path, G: dict | None = None, classic: bool = True) -> dict:
     from motionvid.compose import render_cues
     from motionvid.cues import compile_cues
     from motionvid.scene.engine import render
 
     tl = validate(json.loads(tl_path.read_text()))
     cues = compile_cues(tl)
-    a1, _ = render_cues(cues, tl["duration"])
+    a1, _ = render_cues(cues, tl["duration"]) if classic else (None, None)
     a2, info = render(tl, G)
     g1 = [c["t"] for c in cues if c["role"] == "click"]
     g2 = [e["t"] for e in info["events"] if e["role"] == "tick"]
@@ -162,6 +162,8 @@ def run(tl_path: Path, G: dict | None = None) -> dict:
     o2 = [e["t"] for e in info["events"] if e["role"] != "tick"]
     r = {}
     for name, a, g, o in (("classic", a1, g1, o1), ("scene", a2, g2, o2)):
+        if a is None:
+            continue
         m = audit(a, tl, g, o)
         r[name] = {**{k: round(v, 3) if isinstance(v, float) else v for k, v in m.items()}, **judge(m)}
     return {"timeline": tl_path.name, **r}

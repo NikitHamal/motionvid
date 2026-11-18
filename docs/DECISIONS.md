@@ -10,3 +10,8 @@
 - D8 Material 3 Expressive with solid containers and spring easing; shadows, emojis, LIVE badges and blue/purple gradients banned and tested.
 - D9 Site is plain HTML/CSS/JS in `docs/` (Pages); the React app is a separate surface (Studio) that imports the same engine and tokens.
 
+- D10 Scene engine is default; classic engine stays selectable (`--engine classic`) so v0.2 can be reproduced and benchmarks stay comparable.
+- D11 Sound is bound to continuous telemetry (area, x, speed, rates), not only to trigger times; the master bus is part of the engine, not a post step.
+- D12 FlawBench thresholds come from the expert review text, not from our results; where the review was wrong about raw metrics we say so in STATUS.
+- D13 Versions are append-only (`docs/media/v0.x`, `docs/versions.json`); old media is never rebuilt.
+- D14 Radius transitions never use springs (negative radius clamps to square). Enforced by test.

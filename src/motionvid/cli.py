@@ -30,6 +30,7 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("bench")
     r = sub.add_parser("rsi")
     r.add_argument("--cycles", type=int, default=1)
+    r.add_argument("--scene", action="store_true", help="tune the scene audio genome against FlawBench (dev + holdout reels)")
     a = ap.parse_args(argv)
 
     if a.cmd in ("cues", "render"):
@@ -70,6 +71,11 @@ def main(argv: list[str] | None = None) -> int:
         from bench.motionsync import run
 
         print(json.dumps(run()["headline"], indent=2))
+        return 0
+    if a.scene:
+        from .rsi.scene_loop import cycles
+
+        print(json.dumps(cycles(a.cycles), indent=2))
         return 0
     from .rsi.loop import cycle
 
