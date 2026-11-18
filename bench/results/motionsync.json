@@ -140,17 +140,17 @@
     "cues": 150,
     "seconds": 60.0,
     "cpus": 4,
-    "upstream_s": 9.397344599000007,
-    "cold_1worker_s": 5.206963588999997,
-    "cold_s": 1.56605316699995,
-    "warm_s": 0.23045243499996104,
-    "speedup_cold_1worker": 1.8047647997486338,
-    "speedup_cold": 6.000654892836283,
-    "speedup_warm": 40.77780561963512,
+    "upstream_s": 8.744230859999789,
+    "cold_1worker_s": 4.675609950000307,
+    "cold_s": 1.4745556889997715,
+    "warm_s": 0.22045789399999194,
+    "speedup_cold_1worker": 1.8701797099219566,
+    "speedup_cold": 5.9300784129294035,
+    "speedup_warm": 39.66394988786434,
     "cache": {
       "entries": 71
     },
-    "realtime_factor_cold": 38.312875491283954
+    "realtime_factor_cold": 40.69022312795763
   },
   "dynamics": {
     "fixed_gain_pearson": 0.1088206543381845,
@@ -161,7 +161,7 @@
     "sync_p95_improvement_x": 5.930460867193915,
     "defined_hit_p95_improvement_x": 7.237635239567248,
     "defined_hit_within_5ms": 0.7481481481481481,
-    "throughput_cold_x": 6.000654892836283,
-    "throughput_warm_x": 40.77780561963512
+    "throughput_cold_x": 5.9300784129294035,
+    "throughput_warm_x": 39.66394988786434
   }
 }
