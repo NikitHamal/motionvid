@@ -15,3 +15,6 @@ Target after GPU: 2–5× on timbre judges (AST/CLAP rank on role set) AND ≥ 2
 
 ## Product track (SaaS)
 P1 Create page with rule planner + browser preview (DONE session 7) · P2 hosted render worker + MCP server · P3 trained planner (GPU, G1) · P4 brand kit import (logo, colors, fonts) · P5 auth + billing + share links.
+
+## Product track (paid prompt-to-video tool)
+P1 Create page: category, hero object, real UI, photos, reroll (done, client-side). P2 Brand kit input (logo, colors, screenshots) mapped onto `screen` items. P3 Hosted render worker + MCP server (`plan_json` -> `python -m motionvid video`). P4 Accounts and billing.

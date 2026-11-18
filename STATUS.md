@@ -1,17 +1,23 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 8 (in progress) · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
-
-## Session 8 plan (in progress; check DONE below before redoing)
-1. Mesh 3D engine (`docs/engine/mesh.js`: rounded solids, torus, icosphere, extrusions, textured screens), image + footage layers (`assets.js`).
-2. Kit: `kit/screens.py` real UI screens, `kit/three.py` meshes. 6 new 45 s+ demos with real photos/footage.
-3. Skill v2 (`docs/SKILL.md`), Create page upgrade, v0.9 launch.
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 8 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
 
 ## Next actions (do top first)
+0. **Session 8 leftovers**: if a demo or `v0.9` media is missing in `docs/media/`, run `python scripts/build_demos.py <id>` / `python scripts/build_media.py v0.9` (one at a time, 2 GB RAM). Listen to the six new demos (no human has yet), run `python bench/soundaudit.py` on them and record numbers here.
 1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train a tiny English-only text->timeline planner (`<= 3 MB` int8) to replace the rule-based `docs/engine/planner.js`; see `docs/ROADMAP.md` G1-G4. Keep the 0-byte Agency DSP engine as the baseline gate.
 2. **Create page -> real render**: the page previews with a browser synth; add a hosted render worker (same `python -m motionvid video`) and an MCP server (timeline authoring + render + audit as tools) so an agent or the page can return an mp4.
 3. **Human listening validation**: pairwise ratings across `v0.1`..`v0.8` and the 6 demos; calibrate FlawBench and StudioBench against human ears. No human has listened to rev 7 UI voices yet.
 4. **Kit gaps**: text on 3D box faces is front-only, no morphing paths, no per-glyph 3D, no image/video layers. Add them as kit recipes + engine kinds, each with a demo.
 5. **Restore `reel2` glyph phrasing** (`0.997 -> 0.951`, only `glyph_ramp_rho`), occlusion-aware telemetry, beat-locked music bed.
+
+## DONE (session 8)
+- **Mesh 3D engine** (`docs/engine/mesh.js`): kind `mesh` with `parts`; rounded boxes (bevel segments), lathe solids (cylinder, sphere, cone, capsule, gem), torus, extrusions; per-face key + fill light with optional gloss, painter sort across all parts of one element (orbiting parts pass in front of and behind a solid), flat solid colors only. Textured screens: any flat UI or photo mapped onto a face (`screen`, list allowed) with perspective subdivision. Text extrusion (`ext`) and photos inside tilted groups.
+- **Real media** (`docs/engine/assets.js`, `kit/media.py`, `scripts/get_assets.py`): kinds `image` (Ken Burns, tint) and `video` (jpg frame sequence, crossfaded between frames, ping-pong loop). 21 Pexels photos and 3 clips (city night, jogger, CPU) with credits. Node renderer prefetches frames per output frame.
+- **Real UI** (`kit/screens.py`): travel feed, product page, activity rings, finance dashboard, site home, wallet with photo avatars, typed code editor.
+- **6 new demos** (45-58 s, 60 fps, blur 3, rev 7): `atlas` travel 54 s 16:9 (phone, laptop, photo cube, globe), `pulse` fitness 50 s 9:16 (jog footage, rings, bar tower, coin), `ledgerly` finance 56 s (laptop, bar tower, coin stack, wallet app, window), `noir` fashion 45 s 1:1 (photo carousel, cube, product page), `terra` climate 54 s (city footage, descent bars, extruded leaf, globe), `kernel` developer 58 s (typed code on laptop, racks, CPU footage, extruded hex). Contract tests in `tests/test_mesh.py`.
+- **v0.9 Mesh Launch** (`examples/launch4.py`, 30 s): pipeline launch video for social with the new engine; registered in `docs/versions.json`, `scripts/build_media.py`.
+- **Create page v2** (`docs/create/`, `docs/engine/planner.js`, `mesh_kit.js`): the prompt picks category (8), a 3D hero object, a real UI screen on a phone or laptop, real photos, transitions; `Reroll` changes the variant. Headless: `node tools/plan_json.mjs "<prompt>" out.json --seed 1`.
+- **Skill v2** (`docs/SKILL.md`): structure, kit API, 3D rules, media rules, text-fit rule, anti-patterns.
+- Caveats: levels of the new demos are not human-listened; the fit rule uses 0.56 em per glyph which overestimates Bricolage by about 8 %; footage frames are 960 px wide (soft at 1280 output is fine, not for 4K); no GPU used.
 
 ## DONE (session 7)
 - **Engine**: `docs/engine/ease.js` (shared easings: Material 3 cubic-bezier tokens `m3Std m3StdDec m3StdAcc m3Dec m3Acc`, damped `spring springSoft springWild`, `outQuart outQuint inOutQuint inOutSine outCirc`; Python twin in `timeline.py`, parity-tested). `docs/engine/scene3d.js`: perspective `group` (UI plane with `rx/ry/persp`, child `z`, `ext` thickness), `box3d`, flat-shaded `sphere`, `path` (trim `p`), `poly`, `ring sweep`; `fmt`+`num` counters, `split: 'mask'` word reveal, multi-line and left-aligned text, virtual `camera` (zoom/x/y/roll). Frozen v0.1..v0.7 render identically (legacy kinds untouched).

@@ -23,4 +23,6 @@ Latest: `v0.6` Studio Reel and `v0.7` Studio Launch (engine rev 6, StudioBench 1
 python scripts/build_demos.py sheet lumen   # contact sheet to check layout
 python scripts/build_demos.py lumen         # video + audio + poster
 ```
-Six 32-38 s demo reels (`examples/demos/`), the `v0.1`..`v0.8` evolution, and the prompt-to-video Create page live on the GitHub Pages site (`docs/`, `docs/create/`).
+Twelve demo reels (six 32-38 s, six new 45-58 s with real photos, footage, real UI and a lit 3D mesh engine) (`examples/demos/`), the `v0.1`..`v0.8` evolution, and the prompt-to-video Create page live on the GitHub Pages site (`docs/`, `docs/create/`).
+
+Create page (`docs/create/`): prompt -> category, 3D hero object, real UI screen, real photos, preview with sound; `Reroll` for variants. Skill for agents: `docs/SKILL.md` (v2). Latest: `v0.9` Mesh Launch.

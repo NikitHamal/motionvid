@@ -40,3 +40,10 @@ No taglines, helper text or secondary labels in tiles or tables; if a screen nee
 - No box shadows (3D uses flat shading only), no emojis, no status badges, no blue/purple gradients. Cut taglines, helper text and secondary labels: fix the layout instead.
 - Best decision for UX, DX and AX at once, without breaking anything. Demos must be 30 s+ and differ in category, palette and format. 3D is part of the pipeline.
 - The paid prompt-to-video product starts as static GitHub Pages (`docs/create/`); keep it client-side until a render worker exists.
+
+## Owner preferences (session 8)
+- Different demo videos, 5+, longer (45 s+), each with a different category, palette, format and hero 3D object. Never reuse the same objects every time.
+- 3D must look real: lit rounded solids, torus, extrusions, textured screens; real UI on devices; real photos and real footage; polish over quantity.
+- Best motion skill for any agent: `docs/SKILL.md` v2 is the contract; fix patterns in the kit, never twice in demos.
+- Product direction: a paid prompt-to-video tool for businesses, startups, apps and services. It starts as the static GitHub Pages Create page (`docs/create/`), client-side, until a render worker exists.
+- RSI: every defect found in a contact sheet becomes a rule in SKILL.md, a kit default, or a test.

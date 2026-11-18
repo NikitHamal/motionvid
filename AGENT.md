@@ -31,14 +31,20 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
 - `bench/soundaudit.py` FlawBench (9 audio flaws as numbers, classic vs scene). `bench/studio_audit.py` StudioBench (17 gates from the Launch audit, rev 5 vs rev 6).
 - `examples/showreel.py` (`v0.1`/`v0.2`), `examples/reel2.py` (`v0.4` Agency Reel, 20.4 s 60 fps), `examples/launch.py` (`v0.5` Launch, 16.8 s 60 fps), `examples/showreel2.py` (`v0.6`, 22.4 s), `examples/launch2.py` (`v0.7`, 20 s).
 - `src/motionvid/kit/` authoring kit (`core.py`, `ui.py`, `three.py`) + `docs/engine/kit.js` twin; `examples/demos/*.py` demo reels, `scripts/build_demos.py` (`sheet <id>` for QA), `docs/demos.json`; `examples/launch3.py` (`v0.8`); `docs/create/` + `docs/engine/planner.js` + `webaudio.js` (prompt -> video page); `scene/ui_foley.py` (rev 7, opt in with `"rev": 7`).
-- `docs/versions.json` registry (`v0.1`..`v0.8`). `docs/DESIGN.md` design rules and owner preferences.
+- `src/motionvid/kit/mesh.py` (3D parts + `phone3d laptop3d bars3d globe rack coin cube_photos orbit_parts`), `kit/media.py` (real photos + footage layers), `kit/screens.py` (real UI screens: `travel_feed product_page activity dashboard site_home wallet code_editor`). Engine twins: `docs/engine/mesh.js` (mesh renderer: rounded boxes, lathe solids, torus, extrusions, per-face light, textured screens), `assets.js` (images, footage frames, texture mapping), `mesh_kit.js` (browser kit), `planner.js` (Create page planner: 3D heroes + screens + photos, seeded variants; headless `tools/plan_json.mjs`).
+- Assets: `python scripts/get_assets.py` -> `docs/media/assets/*.jpg`, `docs/media/footage/<id>/f001.jpg..` (15 fps), `credits.json` (Pexels). Demo scripts: `examples/demos/{lumen,orbit,forge,bloom,cadence,parcel,atlas,pulse,ledgerly,noir,terra,kernel}.py`; `examples/launch4.py` = `v0.9`.
+- `docs/versions.json` registry (`v0.1`..`v0.9`). `docs/DESIGN.md` design rules and owner preferences.
+
+## Environment notes (session 8)
+- Local box: 2 CPU, 2 GB RAM. Run ONE render at a time (two parallel renders were OOM-killed). A 54 s 60 fps demo renders in about 6 min. Use `python3 -m pytest` (deps installed with `pip3 install --break-system-packages`), `node_modules` is a symlink to `/tmp/nm/node_modules` (not tracked).
+- `package.json` here may be a deployment stub; the real one is in git history (`git show HEAD:package.json`). Never commit the stub (`git update-index --assume-unchanged package.json`).
 
 ## Surfaces (what ships)
 - Frames: `docs/engine/render.js` (+`xray.js`) is the ONE canvas engine for site, Studio (`src/App.tsx`), `preview.py` and `tools/render_video.mjs`.
 - Video: `python -m motionvid video tl.json out/ --xray --blur 3` -> `final.mp4` (+`xray.mp4`). Audio by Python, frames by Node, mux by ffmpeg-static.
 - Site: `docs/index.html` (GitHub Pages, plain HTML/CSS/JS). Studio: `npm run build` -> `dist/index.html` (single file).
 - Media: `python scripts/build_media.py` rebuilds `v0.6`..`v0.8` (rev 6/7) in `docs/media/` (+ `flawbench.json`). `v0.1`..`v0.5` are frozen (so are demos once published: add a new id instead): never rebuild or delete any version. A new evolution step = new `vX.Y` + new example script, not an edit of an old one.
-- Gates: `pytest -q` (48 tests), StudioBench `python bench/studio_audit.py`, FlawBench via `python bench/soundaudit.py` and `python bench/reelcheck.py`.
+- Gates: `pytest -q` (65+ tests, `tests/test_mesh.py` pins demo contracts), StudioBench `python bench/studio_audit.py`, FlawBench via `python bench/soundaudit.py` and `python bench/reelcheck.py`.
 
 ## Design & Audio rules: see `docs/DESIGN.md` (tested in `tests/test_rules.py` and `tests/test_scene.py`)
 Material 3 Expressive: solid color containers, extra-large shapes, spring motion, Bricolage Grotesque. No box/text shadows, no emojis,
