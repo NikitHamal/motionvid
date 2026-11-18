@@ -98,7 +98,7 @@ def motion_curves(tels: list[Tel], W: float = 1920.0) -> tuple[np.ndarray, np.nd
         act = v_pos + 0.65 * v_box + 0.85 * v_morph
         tot_act += act
         wx_num += act * ((T.xn - 0.5) * 2.0)
-    energy = np.clip(smooth(tot_act, 0.045) / 1.55, 0.0, 1.0)
+    energy = np.clip((smooth(tot_act, 0.045) / 0.82) ** 0.72, 0.0, 1.0)
     # Taper final second so outro decays naturally into silence
     dur = float(ts[-1]) if len(ts) else 0.0
     if dur > 1.2:

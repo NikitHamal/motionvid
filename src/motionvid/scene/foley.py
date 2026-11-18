@@ -59,9 +59,9 @@ def motion_bed(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
         + 0.38 * _tri_saw(TAU * 165.0 * tt + 0.7, 0.20)
         + 0.22 * np.sin(TAU * 220.0 * tt + 1.4)
     )
-    pn = pink_noise(n, rng) * 0.95
+    pn = pink_noise(n, rng) * 1.15
     cutoff = 180.0 + me * 1400.0
-    filtered = biquad_tv(drone + pn, cutoff, 1.15, "lp", block=256)
+    filtered = biquad_tv(drone + pn, cutoff, 1.25, "lp", block=256) * 1.45
     gain_db = -34.0 + me * 16.0
     gain = 10.0 ** (gain_db / 20.0)
     sig = filtered * gain

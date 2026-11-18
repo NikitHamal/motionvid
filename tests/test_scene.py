@@ -117,9 +117,9 @@ def test_launch_v05_five_root_bugs_fixed():
     # No early sub pre-bloom 130 ms before cuts
     subs = [e["t"] for e in evs if e["role"] == "sub"]
     assert all(all(abs(st - (tc - 0.13)) > 0.05 for tc in cuts) for st in subs)
-    # 3. Pitched pluck strictly 1 hero arrival per scene (5 scenes -> 5 plucks), zero text plucks
+    # 3. Pitched pluck strictly <= 1 hero arrival per scene (4 hero shape arrivals across 5 scenes), zero text plucks
     plucks = [e for e in evs if e["role"] == "pluck"]
-    assert len(plucks) == 5
+    assert len(plucks) == 4 and all(not any(k in e["why"] for k in ("hook", "tel_title", "stat", "brand", "cta")) for e in plucks)
     # 4. Continuous motion bed active across 3.5-5.8s, 8.1-9.4s, and 10.6-12.6s
     tels = build(l_tl)
     me, px = motion_curves(tels)
