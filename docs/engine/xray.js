@@ -1,5 +1,5 @@
 // Cue x-ray: draws every compiled sound cue on a strip over the frame. Shared by site, Studio and the video renderer.
-const ROLE_COLOR = { click: '#F6EFE3', ui_pop: '#FFD54A', impact: '#FF6A45', whoosh: '#3DDBA7', riser: '#FF9DBB', sub: '#FF6A45', pluck: '#FFD54A', tick: '#F6EFE3', crystal: '#FF9DBB', suction: '#3DDBA7' };
+const ROLE_COLOR = { click: '#F6EFE3', ui_pop: '#FFD54A', impact: '#FF6A45', whoosh: '#3DDBA7', riser: '#FF9DBB', sub: '#C9F13B', pluck: '#FFD54A', tick: '#F6EFE3', crystal: '#FF9DBB', suction: '#3DDBA7' };
 
 export function drawXray(ctx, tl, cues, t, k = 1) {
   const pad = 70, y0 = tl.height - 190, h = 130, w = tl.width - pad * 2;
@@ -8,14 +8,21 @@ export function drawXray(ctx, tl, cues, t, k = 1) {
   ctx.fillStyle = 'rgba(23,19,15,0.82)';
   ctx.beginPath(); ctx.roundRect(pad - 30, y0 - 50, w + 60, h + 100, 36); ctx.fill();
   ctx.lineCap = 'round';
+  const stackAt = new Map();
   for (const c of cues) {
     const x = pad + (c.t / tl.duration) * w;
+    const key = Math.round(c.t * 100);
+    const prev = stackAt.get(key) || 0;
     const mag = Math.max(0.12, 1 - Math.abs(c.gain_db) / 24);
     const live = t >= c.t && t - c.t < 0.18;
     ctx.strokeStyle = ROLE_COLOR[c.role] || '#F6EFE3';
     ctx.globalAlpha = t >= c.t ? 1 : 0.38;
     ctx.lineWidth = live ? 9 : 5;
-    ctx.beginPath(); ctx.moveTo(x, y0 + h); ctx.lineTo(x, y0 + h - h * mag * (live ? 1.1 : 1)); ctx.stroke();
+    const segH = prev > 0 ? Math.min(h - prev, h * mag * 0.52) : (c.role === 'impact' || c.role === 'sub' ? h * mag * 0.52 : h * mag);
+    const yBot = y0 + h - prev;
+    const yTop = Math.max(y0, yBot - segH * (live ? 1.08 : 1));
+    ctx.beginPath(); ctx.moveTo(x, yBot); ctx.lineTo(x, yTop); ctx.stroke();
+    if (c.role === 'impact' || c.role === 'sub') stackAt.set(key, prev + (yBot - yTop) + 6);
   }
   ctx.globalAlpha = 1;
   const px = pad + (t / tl.duration) * w;

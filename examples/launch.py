@@ -74,7 +74,8 @@ def act4_rsi_loop():
     R.add("rsi_core", "blob", "ink", n=12, amp=0.09, w=1200, h=1200, x=[(0, 960)], y=[(0, 540)],
           scale=[(b + 2.42, 0), (b + 2.88, 1, "outElastic")], rotation=[(b + 2.42, 0), (E[3], 45)])
     R.add("rsi_txt", "text", "butter", text="9 / 9", size=310, split=True, x=[(0, 960)], y=[(0, 540)], p=[(b + 2.46, 0), (b + 2.96, 1)])
-    R.sfx(b + 2.38, "riser", 0.7, -12)
+    # Trigger riser from 12.85s -> 13.40s right into the 13.40s cut impact for the motionvid hero reveal
+    R.sfx(12.85, "riser", 0.55, -10)
     R.flood("f_a4", "ink", E[3])
 
 
@@ -92,8 +93,7 @@ def act5_finale():
         R.add(f"seal{i}", "blob", c, n=6 + i, amp=0.14, w=170, h=170, x=[(0, x)], y=[(0, y)],
               scale=[(b + 1.55 + i * 0.12, 0), (b + 1.95 + i * 0.12, 1, "outBack")],
               rotation=[(b + 1.55, 0), (16.8, 180 * (1 if i % 2 else -1))])
-    R.sfx(b + 2.4, "riser", 0.75, -13)
-    R.sfx(b + 2.45, "impact", 0.8, -5)
+    # No triggers after 15.40s so 15.80s-16.80s decays naturally into silence
     R.add("outro", "rrect", "cream", w=W, h=H, opacity=[(16.15, 0), (16.8, 1, "inQuad")], x=[(0, 960)], y=[(0, 540)])
 
 

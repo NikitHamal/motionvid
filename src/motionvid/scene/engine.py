@@ -66,7 +66,8 @@ def render(tl: dict[str, Any], G: dict[str, float] | None = None) -> tuple[np.nd
         if key not in cache:
             cache[key] = _voice(e)
         sig, anchor = cache[key]
-        V.place(buf, sig, int(round(e["t"] * SR)) - anchor, 10 ** (e["gain_db"] / 20), e["pan"])
+        V.place(buf, sig, int(round(e["t"] * SR)) - anchor, 10 ** (e["gain_db"] / 20), e["pan"],
+                stereo_shimmer=(e["role"] == "crystal"))
     layers = foley.render_layers(buf, tels, G)
     _bed(buf, tl, G)
     n_out = int(round(tl["duration"] * SR))

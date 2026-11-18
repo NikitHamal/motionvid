@@ -1,8 +1,7 @@
-"""Continuous layers bound to scene telemetry (composite gestures, tactile L->R felt slide, elastic brush, warm morph pad).
-
-  velocity -> tactile felt slide (300->900 Hz pink noise) + speed-coupled brush, panned dynamically with composite vx(t)
-  w-rate   -> single composite low-pass filtered brush/elastic sweep across stretching bars (no multi-bar FM clutter)
-  amp-rate -> warm harmonic pad swell (< 900 Hz, <= 3 semitones) during star-to-circle morphs
+"""Continuous layers bound to scene telemetry:
+1. Continuous motion bed: `pink noise + root fifth drone` through a low-pass filter where
+   `cutoff = 180 Hz + motion_energy * 1400 Hz` and `gain = -34 dB + motion_energy * 16 dB`, panned by `pan_x`.
+2. Tactile L->R felt/brush slide, elastic bar stretch, warm morph shimmer, and continuous sub-mass coupling.
 """
 
 from __future__ import annotations
@@ -10,7 +9,7 @@ from __future__ import annotations
 import numpy as np
 
 from .score import note_hz, seed_of
-from .telemetry import HZ, Tel, smooth, windows
+from .telemetry import HZ, Tel, motion_curves, smooth, windows
 from .voices import SR, TAU, _tri_saw, biquad_tv, pink_noise
 
 
@@ -26,10 +25,61 @@ def _stereo(mono: np.ndarray, xn: np.ndarray, G, spread: float = 0.0) -> np.ndar
     return np.stack([mono * np.cos(th), mono * np.sin(th)], axis=1) * np.sqrt(2)
 
 
+def _stereo_pan(mono: np.ndarray, pan_x: np.ndarray, width: float = 0.78) -> np.ndarray:
+    p = np.clip(pan_x * width, -1.0, 1.0)
+    th = (p + 1.0) * np.pi / 4.0
+    return np.stack([mono * np.cos(th), mono * np.sin(th)], axis=1) * np.sqrt(2)
+
+
 def _add(buf: np.ndarray, ts: np.ndarray, i0: int, st: np.ndarray) -> None:
     s = int(ts[i0] * SR)
     e = min(len(buf), s + len(st))
     buf[s:e] += st[: e - s]
+
+
+def motion_bed(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
+    """Continuous warm filtered noise + root-fifth drone bed driven by motion_energy (0..1) and pan_x (-1..1).
+    cutoff = 180 Hz + motion_energy * 1400 Hz, gain = -34 dB + motion_energy * 16 dB, panned by pan_x.
+    Also couples sub-bass weight (52 Hz) to positive area growth so every visual expansion has physical mass.
+    """
+    if not tels:
+        return 0
+    ts = tels[0].ts
+    energy_240, pan_240 = motion_curves(tels)
+    n = min(len(buf), int(round(float(ts[-1]) * SR)))
+    if n < 64:
+        return 0
+    tt = np.linspace(0.0, float(ts[-1]), n, endpoint=False)
+    me = np.interp(tt, ts, energy_240)
+    px = np.interp(tt, ts, pan_240)
+    rng = np.random.default_rng(seed_of("continuous_motion_bed", len(tels)))
+    # Root (110 Hz A2) + Fifth (165 Hz E3) + Octave (220 Hz A3) warm harmonic drone + pink noise
+    drone = (
+        0.55 * _tri_saw(TAU * 110.0 * tt, 0.22)
+        + 0.38 * _tri_saw(TAU * 165.0 * tt + 0.7, 0.20)
+        + 0.22 * np.sin(TAU * 220.0 * tt + 1.4)
+    )
+    pn = pink_noise(n, rng) * 0.95
+    cutoff = 180.0 + me * 1400.0
+    filtered = biquad_tv(drone + pn, cutoff, 1.15, "lp", block=256)
+    # Add tactile upper-band movement sheen when motion_energy > 0.1 so brightness tracks motion speed
+    sheen = biquad_tv(pn, 2200.0 + me * 2400.0, 1.0, "bp", block=256) * (me ** 1.2) * 0.48
+    gain_db = -34.0 + me * 16.0
+    gain = 10.0 ** (gain_db / 20.0)
+    sig = (filtered + sheen) * gain
+    buf[:n] += _stereo_pan(sig, px, width=max(0.72, float(G.get("pan_width", 0.65))))
+    # Continuous sub-bass mass coupling for non-text shape expansions (50 Hz sine burst on positive d(area)/dt)
+    shaped = [T for T in tels if T.kind != "text"]
+    if shaped:
+        tot_a = sum(T.area for T in shaped)
+        step = int(0.25 * HZ)
+        rise = np.zeros_like(tot_a)
+        rise[:-step] = np.maximum(0.0, tot_a[step:] - tot_a[:-step])
+        sub_env_240 = np.clip(smooth(rise, 0.04) / 0.06, 0.0, 1.0)
+        sub_env = np.interp(tt, ts, sub_env_240)
+        sub_wave = np.sin(TAU * 52.0 * tt) * (sub_env ** 1.3) * (10.0 ** ((G["sub_db"] - 4.5) / 20.0))
+        buf[:n] += _stereo_pan(sub_wave, px, width=0.35)
+    return 1
 
 
 def texture(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
@@ -47,16 +97,13 @@ def texture(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
         n, tt, f = _slice(ts, i0, i1)
         if n < 64:
             continue
-        env = np.clip(f(sm) / 1.4, 0, 1.5)
+        env = np.clip(f(sm) / 1.1, 0, 1.5)
         pn = pink_noise(n, rng)
-        # Tactile mechanical/felt slide (300 Hz -> 900 Hz bandpass pink noise)
-        felt = biquad_tv(pn, 300.0 + 600.0 * np.clip(env, 0, 1), 1.1, "bp") * 0.85
-        # Speed-coupled brush (couples 2-8 kHz brightness to motion speed)
-        brush = biquad_tv(rng.standard_normal(n), 2800.0 + 2600.0 * np.clip(env, 0, 1), 0.9, "bp") * (env ** 1.25) * 0.55
-        g = 10 ** ((G["texture_db"] + 3.5) / 20)
-        # Stronger stereo pan tracking so composite motion balances cleanly L->R
-        xn_pan = np.clip(0.5 + (f(vx) - 0.5) * 1.45, 0.0, 1.0)
-        _add(buf, ts, i0, _stereo((felt + brush) * (env ** 0.95) * g, xn_pan, G))
+        felt = biquad_tv(pn, 300.0 + 600.0 * np.clip(env, 0, 1), 1.1, "bp") * 0.9
+        brush = biquad_tv(rng.standard_normal(n), 2800.0 + 2600.0 * np.clip(env, 0, 1), 0.9, "bp") * (env ** 1.15) * 0.65
+        g = 10 ** ((G["texture_db"] + 5.0) / 20)
+        xn_pan = np.clip(0.5 + (f(vx) - 0.5) * 1.55, 0.0, 1.0)
+        _add(buf, ts, i0, _stereo((felt + brush) * (env ** 0.85) * g, xn_pan, G))
         count += 1
     return count
 
@@ -74,23 +121,22 @@ def stretch(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
     mean_xn = sum(T.xn * (r + 1e-6) for T, r in zip(bars, rates)) / (sum(rates) + 1e-6 * len(bars))
     rng = np.random.default_rng(seed_of("composite_stretch", len(bars)))
     count = 0
-    for i0, i1 in windows(tot_rate > 0.25):
+    for i0, i1 in windows(tot_rate > 0.18):
         n, tt, f = _slice(ts, i0, i1)
         if n < 64:
             continue
-        gn = np.clip(f(tot_rate) / max(1.8, 0.7 * len(bars)), 0, 1) ** 0.75
-        # Subtle <= 3 semitone low-mid elastic body + low-pass pink noise brush (300 -> 1400 Hz, Q=1.2)
-        fr = 220.0 * (2 ** ((2.8 * (f(mean_w) - 0.4)) / 12))
+        gn = np.clip(f(tot_rate) / max(1.4, 0.55 * len(bars)), 0, 1) ** 0.68
+        fr = 220.0 * (2 ** ((2.6 * (f(mean_w) - 0.4)) / 12))
         ph = np.cumsum(TAU * fr / SR)
-        elastic = biquad_tv(_tri_saw(ph, 0.28), 280.0 + 950.0 * gn, 1.1, "lp") * 0.45
-        brush = biquad_tv(pink_noise(n, rng), 260.0 + 1250.0 * gn, 1.2, "lp") * 0.75
-        _add(buf, ts, i0, _stereo((elastic + brush) * gn * 10 ** ((G["stretch_db"] + 3.0) / 20), f(mean_xn), G))
+        elastic = biquad_tv(_tri_saw(ph, 0.28), 280.0 + 1100.0 * gn, 1.15, "lp") * 0.52
+        brush = biquad_tv(pink_noise(n, rng), 260.0 + 1350.0 * gn, 1.25, "lp") * 0.85
+        _add(buf, ts, i0, _stereo((elastic + brush) * gn * 10 ** ((G["stretch_db"] + 5.5) / 20), f(mean_xn), G))
         count += 1
     return count
 
 
 def shimmer(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
-    """Smooth warm harmonic pad swell (< 1.1 kHz, <= 3 semitones) during star-to-circle blob morphs."""
+    """Smooth warm harmonic pad swell (< 1.2 kHz, <= 3 semitones) during star-to-circle blob morphs."""
     blobs = [T for T in tels if T.kind == "blob" and "amp" in T.el.get("tracks", {})]
     if not blobs:
         return 0
@@ -100,22 +146,23 @@ def shimmer(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
     mean_amp = sum(T.amp for T in blobs) / len(blobs)
     mean_xn = sum(T.xn * (r + 1e-6) for T, r in zip(blobs, rates)) / (sum(rates) + 1e-6 * len(blobs))
     count = 0
-    for i0, i1 in windows(tot_amp > 0.03):
+    for i0, i1 in windows(tot_amp > 0.025):
         n, tt, f = _slice(ts, i0, i1)
         if n < 64:
             continue
-        gn = np.clip(f(tot_amp) / max(0.25, 0.08 * len(blobs)), 0, 1) ** 0.7
+        gn = np.clip(f(tot_amp) / max(0.22, 0.065 * len(blobs)), 0, 1) ** 0.65
         f1 = note_hz(0, 0) * (2 ** ((2.0 * f(mean_amp)) / 12))
         f2 = note_hz(2, 0) * (2 ** ((2.0 * f(mean_amp)) / 12))
         ph1, ph2 = np.cumsum(TAU * f1 / SR), np.cumsum(TAU * f2 / SR)
-        pad_sig = biquad_tv(0.65 * _tri_saw(ph1, 0.2) + 0.45 * _tri_saw(ph2, 0.2), 340.0 + 720.0 * gn, 1.0, "lp")
-        _add(buf, ts, i0, _stereo(pad_sig * gn * 10 ** ((G["shimmer_db"] + 4.0) / 20), f(mean_xn), G))
+        pad_sig = biquad_tv(0.65 * _tri_saw(ph1, 0.2) + 0.45 * _tri_saw(ph2, 0.2), 340.0 + 820.0 * gn, 1.0, "lp")
+        _add(buf, ts, i0, _stereo(pad_sig * gn * 10 ** ((G["shimmer_db"] + 6.5) / 20), f(mean_xn), G))
         count += 1
     return count
 
 
 def render_layers(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> dict[str, int]:
     return {
+        "motion_bed": motion_bed(buf, tels, G),
         "texture": texture(buf, tels, G),
         "stretch": stretch(buf, tels, G),
         "shimmer": shimmer(buf, tels, G),

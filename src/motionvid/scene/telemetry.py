@@ -79,3 +79,30 @@ def windows(mask: np.ndarray, pad: int = 12, join: int = 24) -> list[tuple[int, 
         p = i
     out.append((max(0, s - pad), min(len(mask) - 1, p + pad)))
     return out
+
+
+def motion_curves(tels: list[Tel], W: float = 1920.0) -> tuple[np.ndarray, np.ndarray]:
+    """Export continuous `motion_energy` (0.0..1.0) and `pan_x` (-1.0..+1.0) at 240 Hz from bbox velocity + morph delta."""
+    shaped = [T for T in tels if T.kind != "text" and T.area.max() < 2.0]
+    if not shaped:
+        n = len(tels[0].ts) if tels else 1
+        return np.zeros(n), np.zeros(n)
+    ts = shaped[0].ts
+    tot_act = np.zeros_like(ts)
+    wx_num = np.zeros_like(ts)
+    for T in shaped:
+        vis = ((T.op > 0.02) & (T.scale > 0.03)).astype(float)
+        v_pos = T.speed * vis
+        v_box = (np.abs(np.gradient(T.w * T.scale)) + np.abs(np.gradient(T.h * T.scale))) * HZ / W * vis
+        v_morph = np.abs(np.gradient(T.amp)) * HZ * 4.0 * vis
+        act = v_pos + 0.65 * v_box + 0.85 * v_morph
+        tot_act += act
+        wx_num += act * ((T.xn - 0.5) * 2.0)
+    energy = np.clip(smooth(tot_act, 0.045) / 1.55, 0.0, 1.0)
+    # Taper final second so outro decays naturally into silence
+    dur = float(ts[-1]) if len(ts) else 0.0
+    if dur > 1.2:
+        fade = np.clip((dur - ts) / 1.0, 0.0, 1.0)
+        energy = energy * fade
+    pan_x = np.clip(smooth(wx_num / np.maximum(tot_act, 1e-6), 0.035), -1.0, 1.0)
+    return energy, pan_x
