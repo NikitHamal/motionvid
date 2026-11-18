@@ -28,6 +28,8 @@ EASES = {
     "inExpo": lambda u: 0.0 if u <= 0 else 2 ** (10 * u - 10),
     "outExpo": lambda u: 1.0 if u >= 1 else 1 - 2 ** (-10 * u),
     "outBack": lambda u: 1 + 2.70158 * (u - 1) ** 3 + 1.70158 * (u - 1) ** 2,
+    "inBack": lambda u: 2.70158 * u**3 - 1.70158 * u**2,
+    "outElastic": lambda u: 0.0 if u <= 0 else 1.0 if u >= 1 else 2 ** (-10 * u) * math.sin((u * 10 - 0.75) * 2 * math.pi / 3) + 1,
     "outBounce": lambda u: _bounce(u),
 }
 

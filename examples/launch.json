@@ -1,6 +1,6 @@
 {"fps": 30, "duration": 6, "width": 1920, "height": 1080,
  "elements": [
-  {"id": "logo", "kind": "shape", "color": "#7cf", "w": 220, "h": 220,
+  {"id": "logo", "kind": "shape", "color": "#FF6A45", "w": 220, "h": 220,
    "tracks": {"x": [{"t": 0.2, "v": -300}, {"t": 0.9, "v": 960, "ease": "inCubic"}], "y": [{"t": 0, "v": 540}],
               "scale": [{"t": 0.9, "v": 0.5}, {"t": 1.1, "v": 1.0, "ease": "outBack"}]}},
   {"id": "title", "kind": "text", "text": "MOTIONVID", "color": "#fff", "size": 140,

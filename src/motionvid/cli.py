@@ -1,4 +1,4 @@
-"""motionvid CLI:  cues | render | bench | rsi."""
+"""motionvid CLI:  cues | render | video | bench | rsi."""
 
 from __future__ import annotations
 
@@ -19,6 +19,11 @@ def main(argv: list[str] | None = None) -> int:
         if name == "render":
             p.add_argument("out")
             p.add_argument("--bed", default=None, help="optional ambience bed, e.g. wind, rain")
+    v = sub.add_parser("video", help="timeline -> audio.wav + final.mp4 (+ xray.mp4 with --xray)")
+    v.add_argument("timeline")
+    v.add_argument("out")
+    v.add_argument("--width", type=int, default=1280)
+    v.add_argument("--xray", action="store_true", help="also render a cue x-ray version")
     sub.add_parser("bench")
     r = sub.add_parser("rsi")
     r.add_argument("--cycles", type=int, default=1)
@@ -48,6 +53,8 @@ def main(argv: list[str] | None = None) -> int:
             subprocess.run(["ffmpeg", "-y", "-i", str(out / "video.mp4"), "-i", str(out / "audio.wav"), "-c:v", "copy",
                             "-c:a", "aac", "-shortest", str(out / "final.mp4")], check=False)
         return 0
+    if a.cmd == "video":
+        return _video(a)
     if a.cmd == "bench":
         sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
         from bench.motionsync import run
@@ -59,6 +66,22 @@ def main(argv: list[str] | None = None) -> int:
     for _ in range(a.cycles):
         print(json.dumps(cycle(), indent=2))
     return 0
+
+
+
+def _video(a: argparse.Namespace) -> int:
+    """Audio via the Python compiler, frames via tools/render_video.mjs (same engine as the site)."""
+    root = Path(__file__).resolve().parents[2]
+    out = Path(a.out)
+    rc = main(["render", a.timeline, str(out)])
+    if rc or not shutil.which("node"):
+        return rc or 1
+    base = ["node", str(root / "tools/render_video.mjs"), a.timeline]
+    common = ["--audio", str(out / "audio.wav"), "--width", str(a.width)]
+    rc = subprocess.run(base[:2] + [base[2], str(out / "final.mp4")] + common).returncode
+    if a.xray and not rc:
+        rc = subprocess.run(base[:2] + [base[2], str(out / "xray.mp4")] + common + ["--cues", str(out / "cues.json")]).returncode
+    return rc
 
 
 if __name__ == "__main__":

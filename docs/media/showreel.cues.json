@@ -1,0 +1,902 @@
+[
+  {
+    "t": 0.55,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.0,
+    "pan": 0.0,
+    "seed": 42210630,
+    "why": "agent hint"
+  },
+  {
+    "t": 0.6041666666666666,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.0,
+    "seed": 80023048,
+    "why": "cookie: scale pop to 1.10"
+  },
+  {
+    "t": 0.8916666666666667,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": -0.1590694444444444,
+    "seed": 61759774,
+    "why": "orb_lime: scale pop to 1.10"
+  },
+  {
+    "t": 1.12,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": -0.4,
+    "seed": 24440881,
+    "why": "agent hint"
+  },
+  {
+    "t": 1.1898,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -14.0,
+    "pan": -0.24,
+    "seed": 55213653,
+    "why": "agent hint"
+  },
+  {
+    "t": 1.2595,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -13.0,
+    "pan": -0.07999999999999999,
+    "seed": 129990340,
+    "why": "agent hint"
+  },
+  {
+    "t": 1.3293,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.07999999999999999,
+    "seed": 168551510,
+    "why": "agent hint"
+  },
+  {
+    "t": 1.3991,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -14.0,
+    "pan": 0.24000000000000005,
+    "seed": 210806918,
+    "why": "agent hint"
+  },
+  {
+    "t": 1.4688,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -13.0,
+    "pan": 0.4,
+    "seed": 63729099,
+    "why": "agent hint"
+  },
+  {
+    "t": 2.0625,
+    "role": "whoosh",
+    "dur": 1.6,
+    "gain_db": -9.980813765897489,
+    "pan": -0.2296666666666666,
+    "seed": 148805523,
+    "why": "orb_lime: peak speed 0.82 diag/s"
+  },
+  {
+    "t": 2.2,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 162736169,
+    "why": "reel: typed char 0"
+  },
+  {
+    "t": 2.2833333333333337,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 5166709,
+    "why": "reel: typed char 1"
+  },
+  {
+    "t": 2.3666666666666667,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 172786217,
+    "why": "reel: typed char 2"
+  },
+  {
+    "t": 2.45,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 171814216,
+    "why": "reel: typed char 3"
+  },
+  {
+    "t": 2.5333333333333337,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 221186969,
+    "why": "reel: typed char 4"
+  },
+  {
+    "t": 2.6166666666666667,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 248843938,
+    "why": "reel: typed char 5"
+  },
+  {
+    "t": 2.7,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 44199109,
+    "why": "reel: typed char 6"
+  },
+  {
+    "t": 2.7833333333333337,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 188822409,
+    "why": "reel: typed char 7"
+  },
+  {
+    "t": 2.8666666666666667,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 71693817,
+    "why": "reel: typed char 8"
+  },
+  {
+    "t": 3.1041666666666665,
+    "role": "impact",
+    "dur": 0.6,
+    "gain_db": -6.077593987278014,
+    "pan": 0.37527750000000015,
+    "seed": 246192595,
+    "why": "orb_lime: abrupt stop from 0.82 diag/s"
+  },
+  {
+    "t": 3.225,
+    "role": "whoosh",
+    "dur": 0.5,
+    "gain_db": -11.0,
+    "pan": 0.0,
+    "seed": 190403385,
+    "why": "agent hint"
+  },
+  {
+    "t": 3.5,
+    "role": "impact",
+    "dur": 0.7,
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 71462907,
+    "why": "cut:cut"
+  },
+  {
+    "t": 3.67,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": -0.4,
+    "seed": 268117851,
+    "why": "agent hint"
+  },
+  {
+    "t": 3.7258,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -14.0,
+    "pan": -0.24,
+    "seed": 45174706,
+    "why": "agent hint"
+  },
+  {
+    "t": 3.7816,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -13.0,
+    "pan": -0.07999999999999999,
+    "seed": 114664880,
+    "why": "agent hint"
+  },
+  {
+    "t": 3.8374,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.07999999999999999,
+    "seed": 147825600,
+    "why": "agent hint"
+  },
+  {
+    "t": 3.8933,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -14.0,
+    "pan": 0.24000000000000005,
+    "seed": 55120871,
+    "why": "agent hint"
+  },
+  {
+    "t": 3.9491,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -13.0,
+    "pan": 0.4,
+    "seed": 217918886,
+    "why": "agent hint"
+  },
+  {
+    "t": 3.95,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -11.0,
+    "pan": -0.6000000000000001,
+    "seed": 170850238,
+    "why": "agent hint"
+  },
+  {
+    "t": 4.07,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -11.0,
+    "pan": -0.2,
+    "seed": 214397196,
+    "why": "agent hint"
+  },
+  {
+    "t": 4.19,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -11.0,
+    "pan": 0.2,
+    "seed": 235207862,
+    "why": "agent hint"
+  },
+  {
+    "t": 4.31,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -11.0,
+    "pan": 0.6000000000000001,
+    "seed": 251665921,
+    "why": "agent hint"
+  },
+  {
+    "t": 4.6,
+    "role": "ui_pop",
+    "dur": 0.15,
+    "gain_db": -19.0,
+    "pan": -0.5249999999999999,
+    "seed": 51564340,
+    "why": "agent hint"
+  },
+  {
+    "t": 5.1,
+    "role": "ui_pop",
+    "dur": 0.15,
+    "gain_db": -17.0,
+    "pan": -0.5249999999999999,
+    "seed": 27372530,
+    "why": "agent hint"
+  },
+  {
+    "t": 5.6,
+    "role": "ui_pop",
+    "dur": 0.15,
+    "gain_db": -19.0,
+    "pan": -0.5249999999999999,
+    "seed": 44406152,
+    "why": "agent hint"
+  },
+  {
+    "t": 6.1,
+    "role": "ui_pop",
+    "dur": 0.15,
+    "gain_db": -17.0,
+    "pan": -0.5249999999999999,
+    "seed": 38579436,
+    "why": "agent hint"
+  },
+  {
+    "t": 6.704166666666667,
+    "role": "impact",
+    "dur": 0.6,
+    "gain_db": -10.493431564786924,
+    "pan": 0.0,
+    "seed": 144051979,
+    "why": "pill3: abrupt stop from 0.48 diag/s"
+  },
+  {
+    "t": 7.225,
+    "role": "whoosh",
+    "dur": 0.5,
+    "gain_db": -11.0,
+    "pan": 0.0,
+    "seed": 97861130,
+    "why": "agent hint"
+  },
+  {
+    "t": 7.5,
+    "role": "impact",
+    "dur": 0.7,
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 66399869,
+    "why": "cut:cut"
+  },
+  {
+    "t": 7.99,
+    "role": "ui_pop",
+    "dur": 0.3,
+    "gain_db": -8.0,
+    "pan": 0.3,
+    "seed": 29976241,
+    "why": "agent hint"
+  },
+  {
+    "t": 8.245833333333334,
+    "role": "whoosh",
+    "dur": 0.6950000000000001,
+    "gain_db": -4.0,
+    "pan": -0.55,
+    "seed": 4232119,
+    "why": "ball: peak speed 2.12 diag/s"
+  },
+  {
+    "t": 8.25,
+    "role": "impact",
+    "dur": 0.3,
+    "gain_db": -5.0,
+    "pan": -0.6,
+    "seed": 192826839,
+    "why": "agent hint"
+  },
+  {
+    "t": 8.645833333333334,
+    "role": "whoosh",
+    "dur": 0.335,
+    "gain_db": -8.084876074238435,
+    "pan": -0.55,
+    "seed": 245854672,
+    "why": "ball: peak speed 1.05 diag/s"
+  },
+  {
+    "t": 8.65,
+    "role": "impact",
+    "dur": 0.3,
+    "gain_db": -9.0,
+    "pan": -0.6,
+    "seed": 263862256,
+    "why": "agent hint"
+  },
+  {
+    "t": 8.891666666666667,
+    "role": "impact",
+    "dur": 0.6,
+    "gain_db": -10.895941327309325,
+    "pan": -0.55,
+    "seed": 95443523,
+    "why": "ball: abrupt stop from 0.45 diag/s"
+  },
+  {
+    "t": 8.95,
+    "role": "impact",
+    "dur": 0.3,
+    "gain_db": -20.0,
+    "pan": -0.6,
+    "seed": 203703144,
+    "why": "agent hint"
+  },
+  {
+    "t": 8.99,
+    "role": "ui_pop",
+    "dur": 0.3,
+    "gain_db": -8.0,
+    "pan": 0.3,
+    "seed": 46407353,
+    "why": "agent hint"
+  },
+  {
+    "t": 9.5,
+    "role": "whoosh",
+    "dur": 0.8,
+    "gain_db": -13.0,
+    "pan": 0.0,
+    "seed": 152550686,
+    "why": "agent hint"
+  },
+  {
+    "t": 9.84,
+    "role": "ui_pop",
+    "dur": 0.3,
+    "gain_db": -8.0,
+    "pan": 0.3,
+    "seed": 58839904,
+    "why": "agent hint"
+  },
+  {
+    "t": 9.9,
+    "role": "whoosh",
+    "dur": 1.3150000000000002,
+    "gain_db": -6.340830104541002,
+    "pan": 2.131628207280301e-15,
+    "seed": 131274802,
+    "why": "ball: peak speed 1.28 diag/s"
+  },
+  {
+    "t": 11.225,
+    "role": "whoosh",
+    "dur": 0.5,
+    "gain_db": -11.0,
+    "pan": 0.0,
+    "seed": 228100641,
+    "why": "agent hint"
+  },
+  {
+    "t": 11.5,
+    "role": "impact",
+    "dur": 0.7,
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 198532034,
+    "why": "cut:cut"
+  },
+  {
+    "t": 11.833333333333334,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": -0.3333333333333333,
+    "seed": 148978865,
+    "why": "g0: scale pop to 1.10"
+  },
+  {
+    "t": 11.9625,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.0,
+    "seed": 76349427,
+    "why": "g1: scale pop to 1.10"
+  },
+  {
+    "t": 12.0125,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.3333333333333334,
+    "seed": 244584221,
+    "why": "g2: scale pop to 1.10"
+  },
+  {
+    "t": 12.141666666666667,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.3333333333333334,
+    "seed": 103278888,
+    "why": "g5: scale pop to 1.10"
+  },
+  {
+    "t": 12.191666666666666,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.3333333333333334,
+    "seed": 228701661,
+    "why": "g8: scale pop to 1.10"
+  },
+  {
+    "t": 14.45,
+    "role": "riser",
+    "dur": 1.0,
+    "gain_db": -12.0,
+    "pan": 0.0,
+    "seed": 106969432,
+    "why": "agent hint"
+  },
+  {
+    "t": 14.495833333333334,
+    "role": "whoosh",
+    "dur": 0.435,
+    "gain_db": -4.419390651518794,
+    "pan": -0.009173789987975578,
+    "seed": 61871688,
+    "why": "g0: peak speed 1.54 diag/s"
+  },
+  {
+    "t": 14.504166666666666,
+    "role": "impact",
+    "dur": 0.6,
+    "gain_db": -4.0,
+    "pan": 0.0,
+    "seed": 198338399,
+    "why": "g0: abrupt stop from 1.21 diag/s"
+  },
+  {
+    "t": 14.5625,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.0,
+    "seed": 264975278,
+    "why": "hero: scale pop to 1.37"
+  },
+  {
+    "t": 15.225,
+    "role": "whoosh",
+    "dur": 0.5,
+    "gain_db": -11.0,
+    "pan": 0.0,
+    "seed": 20337541,
+    "why": "agent hint"
+  },
+  {
+    "t": 15.5,
+    "role": "impact",
+    "dur": 0.7,
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 52207178,
+    "why": "cut:cut"
+  },
+  {
+    "t": 15.620833333333334,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.0,
+    "seed": 42569349,
+    "why": "big: scale pop to 1.37"
+  },
+  {
+    "t": 15.95,
+    "role": "ui_pop",
+    "dur": 0.2,
+    "gain_db": -13.111814076001053,
+    "pan": 0.0,
+    "seed": 174770534,
+    "why": "pulse0: fast fade-in"
+  },
+  {
+    "t": 16.3,
+    "role": "ui_pop",
+    "dur": 0.2,
+    "gain_db": -13.111814076001053,
+    "pan": 0.0,
+    "seed": 42240457,
+    "why": "pulse1: fast fade-in"
+  },
+  {
+    "t": 16.32,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": -0.4,
+    "seed": 37786735,
+    "why": "agent hint"
+  },
+  {
+    "t": 16.3726,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -14.0,
+    "pan": -0.30000000000000004,
+    "seed": 184550260,
+    "why": "agent hint"
+  },
+  {
+    "t": 16.4253,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -13.0,
+    "pan": -0.2,
+    "seed": 137440639,
+    "why": "agent hint"
+  },
+  {
+    "t": 16.4779,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": -0.1,
+    "seed": 158394083,
+    "why": "agent hint"
+  },
+  {
+    "t": 16.5305,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 131746858,
+    "why": "agent hint"
+  },
+  {
+    "t": 16.5832,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -13.0,
+    "pan": 0.1,
+    "seed": 18302951,
+    "why": "agent hint"
+  },
+  {
+    "t": 16.6358,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.2,
+    "seed": 55816022,
+    "why": "agent hint"
+  },
+  {
+    "t": 16.65,
+    "role": "ui_pop",
+    "dur": 0.2,
+    "gain_db": -13.111814076001053,
+    "pan": 0.0,
+    "seed": 68644665,
+    "why": "pulse2: fast fade-in"
+  },
+  {
+    "t": 16.6884,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -14.0,
+    "pan": 0.30000000000000004,
+    "seed": 149292329,
+    "why": "agent hint"
+  },
+  {
+    "t": 16.7411,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -13.0,
+    "pan": 0.4,
+    "seed": 220273025,
+    "why": "agent hint"
+  },
+  {
+    "t": 17.591666666666665,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": -0.5916666666666667,
+    "seed": 77517344,
+    "why": "dot0: scale pop to 1.10"
+  },
+  {
+    "t": 17.6,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 240116626,
+    "why": "sub: typed char 0"
+  },
+  {
+    "t": 17.671428571428574,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 137707132,
+    "why": "sub: typed char 1"
+  },
+  {
+    "t": 17.742857142857144,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 219284844,
+    "why": "sub: typed char 2"
+  },
+  {
+    "t": 17.770833333333332,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.6166666666666667,
+    "seed": 180123744,
+    "why": "dot1: scale pop to 1.10"
+  },
+  {
+    "t": 17.814285714285717,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 70892066,
+    "why": "sub: typed char 3"
+  },
+  {
+    "t": 17.885714285714286,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 19296020,
+    "why": "sub: typed char 4"
+  },
+  {
+    "t": 17.95,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": 0.5,
+    "seed": 3082432,
+    "why": "dot2: scale pop to 1.10"
+  },
+  {
+    "t": 17.95714285714286,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 24189525,
+    "why": "sub: typed char 5"
+  },
+  {
+    "t": 18.02857142857143,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 115946620,
+    "why": "sub: typed char 6"
+  },
+  {
+    "t": 18.1,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 37992975,
+    "why": "sub: typed char 7"
+  },
+  {
+    "t": 18.129166666666666,
+    "role": "ui_pop",
+    "dur": 0.25,
+    "gain_db": -9.471321478773483,
+    "pan": -0.525,
+    "seed": 180878708,
+    "why": "dot3: scale pop to 1.10"
+  },
+  {
+    "t": 18.171428571428574,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 169366779,
+    "why": "sub: typed char 8"
+  },
+  {
+    "t": 18.242857142857144,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 242972690,
+    "why": "sub: typed char 9"
+  },
+  {
+    "t": 18.314285714285717,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 70839130,
+    "why": "sub: typed char 10"
+  },
+  {
+    "t": 18.385714285714286,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 219795920,
+    "why": "sub: typed char 11"
+  },
+  {
+    "t": 18.45714285714286,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 181500708,
+    "why": "sub: typed char 12"
+  },
+  {
+    "t": 18.52857142857143,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 10307467,
+    "why": "sub: typed char 13"
+  },
+  {
+    "t": 18.6,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 78787824,
+    "why": "sub: typed char 14"
+  },
+  {
+    "t": 18.671428571428574,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -17.0,
+    "pan": 0.0,
+    "seed": 17361455,
+    "why": "sub: typed char 15"
+  },
+  {
+    "t": 18.742857142857144,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -16.0,
+    "pan": 0.0,
+    "seed": 171613216,
+    "why": "sub: typed char 16"
+  },
+  {
+    "t": 18.814285714285717,
+    "role": "click",
+    "dur": 0.08,
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 96632107,
+    "why": "sub: typed char 17"
+  },
+  {
+    "t": 19.6,
+    "role": "riser",
+    "dur": 0.9,
+    "gain_db": -12.0,
+    "pan": 0.0,
+    "seed": 142029444,
+    "why": "agent hint"
+  },
+  {
+    "t": 19.65,
+    "role": "impact",
+    "dur": 0.9,
+    "gain_db": -4.0,
+    "pan": 0.0,
+    "seed": 241901094,
+    "why": "agent hint"
+  }
+]
