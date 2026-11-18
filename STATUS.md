@@ -1,7 +1,12 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 4 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 5 (in progress) · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
 
 ## Next actions (do top first)
+0. **Session 5 exact `video_1.mp4` (`launch.py` / `v0.5`) 5-bug synthesis & timing fix**:
+   - Enforce offset rules in `score.py`: `suction` anticipation sweep (`start = event.time - 0.25s`, hard-cut to silence at `event.time`), `whoosh` on scene cuts (`start = event.time - 0.16s`, peak filter at `event.time`, tail `+0.18s`), and lock `sub.time === impact.time === cut.time` (`0 ms` offset at `3.20s`, `6.60s`, `10.20s`).
+   - Rebuild the 4 core synth presets (`voices.py`): `whoosh`/`suction` pink noise -> 24 dB/oct resonant LPF (`Q = 2.2`) sweeping exponentially (`140 Hz -> 3.4 kHz` for `suction`, `2.6 kHz -> 120 Hz` for `whoosh`); `impact + sub` (`92 -> 36 Hz` over `190 ms` + triangle `165 -> 62 Hz` over `55 ms` + `5 ms` HP click `> 2.2 kHz` through `tanh`); `text_tick` (`18 ms` bandpass noise `1.4-2.8 kHz`, `3 ms` attack, `15 ms` exp decay, `+-3 dB` jitter, zero pitch drop); `crystal` (`2093 Hz + 3136 Hz`, `+7 cents` detune, `120 ms` glassy decay + stereo shimmer).
+   - Continuous motion bed (`foley.py`): drive a continuous warm filtered noise + root-fifth drone bed (`cutoff = 180 + motion_energy * 1400 Hz`, `gain = -34 + motion_energy * 16 dB`, panned by `pan_x`) so `3.5-5.8s`, `8.1-9.4s`, and `10.6-12.6s` never drop to dead air.
+   - Climax timing (`score.py` / `launch.py`): trigger final `riser` from `12.85s -> 13.40s` into `impact` at `13.40s` (`motionvid` reveal) and remove all new triggers after `15.40s` (clean reverb/chord decay tail `15.80-16.80s`).
 1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train tiny English-only text->timeline planner (`<= 3 MB` int8); see `docs/ROADMAP.md` G1-G4. Keep 0-byte Agency DSP engine as the baseline gate.
 2. **Occlusion-aware telemetry**: mute or low-pass background shapes partially covered by an expanding foreground hero shape before the full-frame cut closes.
 3. **Human listening validation**: collect pairwise human preference ratings across `v0.1`..`v0.5` to calibrate FlawBench weights against human ears.
