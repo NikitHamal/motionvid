@@ -100,8 +100,11 @@ def texture(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
         pn = pink_noise(n, rng)
         felt = biquad_tv(pn, 300.0 + 600.0 * np.clip(sp_norm, 0, 1), 1.1, "bp") * (sp_norm ** 0.85) * 0.85
         # dB-linear 2-8 kHz brightness scaling with speed so log-band energy tracks speed linearly
-        brush_db = G["texture_db"] - 7.0 + 20.0 * sp_norm
-        brush = biquad_tv(rng.standard_normal(n), 3200.0 + 2200.0 * np.clip(sp_norm, 0, 1), 0.85, "bp") * (10.0 ** (brush_db / 20.0))
+        studio = G.get("rev", 5) >= 6  # rev 6: the brush moves down from 3.2-5.4 kHz to 0.9-1.7 kHz with a gentler speed slope (no static hiss)
+        brush_db = G["texture_db"] - 7.0 + (12.0 * sp_norm - 4.0 if studio else 20.0 * sp_norm)
+        sp_c = np.clip(sp_norm, 0, 1)
+        brush_fc = (900.0 + 800.0 * sp_c) if studio else (3200.0 + 2200.0 * sp_c)
+        brush = biquad_tv(rng.standard_normal(n), brush_fc, 0.85, "bp") * (10.0 ** (brush_db / 20.0))
         g_felt = 10.0 ** ((G["texture_db"] + 4.0) / 20.0)
         xn_pan = np.clip(0.5 + (f(vx) - 0.5) * 1.55, 0.0, 1.0)
         _add(buf, ts, i0, _stereo(felt * g_felt + brush, xn_pan, G))

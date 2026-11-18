@@ -6,6 +6,7 @@ from collections import Counter
 from typing import Any
 
 import numpy as np
+from scipy.signal import butter, sosfilt
 
 from ..timeline import validate
 from . import foley, master, params, studio as S, studio_bed, voices as V
@@ -91,15 +92,23 @@ def render(tl: dict[str, Any], G: dict[str, float] | None = None) -> tuple[np.nd
             V.place(send, sig, int(round(e["t"] * SR)) - anchor, 10 ** (e["gain_db"] / 20), e["pan"],
                     stereo_shimmer=(e["role"] == "crystal"))
     n_out = int(round(tl["duration"] * SR))
+    cont = np.zeros_like(buf)  # every continuous layer, kept apart so its level and brightness can be audited
     abs_layer, bed_stats = None, {}
     if rev >= 6:
-        layers = foley.render_layers(buf, tels, G, rev=6)
+        layers = foley.render_layers(cont, tels, G, rev=6)
         abs_layer, bed_stats = studio_bed.abs_layers(tels, n_out, G, [e["t"] for e in events if e["role"] == "tick"])
+        buf += cont
         out, stats = master.master(buf[:n_out], G, send[:n_out], abs_layer)
     else:
-        layers = foley.render_layers(buf, tels, G)
-        _bed(buf, tl, G)
+        layers = foley.render_layers(cont, tels, G)
+        _bed(cont, tl, G)
+        buf += cont
         out, stats = master.master(buf[:n_out], G)
+    gain = 10 ** (stats.pop("gain_db") / 20)
+    c = cont[:n_out] * gain + (abs_layer if abs_layer is not None else 0.0)
+    sos = butter(4, [2000, 8000], "bp", fs=SR, output="sos")
+    hf = sosfilt(sos, c.mean(axis=1))
     info = {"events": events, "by_role": dict(Counter(e["role"] for e in events)), "layers": layers, "rev": rev,
-            "bed": bed_stats, **stats}
+            "bed": bed_stats, "continuous_hf_2k_8k_dbfs": round(float(10 * np.log10((hf ** 2).mean() + 1e-20)), 1),
+            "continuous_rms_dbfs": round(float(10 * np.log10((c ** 2).mean() + 1e-20)), 1), **stats}
     return out.astype(np.float32), info

@@ -274,9 +274,10 @@ def build_events(tl: dict[str, Any], tels: list[Tel], G: dict[str, float]) -> li
     evs = sorted([e for e in evs if 0 <= e["t"] <= max_t + 1e-6], key=lambda e: (e["t"], e["role"]))
     if G.get("rev", 5) >= 6:  # text_tick: at most one trigger per 90 ms across the whole timeline
         last, kept = -9.0, []
+        plucks = [e["t"] for e in evs if e["role"] == "pluck"]
         for e in evs:
             if e["role"] == "tick":
-                if e["t"] - last < 0.09 - 1e-9:
+                if e["t"] - last < 0.09 - 1e-9 or any(0.0 < e["t"] - p < 0.12 for p in plucks):  # the hero pluck owns its 120 ms
                     continue
                 last = e["t"]
             kept.append(e)

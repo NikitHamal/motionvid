@@ -1,0 +1,97 @@
+{
+ "timeline": "launch.json",
+ "rev5": {
+  "tick_ms": 30.0,
+  "tick_pitch_ratio": 1.0,
+  "pluck_drift_cents": 0.0,
+  "pluck_mallet_5ms_db": 3.8,
+  "riser_centroid_rise": 3.4,
+  "whoosh": {
+   "hf_above_2k2_db": -24.4,
+   "peak_offset_ms": 4.2,
+   "ramp_in_ms": 117.0,
+   "decay_40db_ms": 376.0
+  },
+  "idle_floor_dbfs": -17.5,
+  "idle_hf_2k_8k_dbfs": -69.9,
+  "continuous_hf_2k_8k_dbfs": -28.2,
+  "continuous_rms_dbfs": -22.5,
+  "idle_windows": 8,
+  "bed_peak_db": null,
+  "bed_idle_db": null,
+  "min_tick_gap_ms": 37.0,
+  "tick_pan_range": [
+   -0.42,
+   0.42
+  ],
+  "bounce_gains_db": [],
+  "riser_gain_db": [
+   -12.0
+  ],
+  "roles_with_reverb": [
+   "all"
+  ],
+  "lufs": -16.01
+ },
+ "rev6": {
+  "tick_ms": 14.0,
+  "tick_pitch_ratio": 1.0,
+  "pluck_drift_cents": 0.0,
+  "pluck_mallet_5ms_db": 4.8,
+  "riser_centroid_rise": 4.9,
+  "whoosh": {
+   "hf_above_2k2_db": -31.0,
+   "peak_offset_ms": -1.8,
+   "ramp_in_ms": 133.0,
+   "decay_40db_ms": 180.0
+  },
+  "idle_floor_dbfs": -35.0,
+  "idle_hf_2k_8k_dbfs": -69.9,
+  "continuous_hf_2k_8k_dbfs": -41.8,
+  "continuous_rms_dbfs": -26.9,
+  "idle_windows": 8,
+  "bed_peak_db": -21.5,
+  "bed_idle_db": -46.3,
+  "min_tick_gap_ms": 117.0,
+  "tick_pan_range": [
+   -0.35,
+   0.3
+  ],
+  "bounce_gains_db": [
+   0.0,
+   -4.5,
+   -9.0,
+   -13.5
+  ],
+  "riser_gain_db": [
+   -7.5
+  ],
+  "roles_with_reverb": [
+   "tick",
+   "pluck",
+   "crystal",
+   "air"
+  ],
+  "lufs": -16.02
+ },
+ "gates": {
+  "bed_idle_floor_le_-44": true,
+  "bed_peak_le_-20": true,
+  "bed_hiss_2k_8k_down_10db": true,
+  "whoosh_hf_le_-30db": true,
+  "whoosh_peak_on_cut_5ms": true,
+  "whoosh_ramp_in_120_190ms": true,
+  "whoosh_decay_160_260ms": true,
+  "tick_14ms": true,
+  "tick_zero_pitch_drop": true,
+  "tick_rate_cap_90ms": true,
+  "tick_pan_within_0.35": true,
+  "pluck_no_bend_25c": true,
+  "pluck_mallet_transient": true,
+  "bounce_steps_-4.5": true,
+  "riser_boost_4.5db": true,
+  "riser_sweep_rises": true,
+  "lufs_within_0.6": true
+ },
+ "passed": "17/17"
+}

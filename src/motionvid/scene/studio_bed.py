@@ -97,7 +97,7 @@ def abs_layers(tels: list[Tel], n: int, G: dict[str, float], duck: list[float] |
     hum = _tri(TAU * 55.0 * tt) + 0.6 * _tri(TAU * 110.0 * tt + 0.9)
     hum = biquad_tv(hum, 240.0, 0.8, "lp", block=512)
     hum *= 10 ** (HUM_DB / 20) / np.sqrt((hum ** 2).mean() + 1e-12) * (0.15 + 0.85 * me) ** 1.3 * me.clip(0, 1) ** 0.25
-    out += _pan(bed + hum, px * 0.65)
+    out += _pan(bed + hum, px * float(G.get("bed6_pan", 1.0)))
     stats = {"bed_idle_db": 0.0, "bed_peak_db": 0.0}
     # 3. warm fifth pad bound to the bar morph
     env, morph = _pad_env(tels, tt, ts)

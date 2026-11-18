@@ -128,4 +128,4 @@ def master(mix: np.ndarray, G: dict[str, float], send: np.ndarray | None = None,
     x[-f:] *= (0.5 + 0.5 * np.cos(np.linspace(0, np.pi, f)))[:, None]
     n_in = min(len(x), int(0.004 * SR))
     x[:n_in] *= np.linspace(0, 1, n_in)[:, None]
-    return x, {"glue_max_gr_db": round(gr, 2), "lufs": round(lufs(x), 2), "true_peak_dbtp": round(true_peak_db(x), 2)}
+    return x, {"gain_db": g, "glue_max_gr_db": round(gr, 2), "lufs": round(lufs(x), 2), "true_peak_dbtp": round(true_peak_db(x), 2)}
