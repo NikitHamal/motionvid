@@ -114,8 +114,9 @@ const getter = (tracks, t) => (n, d) => { const v = val(tracks[n], t); return v 
 export function drawGroup(ctx, el, g, t, drawText) {
   const proj = makeProj(g('rx', el.rx || 0), g('ry', el.ry || 0), 0, el.persp || 1800);
   const lum = el.shade === false ? 1 : 0.84 + 0.16 * Math.max(0, proj.rot(0, 0, 1)[2]);
-  const items = (el.items || []).map((c) => { const cg = getter(c.tracks || {}, t); return { c, cg, z: proj.P(cg('x', 0), cg('y', 0), cg('z', c.z || 0))[3] }; });
-  items.sort((a, b) => a.z - b.z);
+  const items = (el.items || []).map((c) => { const cg = getter(c.tracks || {}, t); return { c, cg, zl: cg('z', c.z || 0), z: proj.P(cg('x', 0), cg('y', 0), cg('z', c.z || 0))[3] }; });
+  const flip = proj.rot(0, 0, 1)[2] < 0 ? -1 : 1;  // seen from behind: reverse layer order
+  items.sort((a, b) => flip * (a.zl - b.zl) || a.z - b.z);
   for (const it of items) drawItem(ctx, it.c, it.cg, t, proj, false, drawText, lum);
 }
 

@@ -1,0 +1,42 @@
+[
+ {
+  "id": "lumen",
+  "title": "Lumen",
+  "brief": "Fintech app launch",
+  "duration": 38,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 40,
+  "elements": 45,
+  "video": "media/demos/lumen/reel.mp4",
+  "poster": "media/demos/lumen/poster.png",
+  "player": {
+   "timeline": "media/demos/lumen/reel.json",
+   "cues": "media/demos/lumen/reel.cues.json",
+   "audio": "media/demos/lumen/reel.m4a"
+  }
+ },
+ {
+  "id": "orbit",
+  "title": "Orbit",
+  "brief": "SaaS analytics dashboard",
+  "duration": 36,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 34,
+  "elements": 44,
+  "video": "media/demos/orbit/reel.mp4",
+  "poster": "media/demos/orbit/poster.png",
+  "player": {
+   "timeline": "media/demos/orbit/reel.json",
+   "cues": "media/demos/orbit/reel.cues.json",
+   "audio": "media/demos/orbit/reel.m4a"
+  }
+ }
+]

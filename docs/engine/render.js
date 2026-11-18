@@ -33,6 +33,10 @@ function drawText(ctx, el, g, t) {
   ctx.textAlign = el.align || 'center';
   ctx.textBaseline = 'middle';
   let text = el.text || el.id;
+  if (el.fmt) {  // counter: text from the `num` track, e.g. fmt {pre:'$', suf:'k', dec:1}
+    const v = g('num', 0), f = el.fmt;
+    text = (f.pre || '') + v.toFixed(f.dec || 0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (f.suf || '');
+  }
   if (el.type) {
     const n = Math.max(0, Math.min(el.type.n, Math.floor((t - el.type.t) * el.type.cps) + 1));
     text = text.slice(0, t < el.type.t ? 0 : n);
