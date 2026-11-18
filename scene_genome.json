@@ -9,7 +9,7 @@
   "max_polyphony": 3,
   "pan_width": 0.65,
   "pluck_db": -14.0,
-  "preroll_s": 0.19,
+  "preroll_s": 0.16,
   "reverb_t60": 0.35,
   "reverb_wet": 0.12,
   "room_dbfs": -54.0,
@@ -17,8 +17,8 @@
   "shimmer_db": -27.85302561828674,
   "stretch_db": -24.0,
   "sub_db": -5.340318362828899,
-  "sub_f0": 85.0,
-  "sub_f1": 45.0,
+  "sub_f0": 92.0,
+  "sub_f1": 36.0,
   "suction_db": -13.5,
   "target_lufs": -16.0,
   "texture_db": -19.447293229122266,
@@ -26,6 +26,6 @@
   "tilt_high_db": 1.5,
   "tilt_low_db": 3.0,
   "tp_ceiling_db": -1.0,
-  "vel_jitter_db": 2.0,
+  "vel_jitter_db": 3.0,
   "whoosh_db": -9.5
 }

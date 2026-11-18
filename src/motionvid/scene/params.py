@@ -6,10 +6,10 @@ import json
 from pathlib import Path
 
 DEFAULT = {
-    "preroll_s": 0.19,        # whoosh ramps up this long before a cut so its peak lands on the cut frame
+    "preroll_s": 0.16,        # whoosh ramps up 160 ms before a cut so its peak lands on the cut frame
     "sub_db": -5.5,           # sub-bass thump level at full shape mass
-    "sub_f0": 85.0,           # Hz, start of the pitch drop (warm sub-boom 85 Hz -> 45 Hz)
-    "sub_f1": 45.0,           # Hz, end of the pitch drop
+    "sub_f0": 92.0,           # Hz, start of the pitch drop (sine sub-drop 92 Hz -> 36 Hz over 190 ms)
+    "sub_f1": 36.0,           # Hz, end of the pitch drop
     "pluck_db": -14.0,        # damped low-mid wooden/marimba body (180-420 Hz)
     "tick_db": -22.0,         # damped felt/wood key-tick
     "crystal_db": -16.5,      # crisp 4 kHz micro-click + damped pop
@@ -21,7 +21,7 @@ DEFAULT = {
     "shimmer_db": -28.0,      # warm harmonic pad swell during star-to-circle morph
     "bed_db": -36.0,
     "jitter_cents": 35.0,
-    "vel_jitter_db": 2.0,
+    "vel_jitter_db": 3.0,
     "semitone_every": 3.5,
     "pan_width": 0.65,
     "reverb_wet": 0.12,       # Rule 5: 12% wet short room reverb
