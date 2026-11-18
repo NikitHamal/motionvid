@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import tlJson from "../docs/media/showreel.json";
-import cueJson from "../docs/media/showreel.cues.json";
-import audioUrl from "../docs/media/showreel.m4a?url";
+import tlJson from "../docs/media/v0.4/reel.json";
+import cueJson from "../docs/media/v0.4/reel.cues.json";
+import audioUrl from "../docs/media/v0.4/reel.m4a?url";
 import { drawFrame } from "../docs/engine/render.js";
 import type { Cue, Timeline } from "../docs/engine/render.js";
 import { drawXray } from "../docs/engine/xray.js";

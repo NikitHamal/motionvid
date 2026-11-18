@@ -1,0 +1,2406 @@
+[
+  {
+    "t": 0.1833,
+    "role": "pluck",
+    "gain_db": -13.22,
+    "pan": -0.289,
+    "seed": 265322355,
+    "why": "cookie: pop, note 0 of phrase",
+    "p": {
+      "freq": 110.27534292454354,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 0.1958,
+    "role": "sub",
+    "gain_db": -6.0,
+    "pan": 0.0,
+    "seed": 101282239,
+    "why": "cookie: area +90.9% of frame",
+    "p": {
+      "s": 1.0,
+      "f0": 95.0,
+      "f1": 42.0
+    }
+  },
+  {
+    "t": 0.55,
+    "role": "pluck",
+    "gain_db": -16.23,
+    "pan": 0.065,
+    "seed": 167752066,
+    "why": "ring0: pop, note 1 of phrase",
+    "p": {
+      "freq": 518.9017631756168,
+      "bell": true,
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 0.7208,
+    "role": "sub",
+    "gain_db": -19.4,
+    "pan": 0.0,
+    "seed": 170276088,
+    "why": "cookie: area +2.1% of frame",
+    "p": {
+      "s": 0.1625467661000364,
+      "f0": 120.1235970169989,
+      "f1": 65.44869054919899
+    }
+  },
+  {
+    "t": 0.8,
+    "role": "pluck",
+    "gain_db": -14.18,
+    "pan": -0.022,
+    "seed": 39186904,
+    "why": "ring1: pop, note 2 of phrase",
+    "p": {
+      "freq": 590.2743586484355,
+      "bell": true,
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 0.875,
+    "role": "tick",
+    "gain_db": -17.42,
+    "pan": -0.295,
+    "seed": 182898087,
+    "why": "t1: glyph 'M' #0",
+    "p": {
+      "freq": 662.724394829669
+    }
+  },
+  {
+    "t": 0.925,
+    "role": "tick",
+    "gain_db": -17.15,
+    "pan": -0.177,
+    "seed": 101082692,
+    "why": "t1: glyph 'O' #1",
+    "p": {
+      "freq": 666.5669981500245
+    }
+  },
+  {
+    "t": 0.975,
+    "role": "tick",
+    "gain_db": -17.56,
+    "pan": -0.059,
+    "seed": 100006691,
+    "why": "t1: glyph 'T' #2",
+    "p": {
+      "freq": 664.9277699228365
+    }
+  },
+  {
+    "t": 1.0292,
+    "role": "tick",
+    "gain_db": -19.6,
+    "pan": 0.059,
+    "seed": 176935947,
+    "why": "t1: glyph 'I' #3",
+    "p": {
+      "freq": 675.1505842878146
+    }
+  },
+  {
+    "t": 1.05,
+    "role": "pluck",
+    "gain_db": -15.73,
+    "pan": -0.336,
+    "seed": 221695741,
+    "why": "ring2: pop, note 3 of phrase",
+    "p": {
+      "freq": 658.244131241478,
+      "bell": true,
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 1.075,
+    "role": "tick",
+    "gain_db": -19.26,
+    "pan": 0.177,
+    "seed": 131331820,
+    "why": "t1: glyph 'O' #4",
+    "p": {
+      "freq": 690.2458331764259
+    }
+  },
+  {
+    "t": 1.125,
+    "role": "tick",
+    "gain_db": -21.6,
+    "pan": 0.295,
+    "seed": 128567540,
+    "why": "t1: glyph 'N' #5",
+    "p": {
+      "freq": 702.4641775257559
+    }
+  },
+  {
+    "t": 1.175,
+    "role": "tick",
+    "gain_db": -15.69,
+    "pan": -0.295,
+    "seed": 53164138,
+    "why": "t2: glyph 'D' #0",
+    "p": {
+      "freq": 643.5425846483995
+    }
+  },
+  {
+    "t": 1.225,
+    "role": "tick",
+    "gain_db": -19.88,
+    "pan": -0.177,
+    "seed": 20017230,
+    "why": "t2: glyph 'E' #1",
+    "p": {
+      "freq": 675.7025861677093
+    }
+  },
+  {
+    "t": 1.2792,
+    "role": "tick",
+    "gain_db": -18.32,
+    "pan": -0.059,
+    "seed": 257682231,
+    "why": "t2: glyph 'S' #2",
+    "p": {
+      "freq": 674.202720135193
+    }
+  },
+  {
+    "t": 1.3292,
+    "role": "tick",
+    "gain_db": -17.3,
+    "pan": 0.059,
+    "seed": 27676854,
+    "why": "t2: glyph 'I' #3",
+    "p": {
+      "freq": 665.9876346876403
+    }
+  },
+  {
+    "t": 1.375,
+    "role": "tick",
+    "gain_db": -21.1,
+    "pan": 0.177,
+    "seed": 104448764,
+    "why": "t2: glyph 'G' #4",
+    "p": {
+      "freq": 684.5386122343432
+    }
+  },
+  {
+    "t": 1.425,
+    "role": "tick",
+    "gain_db": -18.41,
+    "pan": 0.295,
+    "seed": 266113716,
+    "why": "t2: glyph 'N' #5",
+    "p": {
+      "freq": 712.0592655660589
+    }
+  },
+  {
+    "t": 1.5292,
+    "role": "pluck",
+    "gain_db": -15.9,
+    "pan": -0.299,
+    "seed": 217795784,
+    "why": "o0: pop, note 4 of phrase",
+    "p": {
+      "freq": 789.2027354952409,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 1.5875,
+    "role": "pluck",
+    "gain_db": -15.41,
+    "pan": -0.288,
+    "seed": 94581624,
+    "why": "o1: pop, note 5 of phrase",
+    "p": {
+      "freq": 882.8702033661125,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 1.65,
+    "role": "pluck",
+    "gain_db": -13.71,
+    "pan": -0.109,
+    "seed": 16744923,
+    "why": "o2: pop, note 6 of phrase",
+    "p": {
+      "freq": 1039.7312982373949,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 1.7083,
+    "role": "pluck",
+    "gain_db": -15.66,
+    "pan": 0.134,
+    "seed": 25556306,
+    "why": "o3: pop, note 7 of phrase",
+    "p": {
+      "freq": 1175.7719056786543,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 1.7708,
+    "role": "pluck",
+    "gain_db": -14.94,
+    "pan": 0.299,
+    "seed": 246529889,
+    "why": "o4: pop, note 8 of phrase",
+    "p": {
+      "freq": 1327.0415579723904,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 1.8292,
+    "role": "pluck",
+    "gain_db": -16.02,
+    "pan": 0.288,
+    "seed": 217244193,
+    "why": "o5: pop, note 9 of phrase",
+    "p": {
+      "freq": 1572.6758784991696,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 1.8875,
+    "role": "pluck",
+    "gain_db": -16.17,
+    "pan": 0.109,
+    "seed": 64734628,
+    "why": "o6: pop, note 10 of phrase",
+    "p": {
+      "freq": 437.2360205019388,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 1.95,
+    "role": "pluck",
+    "gain_db": -15.82,
+    "pan": -0.134,
+    "seed": 181642852,
+    "why": "o7: pop, note 11 of phrase",
+    "p": {
+      "freq": 521.2251653915232,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 3.4,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 203464717,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 3.4,
+    "role": "whoosh",
+    "gain_db": -7.0,
+    "pan": 0.0,
+    "seed": 113540294,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 3.412,
+    "role": "crystal",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 100755731,
+    "why": "cut:cut air",
+    "p": {}
+  },
+  {
+    "t": 3.6167,
+    "role": "tick",
+    "gain_db": -19.65,
+    "pan": -0.187,
+    "seed": 152794316,
+    "why": "spring: glyph 'S' #0",
+    "p": {
+      "freq": 767.8904830975874
+    }
+  },
+  {
+    "t": 3.6708,
+    "role": "tick",
+    "gain_db": -23.65,
+    "pan": -0.112,
+    "seed": 62393484,
+    "why": "spring: glyph 'P' #1",
+    "p": {
+      "freq": 777.9156892106975
+    }
+  },
+  {
+    "t": 3.7125,
+    "role": "sub",
+    "gain_db": -17.8,
+    "pan": 0.0,
+    "seed": 81925440,
+    "why": "bar0: area +5.6% of frame",
+    "p": {
+      "s": 0.26223056212612567,
+      "f0": 117.13308313621623,
+      "f1": 62.657544260468484
+    }
+  },
+  {
+    "t": 3.725,
+    "role": "tick",
+    "gain_db": -19.46,
+    "pan": -0.037,
+    "seed": 51198970,
+    "why": "spring: glyph 'R' #2",
+    "p": {
+      "freq": 798.8935032347702
+    }
+  },
+  {
+    "t": 3.7833,
+    "role": "tick",
+    "gain_db": -19.85,
+    "pan": 0.037,
+    "seed": 100607073,
+    "why": "spring: glyph 'I' #3",
+    "p": {
+      "freq": 796.7380743430434
+    }
+  },
+  {
+    "t": 3.8375,
+    "role": "tick",
+    "gain_db": -21.78,
+    "pan": 0.112,
+    "seed": 164403193,
+    "why": "spring: glyph 'N' #4",
+    "p": {
+      "freq": 842.2754866167588
+    }
+  },
+  {
+    "t": 3.85,
+    "role": "sub",
+    "gain_db": -18.09,
+    "pan": 0.0,
+    "seed": 166568949,
+    "why": "bar2: area +4.8% of frame",
+    "p": {
+      "s": 0.24412473591542394,
+      "f0": 117.67625792253727,
+      "f1": 63.16450739436813
+    }
+  },
+  {
+    "t": 3.8958,
+    "role": "tick",
+    "gain_db": -19.62,
+    "pan": 0.187,
+    "seed": 131780343,
+    "why": "spring: glyph 'G' #5",
+    "p": {
+      "freq": 820.0945457531122
+    }
+  },
+  {
+    "t": 3.9917,
+    "role": "sub",
+    "gain_db": -18.41,
+    "pan": 0.0,
+    "seed": 30370163,
+    "why": "bar4: area +4.1% of frame",
+    "p": {
+      "s": 0.22456221711718194,
+      "f0": 118.26313348648455,
+      "f1": 63.712257920718905
+    }
+  },
+  {
+    "t": 4.0625,
+    "role": "sub",
+    "gain_db": -17.73,
+    "pan": 0.0,
+    "seed": 165089043,
+    "why": "bar5: area +5.8% of frame",
+    "p": {
+      "s": 0.2665652452404164,
+      "f0": 117.0030426427875,
+      "f1": 62.53617313326834
+    }
+  },
+  {
+    "t": 4.1083,
+    "role": "crystal",
+    "gain_db": -15.5,
+    "pan": 0.0,
+    "seed": 75365755,
+    "why": "collapse payoff",
+    "p": {}
+  },
+  {
+    "t": 4.1083,
+    "role": "suction",
+    "gain_db": -12.0,
+    "pan": 0.0,
+    "seed": 33267889,
+    "why": "1 shape(s) collapse",
+    "p": {
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 4.1708,
+    "role": "sub",
+    "gain_db": -17.8,
+    "pan": 0.0,
+    "seed": 46237465,
+    "why": "bar1: area +5.6% of frame",
+    "p": {
+      "s": 0.2626183452132332,
+      "f0": 117.121449643603,
+      "f1": 62.64668633402947
+    }
+  },
+  {
+    "t": 4.3042,
+    "role": "sub",
+    "gain_db": -17.97,
+    "pan": 0.0,
+    "seed": 105769064,
+    "why": "bar3: area +5.1% of frame",
+    "p": {
+      "s": 0.2519501129104558,
+      "f0": 117.44149661268632,
+      "f1": 62.945396838507236
+    }
+  },
+  {
+    "t": 4.4333,
+    "role": "crystal",
+    "gain_db": -15.5,
+    "pan": 0.0,
+    "seed": 132392984,
+    "why": "collapse payoff",
+    "p": {}
+  },
+  {
+    "t": 4.4333,
+    "role": "suction",
+    "gain_db": -12.0,
+    "pan": 0.0,
+    "seed": 120869771,
+    "why": "1 shape(s) collapse",
+    "p": {
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 4.4958,
+    "role": "sub",
+    "gain_db": -17.76,
+    "pan": 0.0,
+    "seed": 200696704,
+    "why": "bar6: area +5.7% of frame",
+    "p": {
+      "s": 0.26499395377001816,
+      "f0": 117.05018138689945,
+      "f1": 62.58016929443949
+    }
+  },
+  {
+    "t": 4.8625,
+    "role": "sub",
+    "gain_db": -18.86,
+    "pan": 0.0,
+    "seed": 19048596,
+    "why": "bar0: area +3.1% of frame",
+    "p": {
+      "s": 0.19627477316748426,
+      "f0": 119.11175680497547,
+      "f1": 64.50430635131045
+    }
+  },
+  {
+    "t": 4.8667,
+    "role": "crystal",
+    "gain_db": -15.5,
+    "pan": 0.0,
+    "seed": 175982362,
+    "why": "collapse payoff",
+    "p": {}
+  },
+  {
+    "t": 4.8667,
+    "role": "suction",
+    "gain_db": -12.0,
+    "pan": 0.0,
+    "seed": 134816312,
+    "why": "1 shape(s) collapse",
+    "p": {
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 4.8708,
+    "role": "sub",
+    "gain_db": -18.32,
+    "pan": 0.0,
+    "seed": 103577478,
+    "why": "bar4: area +4.3% of frame",
+    "p": {
+      "s": 0.2299230000263952,
+      "f0": 118.10230999920815,
+      "f1": 63.56215599926094
+    }
+  },
+  {
+    "t": 5.4042,
+    "role": "sub",
+    "gain_db": -19.47,
+    "pan": 0.0,
+    "seed": 105126282,
+    "why": "bar2: area +2.0% of frame",
+    "p": {
+      "s": 0.15785840273312854,
+      "f0": 120.26424791800613,
+      "f1": 65.5799647234724
+    }
+  },
+  {
+    "t": 5.4125,
+    "role": "crystal",
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 40344978,
+    "why": "collapse payoff",
+    "p": {}
+  },
+  {
+    "t": 5.4125,
+    "role": "suction",
+    "gain_db": -10.0,
+    "pan": 0.0,
+    "seed": 121683851,
+    "why": "2 shape(s) collapse",
+    "p": {
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 5.4167,
+    "role": "sub",
+    "gain_db": -18.99,
+    "pan": 0.0,
+    "seed": 87546812,
+    "why": "bar3: area +2.9% of frame",
+    "p": {
+      "s": 0.1881031541082996,
+      "f0": 119.35690537675102,
+      "f1": 64.73311168496761
+    }
+  },
+  {
+    "t": 6.1425,
+    "role": "crystal",
+    "gain_db": -11.0,
+    "pan": 0.0,
+    "seed": 30351245,
+    "why": "collapse payoff",
+    "p": {}
+  },
+  {
+    "t": 6.1425,
+    "role": "suction",
+    "gain_db": -6.0,
+    "pan": 0.0,
+    "seed": 187029815,
+    "why": "5 shape(s) collapse",
+    "p": {
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 6.8,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 165457090,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 6.8,
+    "role": "whoosh",
+    "gain_db": -7.0,
+    "pan": 0.0,
+    "seed": 30669852,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 6.812,
+    "role": "crystal",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 78016996,
+    "why": "cut:cut air",
+    "p": {}
+  },
+  {
+    "t": 7.025,
+    "role": "sub",
+    "gain_db": -19.33,
+    "pan": 0.0,
+    "seed": 195025939,
+    "why": "ground: area +2.3% of frame",
+    "p": {
+      "s": 0.16692367016036988,
+      "f0": 119.9922898951889,
+      "f1": 65.32613723550963
+    }
+  },
+  {
+    "t": 7.25,
+    "role": "pluck",
+    "gain_db": -12.95,
+    "pan": 0.249,
+    "seed": 167552586,
+    "why": "w0: pop, note 0 of phrase",
+    "p": {
+      "freq": 110.22083213888703,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 7.55,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": -0.6,
+    "seed": 71699298,
+    "why": "agent hint",
+    "p": {
+      "s": 0.8636363636363636
+    }
+  },
+  {
+    "t": 7.95,
+    "role": "impact",
+    "gain_db": -9.0,
+    "pan": -0.6,
+    "seed": 214438050,
+    "why": "agent hint",
+    "p": {
+      "s": 0.6818181818181818
+    }
+  },
+  {
+    "t": 8.15,
+    "role": "impact",
+    "gain_db": -14.0,
+    "pan": -0.6,
+    "seed": 86069128,
+    "why": "agent hint",
+    "p": {
+      "s": 0.45454545454545453
+    }
+  },
+  {
+    "t": 8.25,
+    "role": "impact",
+    "gain_db": -20.0,
+    "pan": -0.6,
+    "seed": 43224701,
+    "why": "agent hint",
+    "p": {
+      "s": 0.2
+    }
+  },
+  {
+    "t": 8.25,
+    "role": "pluck",
+    "gain_db": -14.49,
+    "pan": -0.178,
+    "seed": 213778847,
+    "why": "w1: pop, note 0 of phrase",
+    "p": {
+      "freq": 110.35591633531135,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 9.1,
+    "role": "pluck",
+    "gain_db": -14.33,
+    "pan": 0.258,
+    "seed": 107048894,
+    "why": "w2: pop, note 0 of phrase",
+    "p": {
+      "freq": 109.26743449207498,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.4,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 218832865,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 10.4,
+    "role": "whoosh",
+    "gain_db": -7.0,
+    "pan": 0.0,
+    "seed": 82040404,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 10.412,
+    "role": "crystal",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 10938692,
+    "why": "cut:cut air",
+    "p": {}
+  },
+  {
+    "t": 10.6792,
+    "role": "pluck",
+    "gain_db": -14.75,
+    "pan": 0.092,
+    "seed": 159261222,
+    "why": "g21: pop, note 0 of phrase",
+    "p": {
+      "freq": 219.11617881395625,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.7042,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.0,
+    "seed": 99805707,
+    "why": "g21: area +2.6% of frame",
+    "p": {
+      "s": 0.1782385371120542,
+      "f0": 119.65284388663838,
+      "f1": 65.00932096086248
+    }
+  },
+  {
+    "t": 10.8,
+    "role": "pluck",
+    "gain_db": -14.33,
+    "pan": -0.223,
+    "seed": 208503881,
+    "why": "g11: pop, note 1 of phrase",
+    "p": {
+      "freq": 260.5062753348335,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.8,
+    "role": "pluck",
+    "gain_db": -13.83,
+    "pan": 0.223,
+    "seed": 52491413,
+    "why": "g31: pop, note 2 of phrase",
+    "p": {
+      "freq": 295.83629605370555,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.8125,
+    "role": "pluck",
+    "gain_db": -14.87,
+    "pan": 0.259,
+    "seed": 174272220,
+    "why": "g20: pop, note 3 of phrase",
+    "p": {
+      "freq": 328.4950341227316,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.8125,
+    "role": "pluck",
+    "gain_db": -15.41,
+    "pan": -0.001,
+    "seed": 209102587,
+    "why": "g22: pop, note 4 of phrase",
+    "p": {
+      "freq": 391.16216573708334,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.825,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": -0.223,
+    "seed": 55868660,
+    "why": "g11: area +2.6% of frame",
+    "p": {
+      "s": 0.17823416370804399,
+      "f0": 119.65297508875868,
+      "f1": 65.00944341617478
+    }
+  },
+  {
+    "t": 10.825,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.223,
+    "seed": 7653708,
+    "why": "g31: area +2.6% of frame",
+    "p": {
+      "s": 0.17823416370804399,
+      "f0": 119.65297508875868,
+      "f1": 65.00944341617478
+    }
+  },
+  {
+    "t": 10.8375,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.0,
+    "seed": 55970589,
+    "why": "g20: area +2.6% of frame",
+    "p": {
+      "s": 0.17823728316722096,
+      "f0": 119.65288150498337,
+      "f1": 65.00935607131781
+    }
+  },
+  {
+    "t": 10.8375,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.0,
+    "seed": 239604927,
+    "why": "g22: area +2.6% of frame",
+    "p": {
+      "s": 0.17823728316722096,
+      "f0": 119.65288150498337,
+      "f1": 65.00935607131781
+    }
+  },
+  {
+    "t": 10.8583,
+    "role": "pluck",
+    "gain_db": -13.96,
+    "pan": -0.223,
+    "seed": 54304135,
+    "why": "g10: pop, note 5 of phrase",
+    "p": {
+      "freq": 436.94302835322196,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.8583,
+    "role": "pluck",
+    "gain_db": -13.81,
+    "pan": 0.223,
+    "seed": 250619883,
+    "why": "g30: pop, note 6 of phrase",
+    "p": {
+      "freq": 522.8211721757931,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.8583,
+    "role": "pluck",
+    "gain_db": -13.69,
+    "pan": -0.223,
+    "seed": 212494446,
+    "why": "g12: pop, note 7 of phrase",
+    "p": {
+      "freq": 587.0316309678991,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.8583,
+    "role": "pluck",
+    "gain_db": -14.46,
+    "pan": 0.223,
+    "seed": 68723561,
+    "why": "g32: pop, note 8 of phrase",
+    "p": {
+      "freq": 658.0787157755714,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.8833,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": -0.223,
+    "seed": 134574052,
+    "why": "g10: area +2.6% of frame",
+    "p": {
+      "s": 0.17823415443804985,
+      "f0": 119.6529753668585,
+      "f1": 65.0094436757346
+    }
+  },
+  {
+    "t": 10.8833,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.223,
+    "seed": 82803808,
+    "why": "g30: area +2.6% of frame",
+    "p": {
+      "s": 0.17823415443804985,
+      "f0": 119.6529753668585,
+      "f1": 65.0094436757346
+    }
+  },
+  {
+    "t": 10.8833,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": -0.223,
+    "seed": 19440653,
+    "why": "g12: area +2.6% of frame",
+    "p": {
+      "s": 0.17823415443804985,
+      "f0": 119.6529753668585,
+      "f1": 65.0094436757346
+    }
+  },
+  {
+    "t": 10.8833,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.223,
+    "seed": 74142407,
+    "why": "g32: area +2.6% of frame",
+    "p": {
+      "s": 0.17823415443804985,
+      "f0": 119.6529753668585,
+      "f1": 65.0094436757346
+    }
+  },
+  {
+    "t": 10.9208,
+    "role": "pluck",
+    "gain_db": -15.67,
+    "pan": -0.447,
+    "seed": 253240321,
+    "why": "g01: pop, note 9 of phrase",
+    "p": {
+      "freq": 790.7955110382079,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.9208,
+    "role": "pluck",
+    "gain_db": -14.22,
+    "pan": 0.447,
+    "seed": 64700851,
+    "why": "g41: pop, note 10 of phrase",
+    "p": {
+      "freq": 220.1134069906179,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.9458,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": -0.447,
+    "seed": 92338703,
+    "why": "g01: area +2.6% of frame",
+    "p": {
+      "s": 0.178238875027583,
+      "f0": 119.65283374917252,
+      "f1": 65.00931149922768
+    }
+  },
+  {
+    "t": 10.9458,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.447,
+    "seed": 129880183,
+    "why": "g41: area +2.6% of frame",
+    "p": {
+      "s": 0.178238875027583,
+      "f0": 119.65283374917252,
+      "f1": 65.00931149922768
+    }
+  },
+  {
+    "t": 10.9542,
+    "role": "pluck",
+    "gain_db": -14.41,
+    "pan": -0.447,
+    "seed": 133464469,
+    "why": "g00: pop, note 11 of phrase",
+    "p": {
+      "freq": 262.51505194370577,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.9542,
+    "role": "pluck",
+    "gain_db": -14.55,
+    "pan": 0.447,
+    "seed": 162209507,
+    "why": "g40: pop, note 12 of phrase",
+    "p": {
+      "freq": 295.7859861850033,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.9542,
+    "role": "pluck",
+    "gain_db": -14.34,
+    "pan": -0.447,
+    "seed": 156472740,
+    "why": "g02: pop, note 13 of phrase",
+    "p": {
+      "freq": 327.6701375554547,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.9542,
+    "role": "pluck",
+    "gain_db": -15.02,
+    "pan": 0.447,
+    "seed": 78730732,
+    "why": "g42: pop, note 14 of phrase",
+    "p": {
+      "freq": 390.9461966693009,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 10.9792,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": -0.447,
+    "seed": 194048588,
+    "why": "g00: area +2.6% of frame",
+    "p": {
+      "s": 0.17823593692329218,
+      "f0": 119.65292189230124,
+      "f1": 65.00939376614781
+    }
+  },
+  {
+    "t": 10.9792,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.447,
+    "seed": 183224296,
+    "why": "g40: area +2.6% of frame",
+    "p": {
+      "s": 0.17823593692329218,
+      "f0": 119.65292189230124,
+      "f1": 65.00939376614781
+    }
+  },
+  {
+    "t": 10.9792,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": -0.447,
+    "seed": 89348761,
+    "why": "g02: area +2.6% of frame",
+    "p": {
+      "s": 0.17823593692329218,
+      "f0": 119.65292189230124,
+      "f1": 65.00939376614781
+    }
+  },
+  {
+    "t": 10.9792,
+    "role": "sub",
+    "gain_db": -19.15,
+    "pan": 0.447,
+    "seed": 90671771,
+    "why": "g42: area +2.6% of frame",
+    "p": {
+      "s": 0.17823593692329218,
+      "f0": 119.65292189230124,
+      "f1": 65.00939376614781
+    }
+  },
+  {
+    "t": 11.5667,
+    "role": "pluck",
+    "gain_db": -12.69,
+    "pan": 0.092,
+    "seed": 65426734,
+    "why": "g21: pop, note 0 of phrase",
+    "p": {
+      "freq": 218.36539686531714,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.6667,
+    "role": "pluck",
+    "gain_db": -15.64,
+    "pan": -0.223,
+    "seed": 14482601,
+    "why": "g11: pop, note 1 of phrase",
+    "p": {
+      "freq": 263.7769822539666,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.6667,
+    "role": "pluck",
+    "gain_db": -14.38,
+    "pan": 0.223,
+    "seed": 158236026,
+    "why": "g31: pop, note 2 of phrase",
+    "p": {
+      "freq": 291.92812852723875,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.675,
+    "role": "pluck",
+    "gain_db": -14.64,
+    "pan": 0.259,
+    "seed": 141782187,
+    "why": "g20: pop, note 3 of phrase",
+    "p": {
+      "freq": 330.4002232653128,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.675,
+    "role": "pluck",
+    "gain_db": -14.14,
+    "pan": -0.001,
+    "seed": 231275413,
+    "why": "g22: pop, note 4 of phrase",
+    "p": {
+      "freq": 391.9178694423636,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7125,
+    "role": "pluck",
+    "gain_db": -14.04,
+    "pan": -0.223,
+    "seed": 142871221,
+    "why": "g10: pop, note 5 of phrase",
+    "p": {
+      "freq": 441.9574530318956,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7125,
+    "role": "pluck",
+    "gain_db": -15.1,
+    "pan": 0.223,
+    "seed": 102513492,
+    "why": "g30: pop, note 6 of phrase",
+    "p": {
+      "freq": 518.8679365906876,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7125,
+    "role": "pluck",
+    "gain_db": -14.17,
+    "pan": -0.223,
+    "seed": 69062872,
+    "why": "g12: pop, note 7 of phrase",
+    "p": {
+      "freq": 582.6419762584052,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7125,
+    "role": "pluck",
+    "gain_db": -15.26,
+    "pan": 0.223,
+    "seed": 3045945,
+    "why": "g32: pop, note 8 of phrase",
+    "p": {
+      "freq": 655.4300564342492,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7667,
+    "role": "pluck",
+    "gain_db": -16.27,
+    "pan": -0.447,
+    "seed": 198187879,
+    "why": "g01: pop, note 9 of phrase",
+    "p": {
+      "freq": 778.2864629828147,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7667,
+    "role": "pluck",
+    "gain_db": -15.02,
+    "pan": 0.447,
+    "seed": 245333449,
+    "why": "g41: pop, note 10 of phrase",
+    "p": {
+      "freq": 219.2878942272122,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7958,
+    "role": "pluck",
+    "gain_db": -14.2,
+    "pan": -0.447,
+    "seed": 119714546,
+    "why": "g00: pop, note 11 of phrase",
+    "p": {
+      "freq": 260.0877006382819,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7958,
+    "role": "pluck",
+    "gain_db": -15.17,
+    "pan": 0.447,
+    "seed": 216790585,
+    "why": "g40: pop, note 12 of phrase",
+    "p": {
+      "freq": 291.6089261654561,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7958,
+    "role": "pluck",
+    "gain_db": -15.22,
+    "pan": -0.447,
+    "seed": 71554218,
+    "why": "g02: pop, note 13 of phrase",
+    "p": {
+      "freq": 331.70522262764234,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 11.7958,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.447,
+    "seed": 211026971,
+    "why": "g42: pop, note 14 of phrase",
+    "p": {
+      "freq": 393.8375835490847,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 12.95,
+    "role": "riser",
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 2469671,
+    "why": "agent hint",
+    "p": {
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 13.0125,
+    "role": "crystal",
+    "gain_db": -11.0,
+    "pan": 0.0,
+    "seed": 196039274,
+    "why": "collapse payoff",
+    "p": {}
+  },
+  {
+    "t": 13.0125,
+    "role": "suction",
+    "gain_db": -6.0,
+    "pan": 0.0,
+    "seed": 78708303,
+    "why": "15 shape(s) collapse",
+    "p": {
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 13.0625,
+    "role": "pluck",
+    "gain_db": -14.73,
+    "pan": 0.079,
+    "seed": 135049078,
+    "why": "hero: pop, note 0 of phrase",
+    "p": {
+      "freq": 110.00330967471525,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 13.0667,
+    "role": "sub",
+    "gain_db": -6.0,
+    "pan": 0.0,
+    "seed": 160297958,
+    "why": "hero: area +153.5% of frame",
+    "p": {
+      "s": 1.0,
+      "f0": 95.0,
+      "f1": 42.0
+    }
+  },
+  {
+    "t": 13.1625,
+    "role": "tick",
+    "gain_db": -19.45,
+    "pan": -0.255,
+    "seed": 95421692,
+    "why": "rhythm: glyph 'R' #0",
+    "p": {
+      "freq": 658.9507363499106
+    }
+  },
+  {
+    "t": 13.2042,
+    "role": "tick",
+    "gain_db": -20.83,
+    "pan": -0.153,
+    "seed": 76235846,
+    "why": "rhythm: glyph 'H' #1",
+    "p": {
+      "freq": 643.1976190730157
+    }
+  },
+  {
+    "t": 13.2417,
+    "role": "tick",
+    "gain_db": -21.22,
+    "pan": -0.051,
+    "seed": 165986839,
+    "why": "rhythm: glyph 'Y' #2",
+    "p": {
+      "freq": 673.2620933252142
+    }
+  },
+  {
+    "t": 13.2792,
+    "role": "tick",
+    "gain_db": -17.71,
+    "pan": 0.051,
+    "seed": 122407276,
+    "why": "rhythm: glyph 'T' #3",
+    "p": {
+      "freq": 674.8753802409389
+    }
+  },
+  {
+    "t": 13.3167,
+    "role": "tick",
+    "gain_db": -21.62,
+    "pan": 0.153,
+    "seed": 32970407,
+    "why": "rhythm: glyph 'H' #4",
+    "p": {
+      "freq": 710.1918314146042
+    }
+  },
+  {
+    "t": 13.3542,
+    "role": "tick",
+    "gain_db": -22.24,
+    "pan": 0.255,
+    "seed": 22150146,
+    "why": "rhythm: glyph 'M' #5",
+    "p": {
+      "freq": 696.6687257040934
+    }
+  },
+  {
+    "t": 14.0,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 75028228,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 14.0,
+    "role": "whoosh",
+    "gain_db": -7.0,
+    "pan": 0.0,
+    "seed": 43405739,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 14.012,
+    "role": "crystal",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 18713523,
+    "why": "cut:cut air",
+    "p": {}
+  },
+  {
+    "t": 14.0833,
+    "role": "pluck",
+    "gain_db": -14.49,
+    "pan": 0.133,
+    "seed": 72460624,
+    "why": "big: pop, note 0 of phrase",
+    "p": {
+      "freq": 109.78628318038939,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 14.5,
+    "role": "pluck",
+    "gain_db": -15.6,
+    "pan": 0.085,
+    "seed": 199711704,
+    "why": "pulse0: pop, note 1 of phrase",
+    "p": {
+      "freq": 519.5089850114128,
+      "bell": true,
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 14.6208,
+    "role": "sub",
+    "gain_db": -18.1,
+    "pan": 0.0,
+    "seed": 246968859,
+    "why": "big: area +4.8% of frame",
+    "p": {
+      "s": 0.24382014915005554,
+      "f0": 117.68539552549834,
+      "f1": 63.17303582379844
+    }
+  },
+  {
+    "t": 14.7667,
+    "role": "tick",
+    "gain_db": -17.58,
+    "pan": -0.245,
+    "seed": 220740149,
+    "why": "timing: glyph 'T' #0",
+    "p": {
+      "freq": 772.2145758038266
+    }
+  },
+  {
+    "t": 14.8208,
+    "role": "tick",
+    "gain_db": -19.69,
+    "pan": -0.147,
+    "seed": 206016969,
+    "why": "timing: glyph 'I' #1",
+    "p": {
+      "freq": 803.4714532687843
+    }
+  },
+  {
+    "t": 14.875,
+    "role": "tick",
+    "gain_db": -20.73,
+    "pan": -0.049,
+    "seed": 159399339,
+    "why": "timing: glyph 'M' #2",
+    "p": {
+      "freq": 804.5741670828204
+    }
+  },
+  {
+    "t": 14.9,
+    "role": "pluck",
+    "gain_db": -15.09,
+    "pan": 0.302,
+    "seed": 119558314,
+    "why": "pulse1: pop, note 2 of phrase",
+    "p": {
+      "freq": 584.591130475362,
+      "bell": true,
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 14.9333,
+    "role": "tick",
+    "gain_db": -19.11,
+    "pan": 0.049,
+    "seed": 93015036,
+    "why": "timing: glyph 'I' #3",
+    "p": {
+      "freq": 803.8066814810117
+    }
+  },
+  {
+    "t": 14.9875,
+    "role": "tick",
+    "gain_db": -19.44,
+    "pan": 0.147,
+    "seed": 205354621,
+    "why": "timing: glyph 'N' #4",
+    "p": {
+      "freq": 850.3424540265596
+    }
+  },
+  {
+    "t": 15.0,
+    "role": "pluck",
+    "gain_db": -15.41,
+    "pan": 0.0,
+    "seed": 109244613,
+    "why": "s0: pop, note 3 of phrase",
+    "p": {
+      "freq": 660.4027994000177,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.0,
+    "role": "pluck",
+    "gain_db": -14.38,
+    "pan": 0.0,
+    "seed": 79902917,
+    "why": "s6: pop, note 4 of phrase",
+    "p": {
+      "freq": 779.1197344382091,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.0,
+    "role": "pluck",
+    "gain_db": -15.35,
+    "pan": 0.0,
+    "seed": 26516221,
+    "why": "s12: pop, note 5 of phrase",
+    "p": {
+      "freq": 881.9104444689254,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.0458,
+    "role": "tick",
+    "gain_db": -19.28,
+    "pan": 0.245,
+    "seed": 84086084,
+    "why": "timing: glyph 'G' #5",
+    "p": {
+      "freq": 835.139595190053
+    }
+  },
+  {
+    "t": 15.05,
+    "role": "pluck",
+    "gain_db": -14.1,
+    "pan": 0.0,
+    "seed": 86872135,
+    "why": "s1: pop, note 6 of phrase",
+    "p": {
+      "freq": 1044.7763942070694,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.05,
+    "role": "pluck",
+    "gain_db": -13.87,
+    "pan": 0.0,
+    "seed": 222043909,
+    "why": "s7: pop, note 7 of phrase",
+    "p": {
+      "freq": 1181.6303237199554,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.05,
+    "role": "pluck",
+    "gain_db": -13.79,
+    "pan": 0.0,
+    "seed": 251026549,
+    "why": "s13: pop, note 8 of phrase",
+    "p": {
+      "freq": 1328.3474487944252,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.1,
+    "role": "pluck",
+    "gain_db": -14.95,
+    "pan": 0.0,
+    "seed": 180233255,
+    "why": "s2: pop, note 9 of phrase",
+    "p": {
+      "freq": 783.8755614663054,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.1,
+    "role": "pluck",
+    "gain_db": -13.75,
+    "pan": 0.0,
+    "seed": 51747185,
+    "why": "s8: pop, note 10 of phrase",
+    "p": {
+      "freq": 220.7176130113195,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.1,
+    "role": "pluck",
+    "gain_db": -14.87,
+    "pan": 0.0,
+    "seed": 74022372,
+    "why": "s14: pop, note 11 of phrase",
+    "p": {
+      "freq": 259.6470863903435,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.15,
+    "role": "pluck",
+    "gain_db": -13.99,
+    "pan": 0.0,
+    "seed": 15511715,
+    "why": "s3: pop, note 12 of phrase",
+    "p": {
+      "freq": 592.2012973461416,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.15,
+    "role": "pluck",
+    "gain_db": -15.15,
+    "pan": 0.0,
+    "seed": 96761361,
+    "why": "s9: pop, note 13 of phrase",
+    "p": {
+      "freq": 657.1151467765205,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.15,
+    "role": "pluck",
+    "gain_db": -14.87,
+    "pan": 0.0,
+    "seed": 80594789,
+    "why": "s15: pop, note 14 of phrase",
+    "p": {
+      "freq": 788.4250601056319,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.2,
+    "role": "pluck",
+    "gain_db": -15.75,
+    "pan": 0.0,
+    "seed": 243234288,
+    "why": "s4: pop, note 15 of phrase",
+    "p": {
+      "freq": 878.8853228277673,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.2,
+    "role": "pluck",
+    "gain_db": -13.67,
+    "pan": 0.0,
+    "seed": 226626291,
+    "why": "s10: pop, note 16 of phrase",
+    "p": {
+      "freq": 1052.6161751617697,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.2,
+    "role": "pluck",
+    "gain_db": -16.46,
+    "pan": 0.0,
+    "seed": 109550647,
+    "why": "s16: pop, note 17 of phrase",
+    "p": {
+      "freq": 1174.2455762806217,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.25,
+    "role": "pluck",
+    "gain_db": -15.21,
+    "pan": 0.0,
+    "seed": 6785910,
+    "why": "s5: pop, note 18 of phrase",
+    "p": {
+      "freq": 657.6782633119662,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.25,
+    "role": "pluck",
+    "gain_db": -16.29,
+    "pan": 0.0,
+    "seed": 2418753,
+    "why": "s11: pop, note 19 of phrase",
+    "p": {
+      "freq": 788.9598151094287,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 15.25,
+    "role": "pluck",
+    "gain_db": -15.56,
+    "pan": 0.0,
+    "seed": 229863838,
+    "why": "s17: pop, note 20 of phrase",
+    "p": {
+      "freq": 221.39613134175923,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 16.9958,
+    "role": "crystal",
+    "gain_db": -11.0,
+    "pan": 0.0,
+    "seed": 34428158,
+    "why": "collapse payoff",
+    "p": {}
+  },
+  {
+    "t": 16.9958,
+    "role": "suction",
+    "gain_db": -6.0,
+    "pan": 0.0,
+    "seed": 232773756,
+    "why": "18 shape(s) collapse",
+    "p": {
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 17.2,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 253007316,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 17.2,
+    "role": "whoosh",
+    "gain_db": -7.0,
+    "pan": 0.0,
+    "seed": 210782337,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 17.212,
+    "role": "crystal",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 210191140,
+    "why": "cut:cut air",
+    "p": {}
+  },
+  {
+    "t": 17.5875,
+    "role": "tick",
+    "gain_db": -16.82,
+    "pan": -0.393,
+    "seed": 170467643,
+    "why": "name: glyph 'm' #0",
+    "p": {
+      "freq": 801.5415244013925
+    }
+  },
+  {
+    "t": 17.6375,
+    "role": "tick",
+    "gain_db": -17.62,
+    "pan": -0.295,
+    "seed": 94278263,
+    "why": "name: glyph 'o' #1",
+    "p": {
+      "freq": 778.3995912517728
+    }
+  },
+  {
+    "t": 17.6917,
+    "role": "tick",
+    "gain_db": -21.37,
+    "pan": -0.196,
+    "seed": 237026677,
+    "why": "name: glyph 't' #2",
+    "p": {
+      "freq": 781.33905894677
+    }
+  },
+  {
+    "t": 17.7,
+    "role": "pluck",
+    "gain_db": -14.63,
+    "pan": 0.214,
+    "seed": 140221032,
+    "why": "r0: pop, note 0 of phrase",
+    "p": {
+      "freq": 436.4964786065134,
+      "bell": true,
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 17.7458,
+    "role": "tick",
+    "gain_db": -19.84,
+    "pan": -0.098,
+    "seed": 94166502,
+    "why": "name: glyph 'i' #3",
+    "p": {
+      "freq": 779.507507605622
+    }
+  },
+  {
+    "t": 17.7958,
+    "role": "tick",
+    "gain_db": -18.39,
+    "pan": 0.0,
+    "seed": 129563079,
+    "why": "name: glyph 'o' #4",
+    "p": {
+      "freq": 842.2777210629554
+    }
+  },
+  {
+    "t": 17.85,
+    "role": "tick",
+    "gain_db": -20.65,
+    "pan": 0.098,
+    "seed": 59792270,
+    "why": "name: glyph 'n' #5",
+    "p": {
+      "freq": 847.9179380719364
+    }
+  },
+  {
+    "t": 17.9042,
+    "role": "tick",
+    "gain_db": -18.6,
+    "pan": 0.196,
+    "seed": 167667381,
+    "why": "name: glyph 'v' #6",
+    "p": {
+      "freq": 815.444727595833
+    }
+  },
+  {
+    "t": 17.9542,
+    "role": "tick",
+    "gain_db": -18.8,
+    "pan": 0.295,
+    "seed": 23743031,
+    "why": "name: glyph 'i' #7",
+    "p": {
+      "freq": 890.0818808224792
+    }
+  },
+  {
+    "t": 18.0,
+    "role": "pluck",
+    "gain_db": -14.33,
+    "pan": 0.099,
+    "seed": 69145931,
+    "why": "r1: pop, note 1 of phrase",
+    "p": {
+      "freq": 526.6076828029297,
+      "bell": true,
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 18.0083,
+    "role": "tick",
+    "gain_db": -22.43,
+    "pan": 0.393,
+    "seed": 187577785,
+    "why": "name: glyph 'd' #8",
+    "p": {
+      "freq": 884.1276212980317
+    }
+  },
+  {
+    "t": 18.3,
+    "role": "pluck",
+    "gain_db": -14.13,
+    "pan": 0.179,
+    "seed": 112005204,
+    "why": "r2: pop, note 2 of phrase",
+    "p": {
+      "freq": 588.1162047839879,
+      "bell": true,
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 18.4,
+    "role": "tick",
+    "gain_db": -20.95,
+    "pan": -0.28,
+    "seed": 120478707,
+    "why": "sub: glyph 'M' #0",
+    "p": {
+      "freq": 1062.6292473642097
+    }
+  },
+  {
+    "t": 18.4714,
+    "role": "tick",
+    "gain_db": -23.28,
+    "pan": -0.247,
+    "seed": 132555613,
+    "why": "sub: glyph 'O' #1",
+    "p": {
+      "freq": 1036.7642101419435
+    }
+  },
+  {
+    "t": 18.5429,
+    "role": "tick",
+    "gain_db": -22.5,
+    "pan": -0.214,
+    "seed": 12108538,
+    "why": "sub: glyph 'T' #2",
+    "p": {
+      "freq": 1055.4853595877235
+    }
+  },
+  {
+    "t": 18.6143,
+    "role": "tick",
+    "gain_db": -22.56,
+    "pan": -0.181,
+    "seed": 121093975,
+    "why": "sub: glyph 'I' #3",
+    "p": {
+      "freq": 1056.5617959577658
+    }
+  },
+  {
+    "t": 18.6857,
+    "role": "tick",
+    "gain_db": -19.29,
+    "pan": -0.148,
+    "seed": 148158966,
+    "why": "sub: glyph 'O' #4",
+    "p": {
+      "freq": 1123.1243556641007
+    }
+  },
+  {
+    "t": 18.7571,
+    "role": "tick",
+    "gain_db": -22.17,
+    "pan": -0.115,
+    "seed": 66003448,
+    "why": "sub: glyph 'N' #5",
+    "p": {
+      "freq": 1108.0761598254846
+    }
+  },
+  {
+    "t": 18.9,
+    "role": "tick",
+    "gain_db": -24.12,
+    "pan": -0.049,
+    "seed": 39623019,
+    "why": "sub: glyph 'D' #6",
+    "p": {
+      "freq": 1115.3340524288628
+    }
+  },
+  {
+    "t": 18.9714,
+    "role": "tick",
+    "gain_db": -20.31,
+    "pan": -0.016,
+    "seed": 84777568,
+    "why": "sub: glyph 'E' #7",
+    "p": {
+      "freq": 1204.8730687921343
+    }
+  },
+  {
+    "t": 19.0429,
+    "role": "tick",
+    "gain_db": -23.21,
+    "pan": 0.016,
+    "seed": 128040655,
+    "why": "sub: glyph 'S' #8",
+    "p": {
+      "freq": 1158.2457486040341
+    }
+  },
+  {
+    "t": 19.1143,
+    "role": "tick",
+    "gain_db": -20.8,
+    "pan": 0.049,
+    "seed": 54143782,
+    "why": "sub: glyph 'I' #9",
+    "p": {
+      "freq": 1153.2969904756794
+    }
+  },
+  {
+    "t": 19.1857,
+    "role": "tick",
+    "gain_db": -23.32,
+    "pan": 0.082,
+    "seed": 88868229,
+    "why": "sub: glyph 'G' #10",
+    "p": {
+      "freq": 1163.1777936099086
+    }
+  },
+  {
+    "t": 19.2571,
+    "role": "tick",
+    "gain_db": -20.5,
+    "pan": 0.115,
+    "seed": 134987628,
+    "why": "sub: glyph 'N' #11",
+    "p": {
+      "freq": 1225.7434717791448
+    }
+  },
+  {
+    "t": 19.2625,
+    "role": "pluck",
+    "gain_db": -12.68,
+    "pan": -0.481,
+    "seed": 27885361,
+    "why": "c0: pop, note 0 of phrase",
+    "p": {
+      "freq": 218.1530917571929,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 19.2958,
+    "role": "sub",
+    "gain_db": -19.42,
+    "pan": -0.481,
+    "seed": 111613472,
+    "why": "c0: area +2.1% of frame",
+    "p": {
+      "s": 0.1612634383394776,
+      "f0": 120.16209684981567,
+      "f1": 65.48462372649463
+    }
+  },
+  {
+    "t": 19.4,
+    "role": "tick",
+    "gain_db": -23.64,
+    "pan": 0.181,
+    "seed": 244623282,
+    "why": "sub: glyph 'R' #12",
+    "p": {
+      "freq": 1249.6144964416078
+    }
+  },
+  {
+    "t": 19.4417,
+    "role": "pluck",
+    "gain_db": -16.47,
+    "pan": 0.501,
+    "seed": 167818455,
+    "why": "c1: pop, note 1 of phrase",
+    "p": {
+      "freq": 262.33571822776395,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 19.4714,
+    "role": "tick",
+    "gain_db": -21.6,
+    "pan": 0.214,
+    "seed": 6649617,
+    "why": "sub: glyph 'E' #13",
+    "p": {
+      "freq": 1228.5400826728999
+    }
+  },
+  {
+    "t": 19.475,
+    "role": "sub",
+    "gain_db": -19.42,
+    "pan": 0.501,
+    "seed": 252605208,
+    "why": "c1: area +2.1% of frame",
+    "p": {
+      "s": 0.16126542009305628,
+      "f0": 120.16203739720831,
+      "f1": 65.48456823739443
+    }
+  },
+  {
+    "t": 19.5,
+    "role": "riser",
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 217503622,
+    "why": "agent hint",
+    "p": {
+      "dur": 0.9
+    }
+  },
+  {
+    "t": 19.5429,
+    "role": "tick",
+    "gain_db": -22.67,
+    "pan": 0.247,
+    "seed": 45371927,
+    "why": "sub: glyph 'E' #14",
+    "p": {
+      "freq": 1305.0425732797592
+    }
+  },
+  {
+    "t": 19.55,
+    "role": "impact",
+    "gain_db": -4.0,
+    "pan": 0.0,
+    "seed": 19254729,
+    "why": "agent hint",
+    "p": {
+      "s": 0.9090909090909091
+    }
+  },
+  {
+    "t": 19.6143,
+    "role": "tick",
+    "gain_db": -24.57,
+    "pan": 0.28,
+    "seed": 89982855,
+    "why": "sub: glyph 'L' #15",
+    "p": {
+      "freq": 1309.4436480132547
+    }
+  },
+  {
+    "t": 19.6208,
+    "role": "pluck",
+    "gain_db": -16.19,
+    "pan": 0.406,
+    "seed": 90347374,
+    "why": "c2: pop, note 2 of phrase",
+    "p": {
+      "freq": 293.09676188358037,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 19.6542,
+    "role": "sub",
+    "gain_db": -19.42,
+    "pan": 0.406,
+    "seed": 161159771,
+    "why": "c2: area +2.1% of frame",
+    "p": {
+      "s": 0.16126602628271605,
+      "f0": 120.16201921151853,
+      "f1": 65.48455126408395
+    }
+  },
+  {
+    "t": 19.8,
+    "role": "pluck",
+    "gain_db": -14.93,
+    "pan": -0.427,
+    "seed": 258330796,
+    "why": "c3: pop, note 3 of phrase",
+    "p": {
+      "freq": 329.0197332266477,
+      "bell": false,
+      "dur": 0.45
+    }
+  },
+  {
+    "t": 19.8333,
+    "role": "sub",
+    "gain_db": -19.42,
+    "pan": -0.427,
+    "seed": 148573428,
+    "why": "c3: area +2.1% of frame",
+    "p": {
+      "s": 0.16126524590665223,
+      "f0": 120.16204262280043,
+      "f1": 65.48457311461374
+    }
+  }
+]

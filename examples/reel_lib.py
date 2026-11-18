@@ -22,8 +22,8 @@ def track(*frames: tuple) -> list[dict[str, Any]]:
 
 
 class Reel:
-    def __init__(self, duration: float, bg: str):
-        self.tl: dict[str, Any] = {"fps": 30, "duration": duration, "width": W, "height": H, "bg": PAL.get(bg, bg),
+    def __init__(self, duration: float, bg: str, fps: int = 30):
+        self.tl: dict[str, Any] = {"fps": fps, "duration": duration, "width": W, "height": H, "bg": PAL.get(bg, bg),
                                    "elements": [], "cuts": [], "sfx": []}
 
     def add(self, id: str, kind: str, color: str, **tracks_and_props: Any) -> dict[str, Any]:
@@ -38,9 +38,9 @@ class Reel:
     def sfx(self, t: float, role: str, dur: float = 0.5, gain_db: float = -10, pan: float = 0.0) -> None:
         self.tl["sfx"].append({"t": round(t, 4), "role": role, "dur": dur, "gain_db": gain_db, "pan": pan})
 
-    def flood(self, id: str, color: str, end: float, cx: float = W / 2, cy: float = H / 2, dur: float = 0.5) -> None:
+    def flood(self, id: str, color: str, end: float, cx: float = W / 2, cy: float = H / 2, dur: float = 0.5, size: float = 2900) -> None:
         """Color flood: a circle that grows to cover the frame; the hit lands exactly when it closes."""
-        self.add(id, "circle", color, x=[(0, cx)], y=[(0, cy)], w=[(end - dur, 0), (end, 2900, "inExpo")])
+        self.add(id, "circle", color, x=[(0, cx)], y=[(0, cy)], w=[(end - dur, 0), (end, size, "inExpo")])
         self.sfx(end - dur * 0.55, "whoosh", 0.5, -11)
         self.tl["cuts"].append({"t": round(end, 4), "kind": "cut"})
 

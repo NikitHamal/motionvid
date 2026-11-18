@@ -19,11 +19,14 @@ def main(argv: list[str] | None = None) -> int:
         if name == "render":
             p.add_argument("out")
             p.add_argument("--bed", default=None, help="optional ambience bed, e.g. wind, rain")
+            p.add_argument("--engine", choices=("scene", "classic"), default="scene")
     v = sub.add_parser("video", help="timeline -> audio.wav + final.mp4 (+ xray.mp4 with --xray)")
     v.add_argument("timeline")
     v.add_argument("out")
     v.add_argument("--width", type=int, default=1280)
     v.add_argument("--xray", action="store_true", help="also render a cue x-ray version")
+    v.add_argument("--engine", choices=("scene", "classic"), default="scene")
+    v.add_argument("--blur", type=int, default=1, help="motion-blur sub-frames per frame (1 = off)")
     sub.add_parser("bench")
     r = sub.add_parser("rsi")
     r.add_argument("--cycles", type=int, default=1)
@@ -44,7 +47,14 @@ def main(argv: list[str] | None = None) -> int:
 
         out = Path(a.out)
         out.mkdir(parents=True, exist_ok=True)
-        audio, info = render_cues(cues, tl["duration"], bed=a.bed)
+        if a.engine == "scene":
+            from .scene.engine import render as scene_render
+
+            audio, info = scene_render(tl)
+            cues = info.pop("events")
+            info = {k: v for k, v in info.items()}
+        else:
+            audio, info = render_cues(cues, tl["duration"], bed=a.bed)
         write_wav(out / "audio.wav", audio, SR)
         (out / "cues.json").write_text(json.dumps(cues, indent=2))
         (out / "preview.html").write_text(html(tl, cues))
@@ -73,11 +83,11 @@ def _video(a: argparse.Namespace) -> int:
     """Audio via the Python compiler, frames via tools/render_video.mjs (same engine as the site)."""
     root = Path(__file__).resolve().parents[2]
     out = Path(a.out)
-    rc = main(["render", a.timeline, str(out)])
+    rc = main(["render", a.timeline, str(out), "--engine", a.engine])
     if rc or not shutil.which("node"):
         return rc or 1
     base = ["node", str(root / "tools/render_video.mjs"), a.timeline]
-    common = ["--audio", str(out / "audio.wav"), "--width", str(a.width)]
+    common = ["--audio", str(out / "audio.wav"), "--width", str(a.width), "--blur", str(a.blur)]
     rc = subprocess.run(base[:2] + [base[2], str(out / "final.mp4")] + common).returncode
     if a.xray and not rc:
         rc = subprocess.run(base[:2] + [base[2], str(out / "xray.mp4")] + common + ["--cues", str(out / "cues.json")]).returncode
