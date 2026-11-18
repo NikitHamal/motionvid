@@ -235,6 +235,9 @@ def _contractions(tels, G):
     return out
 
 
+from .ui_foley import UI_ROLES  # noqa: E402
+
+
 def _hints(tl, G):
     cuts = [c["t"] for c in tl["cuts"]]
     out = []
@@ -258,6 +261,9 @@ def _hints(tl, G):
         elif role == "impact" and not (studio and round(t, 4) in bounce):
             out.append(_ev(t, "impact", float(s.get("gain_db", -8)), float(s.get("pan", 0)), "agent hint",
                            s=float(np.clip((s.get("gain_db", -8) + 24) / 22, 0.2, 1))))
+        elif role in UI_ROLES or role in ("tick", "pluck"):  # rev 7 UI hints (and explicit tick / pluck notes)
+            out.append(_ev(t, role, float(s.get("gain_db", -12)), float(s.get("pan", 0)), "ui hint", st=float(s.get("st", 0)),
+                           freq=float(s.get("freq", 523.25)), s=float(s.get("s", 0.5))))
         elif role == "whoosh" and all(abs(t - c) > 0.35 for c in cuts):
             out.append(_ev(t, "whoosh", float(s.get("gain_db", -10)), float(s.get("pan", 0)), "agent hint",
                            pre=0.16, post=0.18, s=0.4))

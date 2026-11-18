@@ -31,7 +31,60 @@ EASES = {
     "inBack": lambda u: 2.70158 * u**3 - 1.70158 * u**2,
     "outElastic": lambda u: 0.0 if u <= 0 else 1.0 if u >= 1 else 2 ** (-10 * u) * math.sin((u * 10 - 0.75) * 2 * math.pi / 3) + 1,
     "outBounce": lambda u: _bounce(u),
+    "outQuart": lambda u: 1 - (1 - u) ** 4,
+    "outQuint": lambda u: 1 - (1 - u) ** 5,
+    "inOutQuint": lambda u: 16 * u**5 if u < 0.5 else 1 - (-2 * u + 2) ** 5 / 2,
+    "inOutSine": lambda u: -(math.cos(math.pi * u) - 1) / 2,
+    "outCirc": lambda u: math.sqrt(max(0.0, 1 - (u - 1) ** 2)),
 }
+
+
+def bezier(x1: float, y1: float, x2: float, y2: float):
+    """Cubic-bezier easing (Material 3 motion tokens). Same 40-step bisection as docs/engine/ease.js."""
+    cx, cy = 3 * x1, 3 * y1
+    bx, by = 3 * (x2 - x1) - cx, 3 * (y2 - y1) - cy
+    ax, ay = 1 - cx - bx, 1 - cy - by
+
+    def f(u: float) -> float:
+        if u <= 0:
+            return 0.0
+        if u >= 1:
+            return 1.0
+        lo, hi, s = 0.0, 1.0, u
+        for _ in range(40):
+            x = ((ax * s + bx) * s + cx) * s
+            if abs(x - u) < 1e-7:
+                break
+            if x < u:
+                lo = s
+            else:
+                hi = s
+            s = (lo + hi) / 2
+        return ((ay * s + by) * s + cy) * s
+
+    return f
+
+
+def spring(a: float, freq: float):
+    """Damped spring settled into [0, 1] (twin of `spring` in ease.js)."""
+    w = 2 * math.pi * freq
+
+    def f(u: float) -> float:
+        if u <= 0:
+            return 0.0
+        if u >= 1:
+            return 1.0
+        d = math.exp(-a * u) * (math.cos(w * u) + (a / w) * math.sin(w * u))
+        return 1 - d * (1 - u**8)
+
+    return f
+
+
+EASES.update({
+    "m3Std": bezier(0.2, 0, 0, 1), "m3StdDec": bezier(0, 0, 0, 1), "m3StdAcc": bezier(0.3, 0, 1, 1),
+    "m3Dec": bezier(0.05, 0.7, 0.1, 1), "m3Acc": bezier(0.3, 0, 0.8, 0.15),
+    "spring": spring(6, 1.5), "springSoft": spring(7.5, 1.0), "springWild": spring(4.5, 2.0),
+})
 
 
 def _bounce(u: float) -> float:

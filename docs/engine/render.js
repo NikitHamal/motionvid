@@ -1,45 +1,10 @@
 // motionvid frame engine. One pure function, drawFrame(ctx, timeline, t), used by the site, the Studio app,
 // the Python preview page and the Node video renderer. Python twin of the easings: src/motionvid/timeline.py.
 
-const bounce = (u) => {
-  const n = 7.5625, d = 2.75;
-  if (u < 1 / d) return n * u * u;
-  if (u < 2 / d) { u -= 1.5 / d; return n * u * u + 0.75; }
-  if (u < 2.5 / d) { u -= 2.25 / d; return n * u * u + 0.9375; }
-  u -= 2.625 / d; return n * u * u + 0.984375;
-};
+import { EASES, val } from './ease.js';
+import { drawBox, drawGroup, drawLocal } from './scene3d.js';
 
-export const EASES = {
-  linear: (u) => u,
-  inQuad: (u) => u * u,
-  outQuad: (u) => 1 - (1 - u) ** 2,
-  inOutQuad: (u) => (u < 0.5 ? 2 * u * u : 1 - (-2 * u + 2) ** 2 / 2),
-  inCubic: (u) => u ** 3,
-  outCubic: (u) => 1 - (1 - u) ** 3,
-  inOutCubic: (u) => (u < 0.5 ? 4 * u ** 3 : 1 - (-2 * u + 2) ** 3 / 2),
-  inExpo: (u) => (u <= 0 ? 0 : 2 ** (10 * u - 10)),
-  outExpo: (u) => (u >= 1 ? 1 : 1 - 2 ** (-10 * u)),
-  outBack: (u) => 1 + 2.70158 * (u - 1) ** 3 + 1.70158 * (u - 1) ** 2,
-  inBack: (u) => 2.70158 * u ** 3 - 1.70158 * u ** 2,
-  outElastic: (u) => (u <= 0 ? 0 : u >= 1 ? 1 : 2 ** (-10 * u) * Math.sin(((u * 10 - 0.75) * 2 * Math.PI) / 3) + 1),
-  outBounce: bounce,
-};
-
-export function val(kfs, t) {
-  if (!kfs) return null;
-  if (t <= kfs[0].t) return kfs[0].v;
-  const last = kfs[kfs.length - 1];
-  if (t >= last.t) return last.v;
-  for (let i = 0; i < kfs.length - 1; i++) {
-    const a = kfs[i], b = kfs[i + 1];
-    if (t >= a.t && t <= b.t) {
-      const span = b.t - a.t;
-      const u = span <= 0 ? 1 : (t - a.t) / span;
-      return a.v + (b.v - a.v) * EASES[b.ease || 'linear'](u);
-    }
-  }
-  return last.v;
-}
+export { EASES, val };
 
 const FONT = '"Bricolage Grotesque", system-ui, sans-serif';
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
@@ -65,14 +30,31 @@ function roundRect(ctx, w, h, r) {
 function drawText(ctx, el, g, t) {
   const size = g('size', el.size || 96);
   ctx.font = `${el.weight || 800} ${size}px ${FONT}`;
-  ctx.textAlign = 'center';
+  ctx.textAlign = el.align || 'center';
   ctx.textBaseline = 'middle';
   let text = el.text || el.id;
   if (el.type) {
     const n = Math.max(0, Math.min(el.type.n, Math.floor((t - el.type.t) * el.type.cps) + 1));
     text = text.slice(0, t < el.type.t ? 0 : n);
   }
-  if (!el.split) { ctx.fillText(text, 0, 0); return; }
+  if (!el.split) {
+    const lines = text.split('\n'), lh = size * (el.lh || 1.12);
+    lines.forEach((ln, i) => ctx.fillText(ln, 0, (i - (lines.length - 1) / 2) * lh));
+    return;
+  }
+  if (el.split === 'mask') {  // words rise out of a clipped band: the editorial reveal
+    const ws = text.split(' '), sp = ctx.measureText(' ').width, wd = ws.map((x) => ctx.measureText(x).width);
+    const tot = wd.reduce((a, b) => a + b, 0) + sp * (ws.length - 1), st = el.stagger ?? 0.16, p = g('p', 1);
+    ctx.save(); ctx.beginPath(); ctx.rect(-tot / 2 - 30, -size * 0.62, tot + 60, size * 1.24); ctx.clip();
+    let x = -tot / 2;
+    ws.forEach((wd_, i) => {
+      const cp = clamp01(p * (1 + st * ws.length) - i * st);
+      ctx.textAlign = 'left'; ctx.fillText(wd_, x, (1 - EASES.outExpo(cp)) * size * 1.15);
+      x += wd[i] + sp;
+    });
+    ctx.restore();
+    return;
+  }
   const chars = [...text];
   const widths = chars.map((c) => ctx.measureText(c).width);
   const total = widths.reduce((a, b) => a + b, 0);
@@ -97,6 +79,13 @@ export function drawFrame(ctx, tl, t, k = 1) {
   ctx.scale(k, k);
   ctx.fillStyle = tl.bg || '#F6EFE3';
   ctx.fillRect(0, 0, tl.width, tl.height);
+  if (tl.camera) {  // virtual camera: zoom / pan / roll around the frame centre
+    const C = tl.camera.tracks || {}, cv = (n, d) => { const v = val(C[n], t); return v === null ? d : v; };
+    ctx.translate(tl.width / 2, tl.height / 2);
+    ctx.scale(cv('zoom', 1), cv('zoom', 1));
+    ctx.rotate((cv('roll', 0) * Math.PI) / 180);
+    ctx.translate(-tl.width / 2 - cv('x', 0), -tl.height / 2 - cv('y', 0));
+  }
   for (const el of tl.elements) {
     const T = el.tracks || {};
     const g = (n, d) => { const v = val(T[n], t); return v === null ? d : v; };
@@ -113,6 +102,9 @@ export function drawFrame(ctx, tl, t, k = 1) {
     const w = g('w', el.w || 160), h = g('h', el.h || w);
     switch (el.kind) {
       case 'text': drawText(ctx, el, g, t); break;
+      case 'group': drawGroup(ctx, el, g, t, drawText); break;
+      case 'box3d': drawBox(ctx, el, g, t, drawText); break;
+      case 'sphere': case 'path': case 'poly': drawLocal(ctx, el, g, t, drawText); break;
       case 'circle': ctx.beginPath(); ctx.ellipse(0, 0, w / 2, h / 2, 0, 0, Math.PI * 2); ctx.fill(); break;
       case 'ring':
         ctx.lineWidth = g('stroke', el.stroke || 12);

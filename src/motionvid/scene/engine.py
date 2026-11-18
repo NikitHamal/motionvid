@@ -9,7 +9,7 @@ import numpy as np
 from scipy.signal import butter, sosfilt
 
 from ..timeline import validate
-from . import foley, master, params, studio as S, studio_bed, voices as V
+from . import foley, master, params, studio as S, studio_bed, ui_foley, voices as V
 from .score import build_events
 from .telemetry import build
 
@@ -17,11 +17,13 @@ SR = V.SR
 CHORDS = [(110.0, 164.8, 220.0), (87.3, 130.8, 174.6), (65.4, 98.0, 130.8), (98.0, 146.8, 196.0)]  # Am F C G
 
 
-SEND_ROLES = ("tick", "pluck", "crystal", "air")  # rev 6: the only roles that feed the room reverb
+SEND_ROLES = ("tick", "pluck", "crystal", "air", "chime", "notify", "pop")  # rev 6: the only roles that feed the room reverb
 
 
 def _voice(e: dict[str, Any], rev: int = 5):
     rng, p, r = np.random.default_rng(e["seed"]), e["p"], e["role"]
+    if r in ui_foley.UI_ROLES:
+        return ui_foley.voice(r, p, rng)
     if rev >= 6:
         if r == "whoosh":
             return S.whoosh6(p["pre"], p["post"], p["s"], rng)
@@ -74,6 +76,8 @@ def _bed(buf: np.ndarray, tl: dict[str, Any], G) -> None:
 def render(tl: dict[str, Any], G: dict[str, float] | None = None) -> tuple[np.ndarray, dict[str, Any]]:
     """Returns (audio float32 (n, 2), info). `info['events']` is the x-ray cue list."""
     tl, G = validate(tl), G or params.load()
+    if tl.get("rev"):  # a timeline can opt into a newer engine revision (7 = UI foley); older timelines are untouched
+        G = {**G, "rev": max(int(G.get("rev", 5)), int(tl["rev"]))}
     rev = int(G.get("rev", 5))
     tels = build(tl)
     events = build_events(tl, tels, G)
