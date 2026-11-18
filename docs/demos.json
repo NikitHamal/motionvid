@@ -118,5 +118,45 @@
    "cues": "media/demos/parcel/reel.cues.json",
    "audio": "media/demos/parcel/reel.m4a"
   }
+ },
+ {
+  "id": "atlas",
+  "title": "Atlas",
+  "brief": "Travel app, real photos, photo cube and globe",
+  "duration": 54,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 55,
+  "elements": 35,
+  "video": "media/demos/atlas/reel.mp4",
+  "poster": "media/demos/atlas/poster.png",
+  "player": {
+   "timeline": "media/demos/atlas/reel.json",
+   "cues": "media/demos/atlas/reel.cues.json",
+   "audio": "media/demos/atlas/reel.m4a"
+  }
+ },
+ {
+  "id": "pulse",
+  "title": "Pulse",
+  "brief": "Fitness wearable, real footage, vertical 9:16",
+  "duration": 50,
+  "fps": 60,
+  "aspect": [
+   1080,
+   1920
+  ],
+  "sfx": 44,
+  "elements": 35,
+  "video": "media/demos/pulse/reel.mp4",
+  "poster": "media/demos/pulse/poster.png",
+  "player": {
+   "timeline": "media/demos/pulse/reel.json",
+   "cues": "media/demos/pulse/reel.cues.json",
+   "audio": "media/demos/pulse/reel.m4a"
+  }
  }
 ]
