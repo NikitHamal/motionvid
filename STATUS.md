@@ -1,11 +1,23 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 5 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 6 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
 
 ## Next actions (do top first)
-1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train tiny English-only text->timeline planner (`<= 3 MB` int8); see `docs/ROADMAP.md` G1-G4. Keep 0-byte Agency DSP engine as the baseline gate.
-2. **Occlusion-aware telemetry**: mute or low-pass background shapes partially covered by an expanding foreground hero shape before the full-frame cut closes.
-3. **Human listening validation**: collect pairwise human preference ratings across `v0.1`..`v0.5` to calibrate FlawBench weights against human ears.
-4. **Beat-locked music bed & MCP server**: expose `motionvid` timeline authoring + render + FlawBench audit as an MCP tool server for autonomous video agents.
+1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train a tiny English-only text->timeline planner (`<= 3 MB` int8); see `docs/ROADMAP.md` G1-G4. Keep the 0-byte Agency DSP engine as the baseline gate.
+2. **Human listening validation**: pairwise ratings across `v0.1`..`v0.7`; calibrate FlawBench and StudioBench weights against human ears.
+3. **Restore `reel2` glyph phrasing**: rev 6 `reel2` scores `0.997 -> 0.951` (9/9 held, only `glyph_ramp_rho` fell from `1.0` to `0.54` because the 90 ms tick cap leaves 2 scorable groups). Try a per-word ramp or a second tick lane; do not edit the gate.
+4. **Occlusion-aware telemetry**, **beat-locked music bed**, **MCP server** (timeline authoring + render + audit as tools).
+
+## DONE (session 6)
+- **Engine rev 6 "Studio sound"** (`src/motionvid/scene/studio.py`, `studio_bed.py`; default; rev 5 stays reproducible via `--engine scene5`, frozen `v0.4`/`v0.5` media untouched). Answers the `v0.4` Launch audit (4 synthesis bottlenecks + polish checklist):
+  1. Motion bed: pink noise low-passed `110 Hz -> 780 Hz`, level `-46 dBFS` idle `-> -22 dBFS` peak (measured `-46.3` / `-21.5`), plus `55 + 110 Hz` soft-triangle hum (`-32 dBFS`) scaled by motion energy. Added after loudness normalisation so the dBFS values are literal. Own bed energy curve (`bed_curves`, decorative rings excluded) because `motion_energy` sat at `1.0` for most of the Launch. Texture brush moved `3.2-5.4 kHz -> 0.9-1.7 kHz`: continuous `2-8 kHz` level `-28.2 -> -41.8 dBFS`.
+  2. `whoosh6`: `160 ms` exponential ramp-in, peak at the cut (`-1.8 ms`), `220 ms` decay, pink noise through a `24 dB/oct` `Q=1.6` LPF `150 Hz -> 1.35 kHz -> 110 Hz`, hard guard at `2.2 kHz` (`-24.4 -> -31.0 dB` above `2.2 kHz`). A separate `air` room tail (`2.4-6 kHz`) after each cut keeps the tail gate honest.
+  3. `pluck` split: `text_tick` (`14 ms` = `3 ms` HP transient + `11 ms` woody `1.1 kHz` body, zero pitch drop, `>= 90 ms` apart, pan `-0.35 -> +0.35` across the line, climbs `0.5` semitone per glyph) and `hero_pluck` (fixed-pitch marimba/kalimba partials + `5 ms` mallet, no bend). A hero pluck owns the next `120 ms` (ticks muted). Bed ducks `12 dB` under ticks.
+  4. Bounces: consecutive `impact` hints become a settle run `0 / -4.5 / -9 / -13.5 dB`, low-pass opening `900 Hz x 1.25^n`. `riser6`: `+4.5 dB`, LPF `200 Hz -> 2.4 kHz`, octave glide `110 -> 220 Hz`. `240 + 360 Hz` fifth pad (`-28 dBFS`) bound to the bar width-morph (fifth sharpens up to `14` cents).
+  5. Reverb `10%` wet, `0.38 s`, HP `280 Hz` on a send bus carrying only `text_tick`, `hero_pluck`, `crystal`, `air`; `sub`, `impact`, `whoosh`, `riser` stay dry. Master loop closes on `-16 LUFS` after the limiter (`-16.02`).
+- **StudioBench** (`bench/studio_audit.py`, `docs/media/studio_audit.json`): `17/17` gates on `launch.json`, rev 5 vs rev 6 numbers on the site. FlawBench stays `9/9` on all five reels (`showreel2` `0.986`, `launch2` `0.987`).
+- **New media**: `v0.6` Studio Reel (22.4 s, 60 fps, `examples/showreel2.py`: name, spring, rhythm, type, sound, sign-off) and `v0.7` Studio Launch (20 s, 60 fps, `examples/launch2.py`: prompt, JSON, sound, `17 / 17`, brand), both with X-ray and posters. Site: 7 versions, FlawBench `v0.1..v0.7`, Studio table. Old tiles/labels trimmed (no helper text).
+- Tests: `tests/test_studio.py` (5), `test_launch_v05...` pins `rev: 5`. Pytest `48` green.
+- Caveats: levels are measured on the final mix model (pre-limiter layer sum scaled by master gain); the `launch.json` rev 5 FlawBench score re-measures `0.984` (was `1.000`), pass count unchanged `9/9`; no human listening test yet; MoLab pairing was not used (CPU work only).
 
 ## DONE (session 5)
 - **Resolved all 5 root synthesis & timing bugs audited on `video_1.mp4` (`v0.5` Launch / `v0.4` Agency Reel)**:

@@ -19,13 +19,13 @@ def main(argv: list[str] | None = None) -> int:
         if name == "render":
             p.add_argument("out")
             p.add_argument("--bed", default=None, help="optional ambience bed, e.g. wind, rain")
-            p.add_argument("--engine", choices=("scene", "classic"), default="scene")
+            p.add_argument("--engine", choices=("scene", "scene5", "classic"), default="scene")
     v = sub.add_parser("video", help="timeline -> audio.wav + final.mp4 (+ xray.mp4 with --xray)")
     v.add_argument("timeline")
     v.add_argument("out")
     v.add_argument("--width", type=int, default=1280)
     v.add_argument("--xray", action="store_true", help="also render a cue x-ray version")
-    v.add_argument("--engine", choices=("scene", "classic"), default="scene")
+    v.add_argument("--engine", choices=("scene", "scene5", "classic"), default="scene")
     v.add_argument("--blur", type=int, default=1, help="motion-blur sub-frames per frame (1 = off)")
     sub.add_parser("bench")
     r = sub.add_parser("rsi")
@@ -48,10 +48,11 @@ def main(argv: list[str] | None = None) -> int:
 
         out = Path(a.out)
         out.mkdir(parents=True, exist_ok=True)
-        if a.engine == "scene":
+        if a.engine in ("scene", "scene5"):
+            from .scene import params
             from .scene.engine import render as scene_render
 
-            audio, info = scene_render(tl)
+            audio, info = scene_render(tl, {**params.load(), "rev": 5} if a.engine == "scene5" else None)  # scene5 = frozen v0.4/v0.5 sound
             cues = info.pop("events")
             info = {k: v for k, v in info.items()}
         else:

@@ -81,13 +81,24 @@ function flaws(fb) {
   const units = { sub_coupling: (x) => `${Math.round(x * 100)}%`, air_vs_mid_db: (x) => `${x.toFixed(0)} dB`, dead_air_s: (x) => `${x.toFixed(1)} s`,
     pan_corr: (x) => x.toFixed(2), motion_bright_corr: (x) => x.toFixed(2), preroll_rise_db: (x) => `${x.toFixed(0)} dB`, glyph_ramp_rho: (x) => x.toFixed(2),
     tail_300ms_db: (x) => `${x.toFixed(0)} dB`, master_lufs_err: (x) => `${x.toFixed(1)} LU` };
-  const cols = [fb.showreel.classic, fb.v02_scene || fb.showreel.scene, fb.v03_scene || fb.reel2.scene, fb.reel2.scene, fb.launch ? fb.launch.scene : fb.reel2.scene];
+  const cols = [fb.showreel.classic, fb.v02_scene || fb.showreel.scene, fb.v03_scene || fb.reel2.scene, fb.reel2.scene, fb.launch ? fb.launch.scene : fb.reel2.scene, fb.showreel2.scene, fb.launch2.scene];
   const cell = (r, key) => `<span class="v ${r.detail[key] ? 'ok' : 'no'}">${units[key](r[key])}</span>`;
-  host.innerHTML = '<div class="row head"><span>Check</span><span>v0.1</span><span>v0.2</span><span>v0.3</span><span>v0.4</span><span>v0.5</span></div>' +
+  host.innerHTML = '<div class="row head"><span>Check</span><span>v0.1</span><span>v0.2</span><span>v0.3</span><span>v0.4</span><span>v0.5</span><span>v0.6</span><span>v0.7</span></div>' +
     Object.keys(names).map((key) => `<div class="row"><span>${names[key]}</span>${cols.map((c) => cell(c, key)).join('')}</div>`).join('');
 }
 
+function studio(a) {
+  const r5 = a.rev5, r6 = a.rev6;
+  const rows = [['Continuous 2-8 kHz', (r) => `${r.continuous_hf_2k_8k_dbfs.toFixed(0)} dB`], ['Whoosh above 2.2 kHz', (r) => `${r.whoosh.hf_above_2k2_db.toFixed(0)} dB`],
+    ['Whoosh decay', (r) => `${r.whoosh.decay_40db_ms.toFixed(0)} ms`], ['Text tick', (r) => `${r.tick_ms.toFixed(0)} ms`], ['Tick spacing', (r) => `${r.min_tick_gap_ms.toFixed(0)} ms`],
+    ['Bounce steps', (r) => (r.bounce_gains_db.length ? r.bounce_gains_db.map((g) => g.toFixed(1)).join(' ') : 'flat')], ['Riser level', (r) => `${r.riser_gain_db[0].toFixed(1)} dB`]];
+  $('studio').innerHTML = `<div class="row head"><span>Studio sound</span><span>rev 5</span><span>rev 6</span></div>` +
+    rows.map(([n, f]) => `<div class="row"><span>${n}</span><span class="v no">${f(r5)}</span><span class="v ok">${f(r6)}</span></div>`).join('') +
+    `<div class="row"><span>Gates</span><span class="v no">-</span><span class="v ok">${a.passed}</span></div>`;
+}
+
 versions = await (await fetch('versions.json')).json();
+studio(await (await fetch('media/studio_audit.json')).json());
 cards();
 flaws(await (await fetch('media/flawbench.json')).json());
 const playable = versions.filter((v) => v.player);
@@ -95,6 +106,6 @@ $('ver').innerHTML = playable.map((v) => `<button aria-pressed="false" data-id="
 $('ver').onclick = (e) => { const b = e.target.closest('button'); if (b) load(playable.find((v) => v.id === b.dataset.id)); };
 await load(playable[playable.length - 1]);
 const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add('in')), { threshold: 0.15 });
-document.querySelectorAll('.tile, .videos figure, .steps article, .cmd, .flaws').forEach((el) => { el.classList.add('reveal'); io.observe(el); });
+document.querySelectorAll('.tile, .videos figure, .steps article, .cmd, .flaws, .studio').forEach((el) => { el.classList.add('reveal'); io.observe(el); });
 await Promise.all(['400', '700', '800'].map((w) => document.fonts.load(`${w} 40px "Bricolage Grotesque"`)));
 loop();

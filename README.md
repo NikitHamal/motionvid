@@ -15,3 +15,5 @@ intensity to loudness 0.11 -> 0.98, 0 model bytes. Sound renderer derived from [
 
 Agency DSP scene engine (`v0.4+` / Session 5): 24 dB/oct resonant LPF (`Q=2.2`) exponential sweeps (`140 Hz -> 3.4 kHz` `suction` anticipation hard-gated at `event.time`; `2.6 kHz -> 120 Hz` `whoosh` with `pre=0.16s, post=0.18s`), locked `0 ms` `sub + impact` (`92 -> 36 Hz` over `190 ms` + triangle `165 -> 62 Hz` over `55 ms` + `5 ms` HP click `> 2.2 kHz` through `tanh`), non-pitched tactile `text_tick` (`1.4–2.8 kHz` bandpass noise + stationary damped body, `+-3 dB` jitter, zero pitch drop), 1 hero `pluck` per scene, detuned `crystal` (`2093 + 3136 Hz`, `+7 cents`, `120 ms` glassy decay + stereo shimmer), and a continuous `motion_energy`/`pan_x` drone + pink-noise bed (`cutoff = 180 + motion_energy * 1400 Hz`, `gain = -34 + motion_energy * 16 dB`).
 FlawBench: classic `2/9` (`0.33–0.41`), Agency DSP + RSI **`9/9` across all 3 reels** (`showreel` **`0.996`**, `reel2` `v0.4` **`0.997`**, `launch` `v0.5` **`1.000`**). Rules: `docs/DESIGN.md`.
+
+Latest: `v0.6` Studio Reel and `v0.7` Studio Launch (engine rev 6, StudioBench 17/17). Status: `STATUS.md`. Agents: `AGENT.md`.

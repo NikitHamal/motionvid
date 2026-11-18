@@ -31,3 +31,6 @@
 - Published versions `v0.1`, `v0.2`, and `v0.3` in `docs/media/` are frozen; new breakthroughs ship as new versions in `docs/versions.json`.
 - Elevate UX, DX, and AX simultaneously: readable zero-clutter M3 Expressive site, one-command media build, deterministic JSON-in/JSON-out CLI and RSI loop for agents.
 - Docs are never duplicated. State lives in `STATUS.md`, rules here, agent manual in `AGENT.md`. Extend in place; pick up where the last session ended.
+
+## Site copy rule
+No taglines, helper text or secondary labels in tiles or tables; if a screen needs them, fix the layout. Tables carry numbers only.

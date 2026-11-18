@@ -11,3 +11,4 @@ C6 scene engine DONE (session 3) · C7 occlusion-aware sound and symmetric-pan h
 - G3 **Neural detail residual** (optional, Apache-licensed data only; ORB's detail model is CC BY-NC → not used).
 - G4 Learned cue timing refinement from human-labelled launch videos.
 Target after GPU: 2–5× on timbre judges (AST/CLAP rank on role set) AND ≥ 2× smaller planner, zero regression on sync bench.
+- S6 done: rev 6 Studio sound, StudioBench, `v0.6` and `v0.7`. Next before GPU: restore `reel2` glyph phrasing; human A/B across `v0.1`..`v0.7`.

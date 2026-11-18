@@ -27,21 +27,28 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
   - `voices.py`: agency-grade DSP voices (`whoosh`/`suction` 24 dB/oct resonant LPF `Q=2.2` exponential sweeps `140 Hz -> 3.4 kHz` and `2.6 kHz -> 120 Hz`; `impact+sub` `92 -> 36 Hz` over `190 ms` + triangle `165 -> 62 Hz` over `55 ms` + `5 ms` HP click `> 2.2 kHz` through `tanh`; zero-pitch-drop `text_tick` in `1.4-2.8 kHz`; detuned `2093 + 3136 Hz` `+7 cents` `crystal` with `120 ms` glassy decay + stereo shimmer).
   - `master.py`: `12%` wet short room reverb (`0.35s` decay, HP `300 Hz`) -> `-4 dB` bell cut at `2.5 kHz` (`Q=1.0`) -> `+3 dB` low shelf at `75 Hz` -> 2:1 glue -> `-16 LUFS` -> `-1.0 dBTP` true-peak limiter.
   - `params.py` + `scene_genome.json`: tunable parameters (RSI tunes these across `showreel.json`, `reel2.json`, and `launch.json`).
-- `bench/soundaudit.py` FlawBench (9 audio flaws as numbers, classic vs scene).
-- `examples/showreel.py` (`v0.1`/`v0.2`), `examples/reel2.py` (`v0.4` Agency Reel, 20.4 s 60 fps), `examples/launch.py` (`v0.5` Launch, 16.8 s 60 fps).
-- `docs/versions.json` registry (`v0.1`..`v0.5`). `docs/DESIGN.md` design rules and owner preferences.
+- `src/motionvid/scene/studio.py` + `studio_bed.py`: engine rev 6 (default). Voices `whoosh6`, `text_tick6`, `hero_pluck6`, `riser6`, `air6`, `settle`; absolute-dBFS bed/hum/pad with tick ducking; send-bus reverb. `params.DEFAULT['rev']` picks the revision; `--engine scene5` reproduces `v0.4`/`v0.5`.
+- `bench/soundaudit.py` FlawBench (9 audio flaws as numbers, classic vs scene). `bench/studio_audit.py` StudioBench (17 gates from the Launch audit, rev 5 vs rev 6).
+- `examples/showreel.py` (`v0.1`/`v0.2`), `examples/reel2.py` (`v0.4` Agency Reel, 20.4 s 60 fps), `examples/launch.py` (`v0.5` Launch, 16.8 s 60 fps), `examples/showreel2.py` (`v0.6`, 22.4 s), `examples/launch2.py` (`v0.7`, 20 s).
+- `docs/versions.json` registry (`v0.1`..`v0.7`). `docs/DESIGN.md` design rules and owner preferences.
 
 ## Surfaces (what ships)
 - Frames: `docs/engine/render.js` (+`xray.js`) is the ONE canvas engine for site, Studio (`src/App.tsx`), `preview.py` and `tools/render_video.mjs`.
 - Video: `python -m motionvid video tl.json out/ --xray --blur 3` -> `final.mp4` (+`xray.mp4`). Audio by Python, frames by Node, mux by ffmpeg-static.
 - Site: `docs/index.html` (GitHub Pages, plain HTML/CSS/JS). Studio: `npm run build` -> `dist/index.html` (single file).
-- Media: `python scripts/build_media.py` rebuilds `v0.4` and `v0.5` in `docs/media/` (+ `flawbench.json`). `v0.1`, `v0.2`, and `v0.3` are frozen: never rebuild or delete any version.
-- Gates: `pytest -q` (43 tests), FlawBench via `python bench/soundaudit.py` and `python bench/reelcheck.py`.
+- Media: `python scripts/build_media.py` rebuilds `v0.6` and `v0.7` (rev 6) in `docs/media/` (+ `flawbench.json`). `v0.1`..`v0.5` are frozen: never rebuild or delete any version. A new evolution step = new `vX.Y` + new example script, not an edit of an old one.
+- Gates: `pytest -q` (48 tests), StudioBench `python bench/studio_audit.py`, FlawBench via `python bench/soundaudit.py` and `python bench/reelcheck.py`.
 
 ## Design & Audio rules: see `docs/DESIGN.md` (tested in `tests/test_rules.py` and `tests/test_scene.py`)
 Material 3 Expressive: solid color containers, extra-large shapes, spring motion, Bricolage Grotesque. No box/text shadows, no emojis,
 no LIVE badges, no blue/purple gradients (palette: cream, ink, coral, lime, butter, pink, mint). Cut taglines and helper text;
 if a screen needs them to make sense, fix the layout.
+
+## Audit-to-fix loop (RSI, how a review becomes a version)
+1. Turn each reviewer claim into a number in a bench (`bench/studio_audit.py`), thresholds from the review text.
+2. Add the fix behind a new engine `rev` so older versions stay reproducible.
+3. Run FlawBench + StudioBench + pytest; keep pass counts; record the cycle in `LEDGER.jsonl`.
+4. Build the next `vX.Y` media and add it to `docs/versions.json`. Report numbers with caveats.
 
 ## Hard rules
 - **No regressions**: tests green, `bench/motionsync.py` and `bench/soundaudit.py` headline numbers must not regress.

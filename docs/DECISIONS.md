@@ -15,3 +15,6 @@
 - D12 FlawBench thresholds come from the expert review text, not from our results; where the review was wrong about raw metrics we say so in STATUS.
 - D13 Versions are append-only (`docs/media/v0.x`, `docs/versions.json`); old media is never rebuilt.
 - D14 Radius transitions never use springs (negative radius clamps to square). Enforced by test.
+- D15 Engine revisions: new sound = new `rev` (`params.DEFAULT['rev']`), old revs stay reproducible (`--engine scene5`). Tests that pin v0.4/v0.5 behaviour pin `rev: 5`.
+- D16 Levels the reviewer states in dBFS are applied after loudness normalisation (absolute layer), everything else stays relative to the mix.
+- D17 A hero pluck mutes text ticks for 120 ms and ticks duck the bed by 12 dB: masking is solved in the mix, not by editing the benchmark.
