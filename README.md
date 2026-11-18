@@ -17,3 +17,10 @@ Agency DSP scene engine (`v0.4+` / Session 5): 24 dB/oct resonant LPF (`Q=2.2`) 
 FlawBench: classic `2/9` (`0.33–0.41`), Agency DSP + RSI **`9/9` across all 3 reels** (`showreel` **`0.996`**, `reel2` `v0.4` **`0.997`**, `launch` `v0.5` **`1.000`**). Rules: `docs/DESIGN.md`.
 
 Latest: `v0.6` Studio Reel and `v0.7` Studio Launch (engine rev 6, StudioBench 17/17). Status: `STATUS.md`. Agents: `AGENT.md`.
+
+## Make a video (agents: read `docs/SKILL.md` first)
+```
+python scripts/build_demos.py sheet lumen   # contact sheet to check layout
+python scripts/build_demos.py lumen         # video + audio + poster
+```
+Six 32-38 s demo reels (`examples/demos/`), the `v0.1`..`v0.8` evolution, and the prompt-to-video Create page live on the GitHub Pages site (`docs/`, `docs/create/`).
