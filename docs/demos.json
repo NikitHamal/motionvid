@@ -80,6 +80,26 @@
   }
  },
  {
+  "id": "cadence",
+  "title": "Cadence",
+  "brief": "3D hardware reveal",
+  "duration": 36,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 30,
+  "elements": 44,
+  "video": "media/demos/cadence/reel.mp4",
+  "poster": "media/demos/cadence/poster.png",
+  "player": {
+   "timeline": "media/demos/cadence/reel.json",
+   "cues": "media/demos/cadence/reel.cues.json",
+   "audio": "media/demos/cadence/reel.m4a"
+  }
+ },
+ {
   "id": "parcel",
   "title": "Parcel",
   "brief": "Delivery service",

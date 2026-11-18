@@ -34,3 +34,9 @@
 
 ## Site copy rule
 No taglines, helper text or secondary labels in tiles or tables; if a screen needs them, fix the layout. Tables carry numbers only.
+
+
+## Owner preferences (session 7)
+- No box shadows (3D uses flat shading only), no emojis, no status badges, no blue/purple gradients. Cut taglines, helper text and secondary labels: fix the layout instead.
+- Best decision for UX, DX and AX at once, without breaking anything. Demos must be 30 s+ and differ in category, palette and format. 3D is part of the pipeline.
+- The paid prompt-to-video product starts as static GitHub Pages (`docs/create/`); keep it client-side until a render worker exists.

@@ -1,6 +1,6 @@
 # AGENT.md — operating manual for any AI agent working on motionvid
 
-Read this first, then `STATUS.md` (the single living status doc). Do not create new status files; extend in place.
+Read this first, then `docs/SKILL.md` (how to make videos), then `STATUS.md` (the single living status doc). Do not create new status files; extend in place.
 
 ## Mission
 Build the world's best LLM/agent-driven pipeline for launch videos, motion videos and any dynamic video, **with sound
@@ -30,13 +30,14 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
 - `src/motionvid/scene/studio.py` + `studio_bed.py`: engine rev 6 (default). Voices `whoosh6`, `text_tick6`, `hero_pluck6`, `riser6`, `air6`, `settle`; absolute-dBFS bed/hum/pad with tick ducking; send-bus reverb. `params.DEFAULT['rev']` picks the revision; `--engine scene5` reproduces `v0.4`/`v0.5`.
 - `bench/soundaudit.py` FlawBench (9 audio flaws as numbers, classic vs scene). `bench/studio_audit.py` StudioBench (17 gates from the Launch audit, rev 5 vs rev 6).
 - `examples/showreel.py` (`v0.1`/`v0.2`), `examples/reel2.py` (`v0.4` Agency Reel, 20.4 s 60 fps), `examples/launch.py` (`v0.5` Launch, 16.8 s 60 fps), `examples/showreel2.py` (`v0.6`, 22.4 s), `examples/launch2.py` (`v0.7`, 20 s).
-- `docs/versions.json` registry (`v0.1`..`v0.7`). `docs/DESIGN.md` design rules and owner preferences.
+- `src/motionvid/kit/` authoring kit (`core.py`, `ui.py`, `three.py`) + `docs/engine/kit.js` twin; `examples/demos/*.py` demo reels, `scripts/build_demos.py` (`sheet <id>` for QA), `docs/demos.json`; `examples/launch3.py` (`v0.8`); `docs/create/` + `docs/engine/planner.js` + `webaudio.js` (prompt -> video page); `scene/ui_foley.py` (rev 7, opt in with `"rev": 7`).
+- `docs/versions.json` registry (`v0.1`..`v0.8`). `docs/DESIGN.md` design rules and owner preferences.
 
 ## Surfaces (what ships)
 - Frames: `docs/engine/render.js` (+`xray.js`) is the ONE canvas engine for site, Studio (`src/App.tsx`), `preview.py` and `tools/render_video.mjs`.
 - Video: `python -m motionvid video tl.json out/ --xray --blur 3` -> `final.mp4` (+`xray.mp4`). Audio by Python, frames by Node, mux by ffmpeg-static.
 - Site: `docs/index.html` (GitHub Pages, plain HTML/CSS/JS). Studio: `npm run build` -> `dist/index.html` (single file).
-- Media: `python scripts/build_media.py` rebuilds `v0.6` and `v0.7` (rev 6) in `docs/media/` (+ `flawbench.json`). `v0.1`..`v0.5` are frozen: never rebuild or delete any version. A new evolution step = new `vX.Y` + new example script, not an edit of an old one.
+- Media: `python scripts/build_media.py` rebuilds `v0.6`..`v0.8` (rev 6/7) in `docs/media/` (+ `flawbench.json`). `v0.1`..`v0.5` are frozen (so are demos once published: add a new id instead): never rebuild or delete any version. A new evolution step = new `vX.Y` + new example script, not an edit of an old one.
 - Gates: `pytest -q` (48 tests), StudioBench `python bench/studio_audit.py`, FlawBench via `python bench/soundaudit.py` and `python bench/reelcheck.py`.
 
 ## Design & Audio rules: see `docs/DESIGN.md` (tested in `tests/test_rules.py` and `tests/test_scene.py`)
@@ -49,6 +50,9 @@ if a screen needs them to make sense, fix the layout.
 2. Add the fix behind a new engine `rev` so older versions stay reproducible.
 3. Run FlawBench + StudioBench + pytest; keep pass counts; record the cycle in `LEDGER.jsonl`.
 4. Build the next `vX.Y` media and add it to `docs/versions.json`. Report numbers with caveats.
+
+## Self-improvement loop for videos (RSI)
+Make -> `build_demos.py sheet` -> read the contact sheet -> turn every defect into a rule in `docs/SKILL.md` or a kit default (e.g. `lift`, slats overlap) -> rebuild. A defect fixed in the kit must never be fixed again in a demo script. Log engine/kit cycles in `LEDGER.jsonl`.
 
 ## Hard rules
 - **No regressions**: tests green, `bench/motionsync.py` and `bench/soundaudit.py` headline numbers must not regress.

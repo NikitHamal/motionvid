@@ -1,11 +1,31 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 6 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 7 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
 
 ## Next actions (do top first)
-1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train a tiny English-only text->timeline planner (`<= 3 MB` int8); see `docs/ROADMAP.md` G1-G4. Keep the 0-byte Agency DSP engine as the baseline gate.
-2. **Human listening validation**: pairwise ratings across `v0.1`..`v0.7`; calibrate FlawBench and StudioBench weights against human ears.
-3. **Restore `reel2` glyph phrasing**: rev 6 `reel2` scores `0.997 -> 0.951` (9/9 held, only `glyph_ramp_rho` fell from `1.0` to `0.54` because the 90 ms tick cap leaves 2 scorable groups). Try a per-word ramp or a second tick lane; do not edit the gate.
-4. **Occlusion-aware telemetry**, **beat-locked music bed**, **MCP server** (timeline authoring + render + audit as tools).
+1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train a tiny English-only text->timeline planner (`<= 3 MB` int8) to replace the rule-based `docs/engine/planner.js`; see `docs/ROADMAP.md` G1-G4. Keep the 0-byte Agency DSP engine as the baseline gate.
+2. **Create page -> real render**: the page previews with a browser synth; add a hosted render worker (same `python -m motionvid video`) and an MCP server (timeline authoring + render + audit as tools) so an agent or the page can return an mp4.
+3. **Human listening validation**: pairwise ratings across `v0.1`..`v0.8` and the 6 demos; calibrate FlawBench and StudioBench against human ears. No human has listened to rev 7 UI voices yet.
+4. **Kit gaps**: text on 3D box faces is front-only, no morphing paths, no per-glyph 3D, no image/video layers. Add them as kit recipes + engine kinds, each with a demo.
+5. **Restore `reel2` glyph phrasing** (`0.997 -> 0.951`, only `glyph_ramp_rho`), occlusion-aware telemetry, beat-locked music bed.
+
+## DONE (session 7)
+- **Engine**: `docs/engine/ease.js` (shared easings: Material 3 cubic-bezier tokens `m3Std m3StdDec m3StdAcc m3Dec m3Acc`, damped `spring springSoft springWild`, `outQuart outQuint inOutQuint inOutSine outCirc`; Python twin in `timeline.py`, parity-tested). `docs/engine/scene3d.js`: perspective `group` (UI plane with `rx/ry/persp`, child `z`, `ext` thickness), `box3d`, flat-shaded `sphere`, `path` (trim `p`), `poly`, `ring sweep`; `fmt`+`num` counters, `split: 'mask'` word reveal, multi-line and left-aligned text, virtual `camera` (zoom/x/y/roll). Frozen v0.1..v0.7 render identically (legacy kinds untouched).
+- **Sound rev 7 UI foley** (`scene/ui_foley.py`; opt in with `"rev": 7` in the timeline, default stays 6, `v0.6`/`v0.7` unchanged): hint roles `click pop chime toggle notify swipe` plus explicit `tick`/`pluck`. FlawBench `9/9` held.
+- **Kit** (`src/motionvid/kit/`: `core.py` Scene/recipes/transitions/camera, `ui.py` components, `three.py` 3D). Recipes write motion and the sound hint together. JS twin `docs/engine/kit.js` for the browser.
+- **6 demo reels** (`examples/demos/*.py`, `scripts/build_demos.py`, `docs/media/demos/`, `docs/demos.json`): 32-38 s, 60 fps, motion blur 3, rev 7. FlawBench (rev 7 sound, no human listening):
+  | demo | gates | score | failed |
+  |---|---|---|---|
+  | `lumen` | 9/9 | 0.965 | none |
+  | `orbit` | 9/9 | 0.986 | none |
+  | `forge` | 9/9 | 0.964 | none |
+  | `bloom` | 9/9 | 0.999 | none |
+  | `cadence` | 9/9 | 0.971 | none |
+  | `parcel` | 9/9 | 0.977 | none |
+- **`v0.8` Kit Launch** (`examples/launch3.py`, 26 s, 60 fps, X-ray): prompt -> storyboard -> motion -> sound -> brand. FlawBench `9/9`, `0.999`. Site: Demos gallery, 8 versions, FlawBench column `v0.8`.
+- **Create page** (`docs/create/`): prompt -> rule-based planner (`docs/engine/planner.js`, 6 categories, 16:9 and 9:16, 29 s) -> live canvas preview with a browser synth (`docs/engine/webaudio.js`, a stand-in for the Python DSP) -> download `timeline.json`, render command, agent prompt. The planner is rules, not a model.
+- **`docs/SKILL.md`** rewritten as the agent skill (loop, structure, API, motion + sound rules, anti-patterns). `tests/test_kit.py` (6): `54` tests green.
+- Fixes: `telemetry.py` no longer raises when an element animates `h` without a static `h`; slats cover seam; kit `lift` for painter order inside tilted groups.
+- Caveats: demo layouts were reviewed from 8-frame contact sheets, not frame-by-frame; the planner's feature extraction is naive (first clause can leak into a feature title); browser preview audio differs from the rendered audio; MoLab pairing was not used (CPU render fits locally, about 1 min per demo).
 
 ## DONE (session 6)
 - **Engine rev 6 "Studio sound"** (`src/motionvid/scene/studio.py`, `studio_bed.py`; default; rev 5 stays reproducible via `--engine scene5`, frozen `v0.4`/`v0.5` media untouched). Answers the `v0.4` Launch audit (4 synthesis bottlenecks + polish checklist):
