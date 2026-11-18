@@ -8,10 +8,14 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { drawFrame } from '../docs/engine/render.js';
 import { drawXray } from '../docs/engine/xray.js';
+import { assets, collect, whenLoaded, evictFootage } from '../docs/engine/assets.js';
+import { loadImage } from '@napi-rs/canvas';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 for (const w of [400, 700, 800]) GlobalFonts.registerFromPath(join(root, `docs/fonts/bricolage-grotesque-latin-${w}-normal.woff2`), 'Bricolage Grotesque');
 
+assets.makeCanvas = (w, h) => createCanvas(w, h);
+assets.loader = (src) => loadImage(join(root, 'docs', src));
 const [tlPath, outPath, ...rest] = process.argv.slice(2);
 const opt = (n, d) => { const i = rest.indexOf(`--${n}`); return i < 0 ? d : rest[i + 1]; };
 const tl = JSON.parse(readFileSync(tlPath, 'utf8'));
@@ -32,7 +36,13 @@ const frame = (t) => {
   if (cues) drawXray(actx, tl, cues, t, k);
 };
 
-if (opt('poster')) { frame(Number(opt('poster'))); writeFileSync(outPath, acc.toBuffer('image/png')); process.exit(0); }
+const prefetch = async (t) => {  // load the photos / footage frames this output frame (and its blur sub-frames) needs
+  const need = new Set();
+  for (const dt of [-0.6 / tl.fps, 0, 0.6 / tl.fps]) collect(tl.elements, t + dt, need);
+  await Promise.all([...need].map(whenLoaded)); evictFootage(need);
+};
+
+if (opt('poster')) { await prefetch(Number(opt('poster'))); frame(Number(opt('poster'))); writeFileSync(outPath, acc.toBuffer('image/png')); process.exit(0); }
 
 const n = Math.round(tl.duration * tl.fps);
 const args = ['-y', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', `${width}x${height}`, '-r', String(tl.fps), '-i', '-'];
@@ -43,6 +53,7 @@ args.push(outPath);
 const ff = spawn(ffmpegPath, args, { stdio: ['pipe', 'ignore', 'inherit'] });
 const done = new Promise((res, rej) => { ff.on('close', (c) => (c === 0 ? res() : rej(new Error(`ffmpeg exit ${c}`)))); });
 for (let i = 0; i < n; i++) {
+  await prefetch(i / tl.fps);
   frame(i / tl.fps);
   if (!ff.stdin.write(acc.data())) await new Promise((r) => ff.stdin.once('drain', r));
 }

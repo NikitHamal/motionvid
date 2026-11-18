@@ -1,5 +1,6 @@
 // motionvid 3D layer: perspective groups (UI planes with depth), box3d solids, spheres, paths. Flat shading only: no shadows, no gradients.
 import { val } from './ease.js';
+import { drawMedia, scratch, texQuad } from './assets.js';
 
 const D2R = Math.PI / 180;
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
@@ -97,7 +98,20 @@ export function drawItem(ctx, c, cg, t, proj, local, drawText, lum = 1) {
   } else if (k === 'path') {
     const pts = map(trim(c.pts, cg('p', 1)));
     if (pts.length > 1) { ctx.lineWidth = cg('stroke', c.stroke || 10) * sc * avg; ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke(); }
+  } else if (k === 'image' || k === 'video') {
+    if (proj.persp > 1e8) { ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(sc, sc); drawMedia(ctx, c, cg, t); ctx.restore(); }
+    else {
+      const ts = Math.min(1, 1000 / Math.max(w, h)), tex = scratch(Math.round(w * ts), Math.round(h * ts)), c2 = tex.getContext('2d');
+      c2.save(); c2.scale(ts, ts); c2.translate(w / 2, h / 2); drawMedia(c2, { ...c, w, h }, cg, t); c2.restore();
+      texQuad(ctx, tex, (u, v) => { const a = (u - 0.5) * w * sc, b = (v - 0.5) * h * sc; return P(a * cs - b * sn + x, a * sn + b * cs + y, z).slice(0, 2); }, 6);
+    }
   } else if (k === 'text') {
+    for (let i = c.ext || 0; i > 0; i -= 2) {  // extruded type: stacked copies, darker with depth
+      const q0 = P(x, y, z - i), qx = P(x + cs, y + sn, z - i), qy = P(x - sn, y + cs, z - i);
+      ctx.save(); ctx.fillStyle = shade(c.color, 0.62 * lum);
+      ctx.transform(qx[0] - q0[0], qx[1] - q0[1], qy[0] - q0[0], qy[1] - q0[1], q0[0], q0[1]); ctx.scale(sc, sc); drawText(ctx, c, cg, t); ctx.restore();
+    }
+    ctx.fillStyle = col;
     const p0 = P(x, y, z), px = P(x + cs, y + sn, z), py = P(x - sn, y + cs, z);
     ctx.save();
     ctx.transform(px[0] - p0[0], px[1] - p0[1], py[0] - p0[0], py[1] - p0[1], p0[0], p0[1]);
@@ -150,4 +164,8 @@ export function drawBox(ctx, el, g, t, drawText) {
   }
 }
 
+export function drawFlat(ctx, items, t, drawText) {  // items on a flat plane (screen textures), sorted by z
+  const its = items.map((c) => { const cg = getter(c.tracks || {}, t); return { c, cg, z: cg('z', c.z || 0) }; }).sort((a, b) => a.z - b.z);
+  for (const it of its) drawItem(ctx, it.c, it.cg, t, FLAT, false, drawText, 1);
+}
 export const drawLocal = (ctx, el, g, t, drawText) => drawItem(ctx, el, g, t, FLAT, true, drawText);

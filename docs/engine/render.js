@@ -3,6 +3,8 @@
 
 import { EASES, val } from './ease.js';
 import { drawBox, drawGroup, drawLocal } from './scene3d.js';
+import { drawMesh } from './mesh.js';
+import { drawMedia } from './assets.js';
 
 export { EASES, val };
 
@@ -108,6 +110,8 @@ export function drawFrame(ctx, tl, t, k = 1) {
       case 'text': drawText(ctx, el, g, t); break;
       case 'group': drawGroup(ctx, el, g, t, drawText); break;
       case 'box3d': drawBox(ctx, el, g, t, drawText); break;
+      case 'mesh': drawMesh(ctx, el, g, t, drawText); break;
+      case 'image': case 'video': drawMedia(ctx, el, g, t); break;
       case 'sphere': case 'path': case 'poly': drawLocal(ctx, el, g, t, drawText); break;
       case 'circle': ctx.beginPath(); ctx.ellipse(0, 0, w / 2, h / 2, 0, 0, Math.PI * 2); ctx.fill(); break;
       case 'ring':

@@ -1,0 +1,131 @@
+{
+ "laptop": {
+  "kind": "photo",
+  "by": "Lukas Blazek",
+  "src": "pexels.com"
+ },
+ "analytics": {
+  "kind": "photo",
+  "by": "Negative Space",
+  "src": "pexels.com"
+ },
+ "desk": {
+  "kind": "photo",
+  "by": "Negative Space",
+  "src": "pexels.com"
+ },
+ "beach": {
+  "kind": "photo",
+  "by": "Asad Photo Maldives",
+  "src": "pexels.com"
+ },
+ "palms": {
+  "kind": "photo",
+  "by": "Mathias Reding",
+  "src": "pexels.com"
+ },
+ "shore": {
+  "kind": "photo",
+  "by": "Patel Poojan",
+  "src": "pexels.com"
+ },
+ "sunrise": {
+  "kind": "photo",
+  "by": "Uday Veeru",
+  "src": "pexels.com"
+ },
+ "sneaker": {
+  "kind": "photo",
+  "by": "Broxx Asia",
+  "src": "pexels.com"
+ },
+ "studio1": {
+  "kind": "photo",
+  "by": "Jose Martin Segura Benites",
+  "src": "pexels.com"
+ },
+ "studio2": {
+  "kind": "photo",
+  "by": "Jose Martin Segura Benites",
+  "src": "pexels.com"
+ },
+ "studio3": {
+  "kind": "photo",
+  "by": "Jose Martin Segura Benites",
+  "src": "pexels.com"
+ },
+ "jogger": {
+  "kind": "photo",
+  "by": "Rendi iD",
+  "src": "pexels.com"
+ },
+ "park": {
+  "kind": "photo",
+  "by": "Quang Nguyen Vinh",
+  "src": "pexels.com"
+ },
+ "fash1": {
+  "kind": "photo",
+  "by": "mahdi chaghari",
+  "src": "pexels.com"
+ },
+ "fash2": {
+  "kind": "photo",
+  "by": "WoodysMedia",
+  "src": "pexels.com"
+ },
+ "fash3": {
+  "kind": "photo",
+  "by": "Ralph Rabago",
+  "src": "pexels.com"
+ },
+ "fash4": {
+  "kind": "photo",
+  "by": "Jason Negonga",
+  "src": "pexels.com"
+ },
+ "lake": {
+  "kind": "photo",
+  "by": "Tasso Mitsarakis",
+  "src": "pexels.com"
+ },
+ "rockies": {
+  "kind": "photo",
+  "by": "Ali Kazal",
+  "src": "pexels.com"
+ },
+ "lake2": {
+  "kind": "photo",
+  "by": "Pexels contributor",
+  "src": "pexels.com"
+ },
+ "racks": {
+  "kind": "photo",
+  "by": "panumas nikhomkhai",
+  "src": "pexels.com"
+ },
+ "citynight": {
+  "kind": "footage",
+  "by": "Dimitar Germanov",
+  "src": "pexels.com",
+  "fps": 15,
+  "n": 120,
+  "dir": "media/footage/citynight"
+ },
+ "jog": {
+  "kind": "footage",
+  "by": "Yuliya Duzhaya",
+  "src": "pexels.com",
+  "fps": 15,
+  "n": 105,
+  "dir": "media/footage/jog"
+ },
+ "cpu": {
+  "kind": "footage",
+  "by": "MrColo",
+  "src": "pexels.com",
+  "fps": 15,
+  "n": 120,
+  "dir": "media/footage/cpu"
+ }
+}
