@@ -8,11 +8,11 @@ from typing import Any
 
 from .core import PAL, Scene, k
 
-TRACKABLE = ("x", "y", "z", "rx", "ry", "rz", "s", "opacity", "w", "h", "d", "r", "b", "len", "R")
+TRACKABLE = ("x", "y", "z", "rx", "ry", "rz", "s", "opacity", "w", "h", "d", "r", "b", "len", "R", "amp", "ph")
 
 
 def part(prim: str, color: str | None = None, **kw: Any) -> dict[str, Any]:
-    """prim: rbox | cyl | sphere | cone | capsule | torus | gem | extrude. Lists on x y z rx ry rz s opacity w h d r b len R become tracks."""
+    """prim: rbox | cyl | sphere | cone | capsule | torus | gem | extrude | wave | blob | knot | helix | ribbon (v3, `ramp=[colors]`, `ao`, `speed`). Lists on x y z rx ry rz s opacity w h d r b len R become tracks."""
     out: dict[str, Any] = {"prim": prim}
     if color:
         out["color"] = PAL.get(color, color)
@@ -28,6 +28,8 @@ def part(prim: str, color: str | None = None, **kw: Any) -> dict[str, Any]:
     for n, v in kw.items():
         if isinstance(v, list) and n in TRACKABLE:
             tr[n] = [k(*f) for f in v]
+        elif n == "ramp":
+            out[n] = [PAL.get(c, c) for c in v]
         elif n == "faces":
             out[n] = {a: PAL.get(b, b) for a, b in v.items()}
         else:

@@ -3,6 +3,7 @@
 import { val } from './ease.js';
 import { makeProj, drawFlat } from './scene3d.js';
 import { scratch, texQuad } from './assets.js';
+import { DYN, STATIC_DYN, ramp } from './mesh3.js';
 
 const TAU = Math.PI * 2;
 const GEO = new Map();
@@ -91,6 +92,19 @@ function build(part, pg) {
   GEO.set(key, g);
   return g;
 }
+const DYN_DEF = { w: 900, h: 100, d: 700, r: 200, R: 220, amp: 90, len: 700 };
+const dynCache = new Map();
+function dynFaces(part, pg, t) {
+  const v = { ...part };
+  for (const n of Object.keys(DYN_DEF)) v[n] = pg(n, part[n] ?? DYN_DEF[n]);
+  if (part.prim === 'blob') v.amp = pg('amp', part.amp ?? 0.22);
+  const ph = pg('ph', t * (part.speed ?? 1));
+  if (!STATIC_DYN.has(part.prim)) return DYN[part.prim](v, ph);
+  const key = JSON.stringify([part.prim, v.R, v.r, v.h, v.p, v.q, v.turns, v.seg]);
+  let g = dynCache.get(key);
+  if (!g) { if (dynCache.size > 40) dynCache.clear(); g = DYN[part.prim](v, ph); dynCache.set(key, g); }
+  return g;
+}
 const SCREEN = { front: [[0, 0, 1], [1, 0, 0], [0, 1, 0]], back: [[0, 0, -1], [-1, 0, 0], [0, 1, 0]], right: [[1, 0, 0], [0, 0, -1], [0, 1, 0]], left: [[-1, 0, 0], [0, 0, 1], [0, 1, 0]], top: [[0, -1, 0], [1, 0, 0], [0, 0, 1]] };
 const getter = (tracks, t) => (n, d) => { const v = val(tracks[n], t); return v === null ? d : v; };
 
@@ -107,14 +121,18 @@ export function drawMesh(ctx, el, g, t, drawText) {
     const nf = (n) => R(...PR(...n));
     const facing = (nr, cr) => nr[0] * -cr[0] + nr[1] * -cr[1] + nr[2] * (persp - cr[2]) > 0;
     const prj = (r) => { const k = persp / Math.max(60, persp - r[2]); return [r[0] * k, r[1] * k]; };
-    for (const f of build(part, pg)) {
+    const faces = DYN[part.prim] ? dynFaces(part, pg, t) : build(part, pg);
+    for (const f of faces) {
       const nr = nf(f.n), cr = xf(f.c);
       if (!part.both && !facing(nr, cr)) continue;
       const nz = part.both && nr[2] < 0 ? -1 : 1, d1 = Math.max(0, nz * (nr[0] * L1[0] + nr[1] * L1[1] + nr[2] * L1[2])), d2 = Math.max(0, nz * (nr[0] * L2[0] + nr[1] * L2[1] + nr[2] * L2[2]));
       let lum = 0.5 + 0.56 * d1 + 0.16 * d2;
+      if (el.hemi) lum += el.hemi * (-nr[1]) * 0.3;
+      if (part.ao && f.u !== undefined) lum *= 1 - part.ao + part.ao * (0.35 + 0.65 * f.u);
+      if (el.rim) lum += Math.pow(1 - Math.min(1, Math.abs(nr[2])), 3) * el.rim;
       if (part.gloss) lum += Math.pow(Math.max(0, nr[0] * HV[0] + nr[1] * HV[1] + nr[2] * HV[2]), part.gloss) * 0.42;
       if (toon) lum = Math.round(lum * toon) / toon;
-      list.push({ z: cr[2], pts: f.p.map((v) => prj(xf(v))), col: lit((part.faces && part.faces[f.tag]) || part.color || el.color || '#FF6A45', lum), a: po });
+      list.push({ z: cr[2], pts: f.p.map((v) => prj(xf(v))), col: lit((part.ramp && f.u !== undefined && ramp(part.ramp, part.cycle ? (f.u * part.cycle) % 1 : f.u)) || (part.faces && part.faces[f.tag]) || part.color || el.color || '#FF6A45', lum), a: po });
     }
     for (const sc of part.screen ? [].concat(part.screen) : []) {
       const [n, u, v] = SCREEN[sc.face || 'front'], half = [(part.w || 100) / 2, (part.h || 100) / 2, (part.d || 100) / 2];
