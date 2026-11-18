@@ -158,5 +158,45 @@
    "cues": "media/demos/pulse/reel.cues.json",
    "audio": "media/demos/pulse/reel.m4a"
   }
+ },
+ {
+  "id": "ledgerly",
+  "title": "Ledgerly",
+  "brief": "Finance SaaS, 3D laptop and coin stack",
+  "duration": 56,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 75,
+  "elements": 33,
+  "video": "media/demos/ledgerly/reel.mp4",
+  "poster": "media/demos/ledgerly/poster.png",
+  "player": {
+   "timeline": "media/demos/ledgerly/reel.json",
+   "cues": "media/demos/ledgerly/reel.cues.json",
+   "audio": "media/demos/ledgerly/reel.m4a"
+  }
+ },
+ {
+  "id": "noir",
+  "title": "Noir",
+  "brief": "Fashion drop, photo carousel, square 1:1",
+  "duration": 45,
+  "fps": 60,
+  "aspect": [
+   1080,
+   1080
+  ],
+  "sfx": 16,
+  "elements": 26,
+  "video": "media/demos/noir/reel.mp4",
+  "poster": "media/demos/noir/poster.png",
+  "player": {
+   "timeline": "media/demos/noir/reel.json",
+   "cues": "media/demos/noir/reel.cues.json",
+   "audio": "media/demos/noir/reel.m4a"
+  }
  }
 ]
