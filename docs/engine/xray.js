@@ -34,7 +34,7 @@ export function drawXray(ctx, tl, cues, t, k = 1) {
   ctx.textAlign = 'left';
   live.forEach((c, i) => {
     ctx.fillStyle = ROLE_COLOR[c.role] || '#F6EFE3';
-    ctx.fillText(`${c.role}  ${c.t.toFixed(2)}s`, pad + i * 340, y0 - 22);
+    ctx.fillText(`${c.name || c.role}  ${c.t.toFixed(2)}s`, pad + i * 340, y0 - 22);
   });
   ctx.restore();
 }

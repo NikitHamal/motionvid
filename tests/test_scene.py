@@ -97,8 +97,10 @@ def test_agency_dsp_rules_polyphony_and_timbre(out):
 def test_launch_v05_five_root_bugs_fixed():
     from motionvid.scene.telemetry import build, motion_curves
 
+    from motionvid.scene import params
+
     l_tl = json.loads((ROOT / "examples" / "launch.json").read_text())
-    audio, info = render(l_tl)
+    audio, info = render(l_tl, {**params.load(), "rev": 5})  # the v0.4/v0.5 sound spec stays reproducible as rev 5
     evs = info["events"]
     # 1. Suction anticipation sweep: starts 0.25s before crystal (5.75s -> 6.00s and 12.47s -> 12.72s)
     suctions = [e for e in evs if e["role"] == "suction"]

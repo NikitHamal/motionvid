@@ -9,16 +9,16 @@ from scipy.signal import butter, fftconvolve, lfilter, resample_poly, sosfilt
 from .voices import SR, TAU
 
 
-def reverb(x: np.ndarray, wet: float = 0.12, t60: float = 0.35, seed: int = 11) -> np.ndarray:
+def reverb(x: np.ndarray, wet: float = 0.12, t60: float = 0.35, seed: int = 11, hp: float = 300.0, wet_only: bool = False) -> np.ndarray:
     rng = np.random.default_rng(seed)
     n = int((t60 * 1.3 + 0.012) * SR)
     t = np.arange(n) / SR
     env = np.exp(-6.9 * np.maximum(t - 0.012, 0) / t60) * (t >= 0.012)
     ir = lfilter([0.6], [1, -0.4], rng.standard_normal((n, 2)) * env[:, None], axis=0)
     ir /= np.sqrt((ir ** 2).sum(axis=0, keepdims=True))
-    send = sosfilt(butter(2, 300, "hp", fs=SR, output="sos"), x, axis=0)
+    send = sosfilt(butter(2, hp, "hp", fs=SR, output="sos"), x, axis=0)
     wet_sig = np.stack([fftconvolve(send[:, c], ir[:, c])[: len(x)] for c in range(2)], axis=1)
-    return x + wet * wet_sig
+    return wet * wet_sig if wet_only else x + wet * wet_sig
 
 
 def bell(x: np.ndarray, f: float = 2500.0, gain_db: float = -4.0, q: float = 1.0) -> np.ndarray:
@@ -102,14 +102,28 @@ def room_tone(n: int, dbfs: float, seed: int = 5) -> np.ndarray:
     return pink * (10 ** (dbfs / 20) / np.sqrt((pink ** 2).mean()))
 
 
-def master(mix: np.ndarray, G: dict[str, float]) -> tuple[np.ndarray, dict[str, float]]:
-    x = reverb(mix, G["reverb_wet"], G["reverb_t60"])
+def master(mix: np.ndarray, G: dict[str, float], send: np.ndarray | None = None,
+           abs_layer: np.ndarray | None = None) -> tuple[np.ndarray, dict[str, float]]:
+    """rev 5: reverb on the whole mix. rev 6: `send` bus only (text_tick, hero_pluck, crystal); sub/impact stay dry;
+    `abs_layer` (bed, hum, pad) is added after loudness normalisation so its dBFS targets are literal."""
+    if send is None:
+        x = reverb(mix, G["reverb_wet"], G["reverb_t60"])
+    else:
+        x = mix + reverb(send, G.get("reverb6_wet", 0.10), G.get("reverb6_t60", 0.38), hp=G.get("reverb6_hp", 280.0), wet_only=True)
     x = bell(x, 2500.0, G.get("bell_2500_db", -4.0), 1.0)
     x = shelf(shelf(x, 75.0, G["tilt_low_db"], False), 9500.0, G["tilt_high_db"], True)
     x, gr = glue(x, G["glue_ratio"])
-    x *= 10 ** ((G["target_lufs"] - lufs(x)) / 20)
-    x = x + room_tone(len(x), G["room_dbfs"])
-    x = limit(x, G["tp_ceiling_db"])
+    g = G["target_lufs"] - lufs(x)
+    base, tone = x, room_tone(len(x), G["room_dbfs"])
+    for _ in range(4 if abs_layer is not None else 1):  # rev 6: close the loop so the limited output hits the target
+        x = base * 10 ** (g / 20)
+        if abs_layer is not None:
+            x[: len(abs_layer)] += abs_layer[: len(x)]
+        x = limit(x + tone, G["tp_ceiling_db"])
+        err = G["target_lufs"] - lufs(x)
+        if abs_layer is None or abs(err) < 0.1:
+            break
+        g += err
     f = min(len(x), int(0.9 * SR))
     x[-f:] *= (0.5 + 0.5 * np.cos(np.linspace(0, np.pi, f)))[:, None]
     n_in = min(len(x), int(0.004 * SR))

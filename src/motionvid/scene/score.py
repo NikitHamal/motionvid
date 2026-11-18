@@ -58,8 +58,10 @@ def _transitions(tl, tels, G):
                 lo, hi = max(0, i - int(0.6 * HZ)), min(len(T.area) - 1, i + int(0.08 * HZ))
                 s = max(s, min(1.0, float(T.area[hi] - T.area[lo])))
         kind = c.get("kind", "cut")
-        pre, post = 0.16, 0.18
+        pre, post = 0.16, (0.22 if G.get("rev", 5) >= 6 else 0.18)
         out.append(_ev(tc, "whoosh", G["whoosh_db"] + 3 * s, 0.0, f"cut:{kind} pre-roll 160 ms", pre=pre, post=post, s=s))
+        if G.get("rev", 5) >= 6:
+            out.append(_ev(tc, "air", G["whoosh_db"] - 12 + 2 * s, 0.0, f"cut:{kind} room air tail", s=s))
         out.append(_ev(tc, "impact", G["impact_db"] + 2 * s, 0.0, f"cut:{kind} mass {s:.2f}", s=s))
         out.append(_ev(tc, "sub", G["sub_db"], 0.0, f"cut:{kind} locked sub-drop", s=s, f0=92.0, f1=36.0))
     return out
@@ -187,10 +189,13 @@ def _typography(tl, tels, G):
         for k, (i, c, t) in enumerate(times):
             rng = np.random.default_rng(seed_of(T.id, i))
             kk = k + k_offset
-            f = base * 2 ** ((kk / G["semitone_every"]) / 12) * 2 ** (rng.uniform(-G["jitter_cents"] * 0.12, G["jitter_cents"] * 0.12) / 1200)
+            f = base * 2 ** ((min(kk, 14) / (2.0 if G.get("rev", 5) >= 6 else G["semitone_every"])) / 12) * 2 ** (rng.uniform(-G["jitter_cents"] * 0.12, G["jitter_cents"] * 0.12) / 1200)
             xc = float(np.interp(t, T.ts, T.x)) - tot / 2 + (i + 0.5) * 0.58 * size
             g = G["tick_db"] + (3.5 if not is_split else 2.0) + rng.uniform(-vj, vj) - 0.06 * min(k, 15)
-            out.append(_ev(t, "tick", g, pan_of(xc / W, G), f"{T.id}: glyph {c!r} #{k}", freq=f))
+            pn = pan_of(xc / W, G) if G.get("rev", 5) < 6 else -0.35 + 0.7 * (i / max(1, len(text) - 1))
+            if G.get("rev", 5) >= 6:
+                g += 7.0
+            out.append(_ev(t, "tick", g, pn, f"{T.id}: glyph {c!r} #{k}", freq=f, st=min(k, 14) / 2.0))
     return out
 
 
@@ -233,11 +238,24 @@ def _contractions(tels, G):
 def _hints(tl, G):
     cuts = [c["t"] for c in tl["cuts"]]
     out = []
+    studio = G.get("rev", 5) >= 6
+    imp = sorted(float(s["t"]) for s in tl["sfx"] if s["role"] == "impact" and all(abs(float(s["t"]) - c) > 0.05 for c in cuts))
+    runs: list[list[float]] = []
+    for t_i in imp:  # bounce runs: consecutive impact hints closer than 1.2 s
+        if runs and t_i - runs[-1][-1] < 1.2:
+            runs[-1].append(t_i)
+        else:
+            runs.append([t_i])
+    bounce = {round(t_i, 4): (j, r[0]) for r in runs if len(r) > 1 for j, t_i in enumerate(r)}
+    first_gain = {r[0]: next(float(s.get("gain_db", -8)) for s in tl["sfx"] if s["role"] == "impact" and float(s["t"]) == r[0]) for r in runs}
     for s in tl["sfx"]:
         role, t, d = s["role"], float(s["t"]), float(s.get("dur", 0.55))
-        if role == "riser":
-            out.append(_ev(t, "riser", float(s.get("gain_db", -8)) - 2, float(s.get("pan", 0)), "agent hint", dur=d))
-        elif role == "impact":
+        if role == "impact" and studio and round(t, 4) in bounce:
+            j, t0 = bounce[round(t, 4)]  # height-scaled settle: 0, -4.5, -9, -13.5 dB, low-pass opens on smaller bounces
+            out.append(_ev(t, "impact", first_gain[t0] - 4.5 * j, float(s.get("pan", 0)), f"bounce #{j + 1} settle", s=0.55, settle=j))
+        elif role == "riser":
+            out.append(_ev(t, "riser", float(s.get("gain_db", -8)) - 2 + (G.get("riser6_boost_db", 4.5) if studio else 0.0), float(s.get("pan", 0)), "agent hint", dur=d))
+        elif role == "impact" and not (studio and round(t, 4) in bounce):
             out.append(_ev(t, "impact", float(s.get("gain_db", -8)), float(s.get("pan", 0)), "agent hint",
                            s=float(np.clip((s.get("gain_db", -8) + 24) / 22, 0.2, 1))))
         elif role == "whoosh" and all(abs(t - c) > 0.35 for c in cuts):
@@ -247,9 +265,22 @@ def _hints(tl, G):
 
 
 def build_events(tl: dict[str, Any], tels: list[Tel], G: dict[str, float]) -> list[dict[str, Any]]:
+    names = {"tick": "text_tick", "pluck": "hero_pluck"} if G.get("rev", 5) >= 6 else {}
     evs = [*_transitions(tl, tels, G), *_expansions(tl, tels, G), *_phrases(tl, _notes(tels, G), G),
            *_typography(tl, tels, G), *_contractions(tels, G), *_hints(tl, G)]
     # Remove all new triggers during the final fade-out window (after 15.40s on 16.8s launch reel)
     has_outro = any(el.get("id") == "outro" for el in tl.get("elements", []))
     max_t = tl["duration"] - 1.40 if has_outro else tl["duration"]
-    return sorted([e for e in evs if 0 <= e["t"] <= max_t + 1e-6], key=lambda e: (e["t"], e["role"]))
+    evs = sorted([e for e in evs if 0 <= e["t"] <= max_t + 1e-6], key=lambda e: (e["t"], e["role"]))
+    if G.get("rev", 5) >= 6:  # text_tick: at most one trigger per 90 ms across the whole timeline
+        last, kept = -9.0, []
+        for e in evs:
+            if e["role"] == "tick":
+                if e["t"] - last < 0.09 - 1e-9:
+                    continue
+                last = e["t"]
+            kept.append(e)
+        evs = kept
+    for e in evs:
+        e["name"] = names.get(e["role"], e["role"])
+    return evs

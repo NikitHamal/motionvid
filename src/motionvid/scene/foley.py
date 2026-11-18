@@ -161,9 +161,10 @@ def shimmer(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
     return count
 
 
-def render_layers(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> dict[str, int]:
+def render_layers(buf: np.ndarray, tels: list[Tel], G: dict[str, float], rev: int = 5) -> dict[str, int]:
+    """rev 6: the continuous bed moves to `studio_bed.abs_layers` (absolute dBFS); texture/stretch/shimmer stay."""
     return {
-        "motion_bed": motion_bed(buf, tels, G),
+        "motion_bed": motion_bed(buf, tels, G) if rev < 6 else 1,
         "texture": texture(buf, tels, G),
         "stretch": stretch(buf, tels, G),
         "shimmer": shimmer(buf, tels, G),

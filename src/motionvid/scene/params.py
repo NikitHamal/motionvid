@@ -6,6 +6,11 @@ import json
 from pathlib import Path
 
 DEFAULT = {
+    "rev": 6,                 # engine revision: 5 = frozen v0.4/v0.5 sound, 6 = Studio sound (v0.6+)
+    "reverb6_wet": 0.10,      # rev 6: 10% wet, 0.38 s decay, HP 280 Hz, only on text_tick / hero_pluck / crystal
+    "reverb6_t60": 0.38,
+    "reverb6_hp": 280.0,
+    "riser6_boost_db": 4.5,
     "preroll_s": 0.16,        # whoosh ramps up 160 ms before a cut so its peak lands on the cut frame
     "sub_db": -5.5,           # sub-bass thump level at full shape mass
     "sub_f0": 92.0,           # Hz, start of the pitch drop (sine sub-drop 92 Hz -> 36 Hz over 190 ms)
