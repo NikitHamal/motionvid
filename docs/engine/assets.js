@@ -48,7 +48,7 @@ export function collect(node, t, out = new Set()) {
     if (c.kind === 'image' && c.src) out.add(c.src);
     if (c.kind === 'video') { const f = vidFrame(c, t); out.add(f[0]); if (f[2] > 0.001) out.add(f[1]); }
     if (c.items) collect(c.items, t, out);
-    if (c.parts) for (const p of c.parts) { collect(p.screen && p.screen.items, t, out); }
+    if (c.parts) for (const p of c.parts) for (const sc of p.screen ? [].concat(p.screen) : []) collect(sc.items, t, out);
   }
   return out;
 }

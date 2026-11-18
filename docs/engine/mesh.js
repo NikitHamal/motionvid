@@ -79,7 +79,7 @@ function build(part, pg) {
   if (g) return g;
   switch (part.prim) {
     case 'cyl': g = lathe(cylProf(v.r, v.h, v.b), seg || 64); break;
-    case 'sphere': g = lathe(sphProf(v.r, 24), seg || 56); break;
+    case 'sphere': g = lathe(sphProf(v.r, 30), seg || 72); break;
     case 'cone': g = lathe([[0, -v.h / 2], [v.r, v.h / 2], [0, v.h / 2]], seg || 40); break;
     case 'capsule': g = lathe(capProf(v.r, v.len), seg || 48); break;
     case 'gem': g = lathe([[0, -v.h / 2], [v.r * 0.55, -v.h / 2], [v.r, -v.h * 0.14], [v.r, -v.h * 0.08], [0, v.h / 2]], seg || 8); break;
@@ -116,8 +116,7 @@ export function drawMesh(ctx, el, g, t, drawText) {
       if (toon) lum = Math.round(lum * toon) / toon;
       list.push({ z: cr[2], pts: f.p.map((v) => prj(xf(v))), col: lit((part.faces && part.faces[f.tag]) || part.color || el.color || '#FF6A45', lum), a: po });
     }
-    const sc = part.screen;
-    if (sc) {
+    for (const sc of part.screen ? [].concat(part.screen) : []) {
       const [n, u, v] = SCREEN[sc.face || 'front'], half = [(part.w || 100) / 2, (part.h || 100) / 2, (part.d || 100) / 2];
       const dims = n[2] ? [part.w, part.h] : n[0] ? [part.d, part.h] : [part.w, part.d];
       const sw = sc.w || dims[0] * 0.92, sh = sc.h || dims[1] * 0.94, c0 = n.map((q, i) => q * (half[i] + 0.4));
@@ -142,7 +141,7 @@ export function drawMesh(ctx, el, g, t, drawText) {
       c2.restore();
       texQuad(ctx, tex, f.pt, sc.n || 5);
     } else {
-      ctx.fillStyle = f.col; ctx.strokeStyle = f.col; ctx.lineWidth = 0.9; ctx.lineJoin = 'round';
+      ctx.fillStyle = f.col; ctx.strokeStyle = f.col; ctx.lineWidth = 1.5; ctx.lineJoin = 'round';
       ctx.beginPath(); f.pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.fill(); ctx.stroke();
     }
   }

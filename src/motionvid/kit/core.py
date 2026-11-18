@@ -16,7 +16,7 @@ from typing import Any
 PAL = {"cream": "#F6EFE3", "ink": "#17130F", "coral": "#FF6A45", "lime": "#C9F13B", "butter": "#FFD54A", "pink": "#FF9DBB",
        "mint": "#3DDBA7", "clay": "#D9573B", "moss": "#2F5D3A", "sand": "#E9DCC3", "white": "#FFFFFF", "tomato": "#E8402A", "sage": "#BFD8B8"}
 NUMERIC_TRACKS = ("x", "y", "z", "scale", "opacity", "rotation", "rx", "ry", "rz")
-STATIC_ALWAYS = ("pts", "items", "faces", "fmt", "type")
+STATIC_ALWAYS = ("pts", "items", "faces", "fmt", "type", "parts", "light", "screen")
 
 
 def k(t: float, v: float, ease: str | None = None) -> dict[str, Any]:

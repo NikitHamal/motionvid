@@ -25,6 +25,12 @@ DEMOS = {
     "bloom": ("Bloom", "Wellness app, vertical 9:16", 720, 17.0, 3),
     "cadence": ("Cadence", "3D hardware reveal", 1280, 11.0, 3),
     "parcel": ("Parcel", "Delivery service", 1280, 9.0, 3),
+    "atlas": ("Atlas", "Travel app, real photos, photo cube and globe", 1280, 3.6, 3),
+    "pulse": ("Pulse", "Fitness wearable, real footage, vertical 9:16", 720, 12.0, 3),
+    "ledgerly": ("Ledgerly", "Finance SaaS, 3D laptop and coin stack", 1280, 12.0, 3),
+    "noir": ("Noir", "Fashion drop, photo carousel, square 1:1", 1080, 20.0, 3),
+    "terra": ("Terra", "Urban climate, city footage, extruded 3D", 1280, 12.0, 3),
+    "kernel": ("Kernel", "Developer infrastructure, code editor and racks", 1280, 12.0, 3),
 }
 
 
