@@ -1,13 +1,14 @@
 # motionvid
-Agent-driven motion-video pipeline where **sound lands exactly on the motion**. An LLM writes a JSON timeline; motionvid derives
-every sound cue from the physics of the motion and renders it with a code-native DSP engine (no samples, no weights, numpy only).
+Agent-driven motion video pipeline where **sound lands exactly on the motion**. An LLM writes a JSON timeline; motionvid derives every
+sound cue from the physics of the motion, renders it with a code-native DSP engine (no samples, no weights) and renders the frames.
 
 ```bash
-pip install -e ".[dev]"
-python -m motionvid render examples/launch.json out/   # audio.wav + cues.json + preview.html
-python -m pytest -q
-python bench/motionsync.py                              # reproduces STATUS.md numbers
+pip install -e ".[dev]" && npm install
+python -m motionvid video examples/showreel.json out/ --xray   # final.mp4, xray.mp4, audio.wav, cues.json
+python scripts/build_media.py                                    # regenerate site + Studio media
+python -m pytest -q && python bench/reelcheck.py                 # gates
+npm run build                                                    # Studio -> dist/index.html
 ```
-Measured on 4 CPUs: sync median error **59 ms → 2.3 ms (25.8×)**, 150-cue render **6.0× faster (4 CPU; 3.9× sync gain under a stricter peak detector, see STATUS)**, intensity→loudness 0.11 → 0.98, 0 model bytes.
-See `STATUS.md` (honest state + next actions), `AGENT.md` (agents start here), `docs/`.
-Sound renderer derived from [ORB](https://github.com/stdevMac/orb-audio) (Apache-2.0) — see `NOTICE`. Not a fork.
+Site: `docs/` (GitHub Pages). Demos: `docs/media/` (showreel, x-ray, launch). Agents start at `AGENT.md`; state is in `STATUS.md`.
+Measured on 4 CPUs: sync median error 59 ms -> 2.3 ms (25.8x; 3.9x under a stricter detector), 150-cue render 6.0x faster,
+intensity to loudness 0.11 -> 0.98, 0 model bytes. Sound renderer derived from [ORB](https://github.com/stdevMac/orb-audio) (Apache-2.0), see `NOTICE`. Not a fork.

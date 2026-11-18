@@ -1,0 +1,11 @@
+{
+  "timeline": "showreel.json",
+  "duration_s": 21.0,
+  "cues": 100,
+  "scored": 52,
+  "median_err_ms": 1.9,
+  "p95_err_ms": 70.7,
+  "within_1_frame": 0.769,
+  "peak": 0.89,
+  "cue_density_per_s": 4.76
+}

@@ -1,0 +1,68 @@
+/* Material 3 Expressive tokens for motionvid. Shared by the site (docs/) and the Studio app (src/). */
+@font-face { font-family: "Bricolage Grotesque"; font-weight: 400; font-display: swap; src: url("fonts/bricolage-grotesque-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Bricolage Grotesque"; font-weight: 700; font-display: swap; src: url("fonts/bricolage-grotesque-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Bricolage Grotesque"; font-weight: 800; font-display: swap; src: url("fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2"); }
+
+:root {
+  color-scheme: light dark;
+  --surface: #F6EFE3;
+  --surface-low: #EFE5D3;
+  --surface-high: #E6D9C0;
+  --on-surface: #17130F;
+  --on-surface-muted: #5B5043;
+  --outline: #CBBDA3;
+  --primary: #C2411F;
+  --on-primary: #FFF6EE;
+  --primary-container: #FF6A45;
+  --secondary-container: #FFD54A;
+  --tertiary-container: #C9F13B;
+  --pink-container: #FF9DBB;
+  --mint-container: #3DDBA7;
+  --on-container: #17130F;
+
+  --shape-sm: 12px;
+  --shape-lg: 28px;
+  --shape-xl: 48px;
+  --shape-full: 999px;
+
+  /* expressive spring: overshoots, then settles */
+  --spring-fast: 280ms linear(0, 0.42 12%, 0.92 28%, 1.08 44%, 0.99 62%, 1.01 80%, 1);
+  --spring: 520ms linear(0, 0.3 8%, 0.82 20%, 1.1 34%, 1.04 48%, 0.98 62%, 1.005 80%, 1);
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+
+  --font: "Bricolage Grotesque", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #17130F;
+    --surface-low: #221C16;
+    --surface-high: #2E261E;
+    --on-surface: #F6EFE3;
+    --on-surface-muted: #BDAF9A;
+    --outline: #4A3F33;
+    --primary: #FF8A69;
+    --on-primary: #17130F;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; box-shadow: none !important; text-shadow: none !important; }
+html { background: var(--surface); color: var(--on-surface); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+body { margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; }
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+
+/* shared M3E components */
+.btn { display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 28px; border-radius: var(--shape-full);
+  background: var(--primary-container); color: var(--on-container); font-weight: 700; font-size: 18px;
+  transition: border-radius var(--spring-fast), transform var(--spring-fast), background-color 160ms; text-decoration: none; }
+.btn:hover { border-radius: var(--shape-lg); }
+.btn:active { border-radius: var(--shape-sm); transform: scale(0.96); }
+.btn.tonal { background: var(--surface-high); color: var(--on-surface); }
+.seg { display: inline-flex; padding: 4px; gap: 4px; background: var(--surface-high); border-radius: var(--shape-full); }
+.seg button { height: 44px; padding: 0 22px; border-radius: var(--shape-full); background: transparent; font-weight: 700;
+  transition: background-color 200ms, border-radius var(--spring-fast); }
+.seg button[aria-pressed="true"] { background: var(--on-surface); color: var(--surface); }
+.seg button:not([aria-pressed="true"]):hover { background: var(--outline); }
+svg.i { width: 24px; height: 24px; fill: currentColor; flex: none; }
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 1ms !important; animation-duration: 1ms !important; } }

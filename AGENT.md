@@ -22,6 +22,19 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
 - `src/motionvid/rsi/` ground truth (`gt.py`) + loop (`loop.py`). `bench/motionsync.py` sync/throughput/dynamics bench.
 - `docs/SKILL.md` how an LLM writes timelines. `docs/` architecture, benchmarks, RSI rules, roadmap, decisions.
 
+## Surfaces (what ships)
+- Frames: `docs/engine/render.js` (+`xray.js`) is the ONE canvas engine for site, Studio (`src/App.tsx`), `preview.py` and `tools/render_video.mjs`.
+  Schema additions live there and in `timeline.py` (easings are parity-tested). Element kinds: rrect, circle, ring, blob, text.
+- Video: `python -m motionvid video tl.json out/ --xray` -> `final.mp4` (+`xray.mp4`). Audio by Python, frames by Node, mux by ffmpeg-static.
+- Site: `docs/index.html` (GitHub Pages, plain HTML/CSS/JS). Studio: `npm run build` -> `dist/index.html` (single file).
+- Media: `python scripts/build_media.py` regenerates everything in `docs/media/` from `examples/showreel.py`. Never hand-edit those files.
+- Gates: `pytest -q` (34 tests) and `python bench/reelcheck.py` (baseline in `bench/results/reelcheck.json`).
+
+## Design rules (tested in tests/test_rules.py)
+Material 3 Expressive: solid color containers, extra-large shapes, spring motion, Bricolage Grotesque. No box/text shadows, no emojis,
+no LIVE badges, no blue/purple gradients (palette: cream, ink, coral, lime, butter, pink, mint). Cut taglines and helper text;
+if a screen needs them to make sense, fix the layout.
+
 ## Hard rules
 - **No regressions**: tests green, `bench/motionsync.py` headline numbers must not get worse than `bench/results/motionsync.json`
   (update that file only when numbers improve, and say so in STATUS.md).
@@ -33,5 +46,7 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
 - Keep files < ~300 lines; prefer new modules over growing old ones.
 
 ## Environment notes
-- Sandbox: 4 CPU, ~3 GB RAM, no GPU, no ffmpeg, no uvx/claude CLI. `pip install --break-system-packages numpy pytest`.
+- Sandbox: 4 CPU, ~3 GB RAM, no GPU, no uvx/claude CLI, no system browser libs (Playwright Chromium cannot launch: libnspr4 missing).
+  `pip install --break-system-packages numpy pytest`; `npm install` provides ffmpeg-static + @napi-rs/canvas (works offline of system ffmpeg).
+- The repo root also holds the Vite Studio app (package.json, src/*.tsx). Python package is `src/motionvid`.
 - MoLab box (CPU-only, then GPU later) can't be paired from this sandbox (no `uvx`/`claude`); GPU work is queued in ROADMAP "GPU phase".

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>motionvid - motion video with sound that lands on the motion</title>
+  <meta name="description" content="Agent-driven motion video pipeline. Write a JSON timeline, get frames and sound that hit exactly on the motion.">
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top">motionvid</a>
+    <nav class="seg" aria-label="Sections">
+      <a href="#reel">Reel</a><a href="#numbers">Numbers</a><a href="#videos">Videos</a><a href="#pipeline">Pipeline</a>
+    </nav>
+    <a class="btn tonal" href="https://github.com/NikitHamal/motionvid">GitHub</a>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="reel">
+      <svg class="spin" viewBox="-110 -110 220 220" aria-hidden="true"><path id="cookie" fill="var(--primary-container)"/></svg>
+      <h1>motion<span>vid</span></h1>
+      <div class="player" id="player">
+        <canvas id="stage" width="1280" height="720" aria-label="Showreel"></canvas>
+        <div class="bar">
+          <button class="fab" id="play" aria-label="Play with sound">
+            <svg class="i" id="ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="i" id="ico-pause" viewBox="0 0 24 24" hidden><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <input id="scrub" type="range" min="0" max="21" step="0.01" value="0" aria-label="Seek">
+          <output id="time">0:00</output>
+          <div class="seg" id="mode"><button aria-pressed="true" data-m="clean">Clean</button><button aria-pressed="false" data-m="xray">X-ray</button></div>
+        </div>
+        <audio id="audio" src="media/showreel.m4a" preload="auto"></audio>
+      </div>
+    </section>
+
+    <section id="numbers" class="tiles">
+      <article class="tile c1"><b>25.8x</b><span>sync error</span><i>3.9x strict detector</i></article>
+      <article class="tile c2"><b>6.0x</b><span>render speed</span><i>41x warm cache</i></article>
+      <article class="tile c3"><b>0.98</b><span>intensity to loudness</span><i>was 0.11</i></article>
+      <article class="tile c4"><b>0 B</b><span>model weights</span><i>physics, not tokens</i></article>
+    </section>
+
+    <section id="videos" class="videos">
+      <figure><video controls preload="none" poster="media/poster.png" src="media/showreel.mp4"></video><figcaption>Showreel</figcaption></figure>
+      <figure><video controls preload="none" src="media/showreel-xray.mp4"></video><figcaption>X-ray</figcaption></figure>
+      <figure><video controls preload="none" src="media/launch.mp4"></video><figcaption>Launch</figcaption></figure>
+    </section>
+
+    <section id="pipeline" class="steps">
+      <article><em>1</em><h3>Timeline</h3><code>reel.json</code></article>
+      <article><em>2</em><h3>Cues</h3><code>peak speed, stop, pop</code></article>
+      <article><em>3</em><h3>Sound</h3><code>48 kHz DSP</code></article>
+      <article><em>4</em><h3>Video</h3><code>canvas + ffmpeg</code></article>
+      <pre class="cmd" id="cmd">python -m motionvid video reel.json out/ --xray</pre>
+    </section>
+  </main>
+
+  <footer><span>Apache-2.0</span><a href="https://github.com/NikitHamal/motionvid">NikitHamal/motionvid</a></footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

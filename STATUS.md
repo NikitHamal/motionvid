@@ -1,16 +1,32 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 1 · Box: 4 CPU / 3 GB / no GPU.
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 2 · Box: 4 CPU / 3 GB / no GPU.
 
 ## Next actions (do top first)
-1. **Human decision + labels for 'what is the hit' of broad sounds** (whoosh, riser, noise_sweep, paper_rustle, glitch). Then
-   calibrate per-role anchors in `compose.py`; gate: `bench/motionsync.py` both detectors no worse than the table below.
-   Also decide label semantics for linear/inOutCubic arrivals (see RSI note): 19 of 24 holdout false positives are
-   `fly_settle` ending abruptly with linear ease (physically abrupt, labelled 'settle'). Labels were NOT edited to flatter the score.
-2. Real frame renderer: headless Chromium (Playwright) screenshots of `preview.py` page per frame → ffmpeg mux with `audio.wav`
-   (needs ffmpeg; not available in this sandbox — implement + test where available, keep `video.mp4`/`final.mp4` hook in cli.py).
-3. Human-labelled cue set (replace proxy labels in `rsi/gt.py`); add 20 real launch-video timelines to `examples/`.
-4. Music bed/beat grid: snap cues to beats (render/music.py is vendored but unused).
-5. GPU phase (when a GPU session is given): see `docs/ROADMAP.md`.
+1. **Visual QA in a real browser**: site (`docs/index.html`) and Studio were verified by build + Node tests only (sandbox cannot launch
+   Chromium). Open both, fix anything off, then record a screenshot set in `docs/media/`.
+2. **Human decision + labels for 'what is the hit' of broad sounds** (whoosh, riser, noise_sweep, paper_rustle, glitch); calibrate
+   per-role anchors in `compose.py`. Gate: `bench/motionsync.py` both detectors no worse than the table below.
+3. RSI cycle 3 on ReelCheck: p95 error 70.7 ms and within-1-frame 0.769 are dominated by overlapping/broad cues. Try code-level
+   change (cluster-aware anchoring) and keep only if `bench/reelcheck.py` improves with all gates green.
+4. Music bed on a beat grid (`render/music.py` vendored, unused); `motionvid video --bed` is wired for textures only.
+5. More example timelines (20 real launch videos), MCP server for agents, GPU phase per `docs/ROADMAP.md`.
+
+## DONE (session 2)
+- **Real frame renderer** (was next-action 2): `tools/render_video.mjs` (Node canvas + ffmpeg-static) and `motionvid video`.
+  Same engine as the site. 21 s / 630 frames at 1280x720 + audio muxed in ~9 s on 4 CPUs.
+- **Showreel**: `examples/showreel.py` -> 21 s, 41 elements, 100 compiled cues (48 click, 25 ui_pop, 12 impact, 10 whoosh, 5 riser...),
+  five scenes with color floods whose hit lands on the closing frame; bounce contacts of a real outBounce get per-contact impacts.
+- Engine: new kinds (blob/cookie, ring, circle, rrect with pill radius), per-char split text, `outElastic`/`inBack` easings, cue x-ray.
+- **ReelCheck** (`bench/reelcheck.py`): rendered-audio hit alignment on the real showreel: median 1.9 ms, p95 70.7 ms (broad sounds and
+  clustered cues), 76.9 % within one 30 fps frame, peak 0.89. Gates: median <= 12 ms, within-1-frame >= 0.75, peak <= 0.98.
+- Surfaces: GitHub Pages site (plain HTML/CSS/JS, M3 Expressive), Studio (React, cue inspector), demo MP4s (showreel, x-ray, launch).
+- Tests 14 -> 34 (easing parity JS/Python, preview, video smoke, design rules). `scripts/build_media.py` regenerates all artifacts.
+- Preview page now uses the shared engine (old duplicate JS removed).
+
+## Known limits (session 2)
+- Still not a "2-5x better timbre" model; timbre is ORB's DSP. No GPU session used. Proven wins remain sync, throughput, dynamics, zero weights.
+- ReelCheck is a new metric with no upstream baseline; it gates regressions, it does not prove a multiple.
+- No browser verification of the site/Studio yet (see next action 1). Audio autoplay needs a user click by browser policy.
 
 ## DONE (session 1)
 - New repo created (not a fork); ORB DSP renderer vendored with attribution (NOTICE); nothing multilingual vendored.

@@ -1,6 +1,6 @@
 # Roadmap
 ## CPU phase (now)
-C1 per-role anchor calibration · C2 frame renderer + ffmpeg mux · C3 human labels · C4 beat grid/music · C5 MCP server for agents.
+C1 per-role anchor calibration · C2 frame renderer + ffmpeg mux (DONE session 2) · C3 human labels · C4 beat grid/music · C5 MCP server for agents.
 ## GPU phase (queued; start only when a GPU session exists)
 - G1 **Tiny English-only text→timeline planner**: ORB's planner is 5.1M/20 MB. Target ≤ 3 M params, int8 ≤ 3 MB, trained on
   synthetic (prompt, timeline) pairs from this repo's compiler. Gate: no drop on grammar-exact set vs ORB v8 baseline.
