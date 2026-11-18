@@ -1,0 +1,13 @@
+{"fps": 30, "duration": 6, "width": 1920, "height": 1080,
+ "elements": [
+  {"id": "logo", "kind": "shape", "color": "#7cf", "w": 220, "h": 220,
+   "tracks": {"x": [{"t": 0.2, "v": -300}, {"t": 0.9, "v": 960, "ease": "inCubic"}], "y": [{"t": 0, "v": 540}],
+              "scale": [{"t": 0.9, "v": 0.5}, {"t": 1.1, "v": 1.0, "ease": "outBack"}]}},
+  {"id": "title", "kind": "text", "text": "MOTIONVID", "color": "#fff", "size": 140,
+   "tracks": {"x": [{"t": 1.6, "v": 960}], "y": [{"t": 1.6, "v": 800}, {"t": 2.2, "v": 740, "ease": "outCubic"}],
+              "opacity": [{"t": 1.6, "v": 0}, {"t": 1.75, "v": 1}]}},
+  {"id": "tag", "kind": "text", "text": "sound that hits exactly", "color": "#fc6", "size": 56,
+   "type": {"t": 3.0, "cps": 14, "n": 22},
+   "tracks": {"x": [{"t": 3.0, "v": 960}], "y": [{"t": 3.0, "v": 900}]}}],
+ "cuts": [{"t": 4.4, "kind": "wipe"}],
+ "sfx": [{"t": 5.2, "role": "riser", "dur": 0.8, "gain_db": -10}, {"t": 5.9, "role": "impact", "dur": 0.6, "gain_db": -4}]}

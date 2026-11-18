@@ -1,0 +1,24 @@
+[project]
+name = "motionvid"
+version = "0.1.0"
+description = "Agent-driven motion video pipeline with exact-sync, code-native sound design"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26"]
+license = { text = "Apache-2.0" }
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+motionvid = "motionvid.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]

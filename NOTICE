@@ -1,0 +1,14 @@
+motionvid
+Copyright 2026 NikitHamal and motionvid contributors. Licensed under Apache-2.0 (see LICENSE).
+
+Derived work
+------------
+src/motionvid/sonic/ is a trimmed, modified copy of the DSP sound-effect renderer of ORB
+(https://github.com/stdevMac/orb-audio, Copyright 2026 Marcos Maceo and ORB contributors, Apache-2.0).
+This repository is NOT a fork: it contains none of ORB's planner, training code, web site, weights,
+datasets, detail model (CC BY-NC) or i18n strings. Only these files were taken:
+score.py, grammar.py, io.py, render/{dsp,events,foley,natural,texture,ambience,music,mix}.py, eval/audit.py.
+Modifications: natural.py `_owl_hoot` crash fix for very short hoots. Everything else under
+src/motionvid/ (timeline, cues, compose, genome, preview, cli, rsi/) is original.
+
+Third-party: NumPy (BSD-3-Clause).

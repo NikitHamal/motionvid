@@ -1,0 +1,137 @@
+{
+  "sync": {
+    "n": 141,
+    "n_defined_hit": 135,
+    "short_dur_fallbacks": 0,
+    "naive": {
+      "median_abs_ms": 59.125,
+      "p95_abs_ms": 453.0625,
+      "max_abs_ms": 857.75,
+      "within_5ms": 0.2765957446808511,
+      "within_1_frame_30fps": 0.4326241134751773
+    },
+    "anchor": {
+      "median_abs_ms": 2.2916666666667425,
+      "p95_abs_ms": 76.39583333333303,
+      "max_abs_ms": 645.604166666667,
+      "within_5ms": 0.7304964539007093,
+      "within_1_frame_30fps": 0.8865248226950354
+    },
+    "naive_defined": {
+      "median_abs_ms": 59.104166666666515,
+      "p95_abs_ms": 468.2749999999999,
+      "max_abs_ms": 857.75,
+      "within_5ms": 0.28888888888888886,
+      "within_1_frame_30fps": 0.43703703703703706
+    },
+    "anchor_defined": {
+      "median_abs_ms": 2.291666666666515,
+      "p95_abs_ms": 64.69999999999986,
+      "max_abs_ms": 645.604166666667,
+      "within_5ms": 0.7481481481481481,
+      "within_1_frame_30fps": 0.8888888888888888
+    },
+    "worst_naive": [
+      {
+        "role": "paper_rustle",
+        "dur": 1.6,
+        "naive": 857.75,
+        "anchor": 645.604166666667,
+        "sustained": false
+      },
+      {
+        "role": "riser",
+        "dur": 1.6,
+        "naive": 652.0,
+        "anchor": 76.39583333333303,
+        "sustained": false
+      },
+      {
+        "role": "owl",
+        "dur": 1.6,
+        "naive": 612.4375,
+        "anchor": 182.3125,
+        "sustained": false
+      },
+      {
+        "role": "whoosh",
+        "dur": 1.6,
+        "naive": 607.75,
+        "anchor": 56.875,
+        "sustained": false
+      },
+      {
+        "role": "swell",
+        "dur": 1.6,
+        "naive": 600.8958333333335,
+        "anchor": 14.729166666666742,
+        "sustained": false
+      }
+    ],
+    "worst_anchor": [
+      {
+        "role": "paper_rustle",
+        "dur": 1.6,
+        "naive": 857.75,
+        "anchor": 645.604166666667,
+        "sustained": false
+      },
+      {
+        "role": "glitch",
+        "dur": 1.6,
+        "naive": 395.875,
+        "anchor": 395.875,
+        "sustained": true
+      },
+      {
+        "role": "glitch",
+        "dur": 0.8,
+        "naive": 195.8125,
+        "anchor": 195.8125,
+        "sustained": false
+      },
+      {
+        "role": "owl",
+        "dur": 1.6,
+        "naive": 612.4375,
+        "anchor": 182.3125,
+        "sustained": false
+      },
+      {
+        "role": "glitch",
+        "dur": 0.3,
+        "naive": 95.45833333333303,
+        "anchor": 95.45833333333303,
+        "sustained": false
+      }
+    ]
+  },
+  "throughput": {
+    "cues": 150,
+    "seconds": 60.0,
+    "cpus": 4,
+    "upstream_s": 9.050853942000003,
+    "cold_1worker_s": 4.8144587549999756,
+    "cold_s": 1.5924965680000014,
+    "warm_s": 0.22146113699994885,
+    "speedup_cold_1worker": 1.8799317644170055,
+    "speedup_cold": 5.683437015733648,
+    "speedup_warm": 40.868813664593866,
+    "cache": {
+      "entries": 71
+    },
+    "realtime_factor_cold": 37.67669030229266
+  },
+  "dynamics": {
+    "fixed_gain_pearson": 0.1088206543381845,
+    "motion_gain_pearson": 0.9765103362930663
+  },
+  "headline": {
+    "sync_median_improvement_x": 25.799999999999148,
+    "sync_p95_improvement_x": 5.930460867193915,
+    "defined_hit_p95_improvement_x": 7.237635239567248,
+    "defined_hit_within_5ms": 0.7481481481481481,
+    "throughput_cold_x": 5.683437015733648,
+    "throughput_warm_x": 40.868813664593866
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "fade_max_dur": 0.3,
+  "gain_ceiling_db": -4.0,
+  "gain_floor_db": -20.0,
+  "impact_min_pre_speed": 0.4,
+  "impact_stop_window": 0.06,
+  "intensity_gamma": 0.7,
+  "min_gap": 0.045,
+  "pan_width": 0.8,
+  "pop_max_dur": 0.516691084467514,
+  "pop_min_scale_delta": 0.2621908355326709,
+  "seg_on_speed": 0.06,
+  "whoosh_min_dur": 0.08909117258792389,
+  "whoosh_min_speed": 0.6093000416077964
+}
