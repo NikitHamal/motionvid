@@ -198,5 +198,25 @@
    "cues": "media/demos/noir/reel.cues.json",
    "audio": "media/demos/noir/reel.m4a"
   }
+ },
+ {
+  "id": "terra",
+  "title": "Terra",
+  "brief": "Urban climate, city footage, extruded 3D",
+  "duration": 54,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 40,
+  "elements": 29,
+  "video": "media/demos/terra/reel.mp4",
+  "poster": "media/demos/terra/poster.png",
+  "player": {
+   "timeline": "media/demos/terra/reel.json",
+   "cues": "media/demos/terra/reel.cues.json",
+   "audio": "media/demos/terra/reel.m4a"
+  }
  }
 ]
