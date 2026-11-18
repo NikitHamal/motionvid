@@ -2,7 +2,7 @@
   {
     "t": 0.125,
     "role": "sub",
-    "gain_db": -5.5,
+    "gain_db": -5.34,
     "pan": -0.005,
     "seed": 188493416,
     "why": "scene: area +109.4% sub-boom",
@@ -251,7 +251,7 @@
   {
     "t": 1.55,
     "role": "sub",
-    "gain_db": -10.82,
+    "gain_db": -10.66,
     "pan": -0.004,
     "seed": 68711546,
     "why": "scene: area +4.7% sub-boom",
@@ -290,7 +290,7 @@
   {
     "t": 3.1667,
     "role": "sub",
-    "gain_db": -5.5,
+    "gain_db": -5.34,
     "pan": -0.004,
     "seed": 240942438,
     "why": "scene: area +299.7% sub-boom",
@@ -406,7 +406,7 @@
   {
     "t": 4.3792,
     "role": "sub",
-    "gain_db": -10.97,
+    "gain_db": -10.81,
     "pan": -0.002,
     "seed": 248328501,
     "why": "scene: area +4.2% sub-boom",
@@ -479,7 +479,7 @@
   {
     "t": 6.8667,
     "role": "sub",
-    "gain_db": -5.5,
+    "gain_db": -5.34,
     "pan": -0.002,
     "seed": 1747623,
     "why": "scene: area +299.7% sub-boom",
@@ -612,7 +612,7 @@
   {
     "t": 10.4458,
     "role": "sub",
-    "gain_db": -5.5,
+    "gain_db": -5.34,
     "pan": 0.009,
     "seed": 24577048,
     "why": "scene: area +299.7% sub-boom",
@@ -811,7 +811,7 @@
   {
     "t": 13.5833,
     "role": "sub",
-    "gain_db": -5.5,
+    "gain_db": -5.34,
     "pan": 0.188,
     "seed": 210003141,
     "why": "scene: area +491.8% sub-boom",
@@ -1031,7 +1031,7 @@
   {
     "t": 15.8625,
     "role": "sub",
-    "gain_db": -10.44,
+    "gain_db": -10.28,
     "pan": 0.176,
     "seed": 218166521,
     "why": "scene: area +6.2% sub-boom",
@@ -1064,7 +1064,7 @@
   {
     "t": 17.0667,
     "role": "sub",
-    "gain_db": -5.5,
+    "gain_db": -5.34,
     "pan": 0.175,
     "seed": 55714975,
     "why": "scene: area +299.7% sub-boom",
@@ -1377,7 +1377,7 @@
   {
     "t": 19.0667,
     "role": "sub",
-    "gain_db": -11.36,
+    "gain_db": -11.2,
     "pan": 0.148,
     "seed": 27674079,
     "why": "scene: area +3.0% sub-boom",

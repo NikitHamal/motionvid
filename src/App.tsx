@@ -1,20 +1,27 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import tlJson from "../docs/media/v0.4/reel.json";
-import cueJson from "../docs/media/v0.4/reel.cues.json";
-import audioUrl from "../docs/media/v0.4/reel.m4a?url";
+import tl04 from "../docs/media/v0.4/reel.json";
+import cue04 from "../docs/media/v0.4/reel.cues.json";
+import audio04 from "../docs/media/v0.4/reel.m4a?url";
+import tl05 from "../docs/media/v0.5/reel.json";
+import cue05 from "../docs/media/v0.5/reel.cues.json";
+import audio05 from "../docs/media/v0.5/reel.m4a?url";
 import { drawFrame } from "../docs/engine/render.js";
 import type { Cue, Timeline } from "../docs/engine/render.js";
 import { drawXray } from "../docs/engine/xray.js";
 
-const tl = tlJson as unknown as Timeline;
-const cues = cueJson as unknown as Cue[];
-const ROLES = ["click", "ui_pop", "impact", "whoosh", "riser"];
+const REELS = {
+  "v0.4": { tl: tl04 as unknown as Timeline, cues: cue04 as unknown as Cue[], audio: audio04 },
+  "v0.5": { tl: tl05 as unknown as Timeline, cues: cue05 as unknown as Cue[], audio: audio05 },
+};
+const ROLES = ["sub", "pluck", "tick", "impact", "whoosh", "suction", "crystal", "riser"];
 const K = 1280 / 1920;
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
 
 export default function App() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const audio = useRef<HTMLAudioElement>(null);
+  const [ver, setVer] = useState<"v0.4" | "v0.5">("v0.5");
+  const { tl, cues, audio: audioUrl } = REELS[ver];
   const [t, setT] = useState(2.2);
   const [playing, setPlaying] = useState(false);
   const [xray, setXray] = useState(true);
@@ -36,9 +43,9 @@ export default function App() {
     const ctx = canvas.current!.getContext("2d")!;
     drawFrame(ctx, tl, Math.min(t, tl.duration), K);
     if (xray) drawXray(ctx, tl, cues, Math.min(t, tl.duration), K);
-  }, [t, xray]);
+  }, [t, xray, tl, cues]);
 
-  const visible = useMemo(() => cues.filter((c) => !off.has(c.role)), [off]);
+  const visible = useMemo(() => cues.filter((c) => !off.has(c.role)), [cues, off]);
   const active = visible.reduce((n, c, i) => (c.t <= t ? i : n), -1);
   useEffect(() => {
     rows.current?.children[active]?.scrollIntoView({ block: "nearest" });
@@ -49,11 +56,21 @@ export default function App() {
     const a = audio.current!;
     if (a.paused) { if (a.ended) a.currentTime = 0; void a.play(); } else a.pause();
   };
+  const switchVer = (v: "v0.4" | "v0.5") => {
+    audio.current?.pause();
+    setPlaying(false);
+    setVer(v);
+    setT(2.2);
+  };
 
   return (
     <div className="studio">
       <header>
         <b className="mark">motionvid <span>studio</span></b>
+        <div className="seg">
+          <button aria-pressed={ver === "v0.4"} onClick={() => switchVer("v0.4")}>v0.4</button>
+          <button aria-pressed={ver === "v0.5"} onClick={() => switchVer("v0.5")}>v0.5</button>
+        </div>
         <div className="seg">
           <button aria-pressed={!xray} onClick={() => setXray(false)}>Clean</button>
           <button aria-pressed={xray} onClick={() => setXray(true)}>X-ray</button>
@@ -76,7 +93,7 @@ export default function App() {
 
       <aside className="cues">
         <div className="chips">
-          {ROLES.map((r) => (
+          {ROLES.filter((r) => cues.some((c) => c.role === r)).map((r) => (
             <button key={r} className={`chip ${r}`} aria-pressed={!off.has(r)}
               onClick={() => setOff((p) => { const n = new Set(p); n.has(r) ? n.delete(r) : n.add(r); return n; })}>
               {r}<i>{cues.filter((c) => c.role === r).length}</i>

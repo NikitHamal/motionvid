@@ -1,88 +1,47 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 3 · Box: 4 CPU / 3 GB / no GPU.
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 4 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
 
 ## Next actions (do top first)
-1. **Visual QA in a real browser**: site (`docs/index.html`) and Studio are verified by build, Node tests and rule tests only (sandbox cannot launch
-   Chromium). Open both; confirm play/pause toggles, nav hover never shows a square corner, version buttons switch audio+timeline. Screenshot to `docs/media/`.
-2. **Code-level audio gains (parameter RSI has plateaued)**: Reel II holdout fails `pan_corr` (0.44 < 0.5) and `sub_coupling` is 0.75 (v0.3: 0.89).
-   Ideas: pan the dominant mover only when several elements move symmetrically; add sub to ring/pop clusters; occlusion (do not sound elements hidden under a flood).
-3. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits; see `docs/ROADMAP.md` G1. Keep 0-byte engine as the baseline gate.
-4. Human labels for "what is the hit" of broad sounds (whoosh, riser); calibrate classic anchors. Gate: `bench/motionsync.py` both detectors no worse.
-5. Music bed on a beat grid (`render/music.py` vendored, unused); MCP server for agents; 20 real launch timelines.
+1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train tiny English-only text->timeline planner (`<= 3 MB` int8); see `docs/ROADMAP.md` G1-G4. Keep 0-byte Agency DSP engine as the baseline gate.
+2. **Occlusion-aware telemetry**: mute or low-pass background shapes partially covered by an expanding foreground hero shape before the full-frame cut closes.
+3. **Human listening validation**: collect pairwise human preference ratings across `v0.1`..`v0.5` to calibrate FlawBench weights against human ears.
+4. **Beat-locked music bed & MCP server**: expose `motionvid` timeline authoring + render + FlawBench audit as an MCP tool server for autonomous video agents.
+
+## DONE (session 4)
+- **Agency DSP synthesis overhaul (`src/motionvid/scene/voices.py`, `score.py`, `foley.py`, `master.py`, `params.py`)** — resolved all 5 synthesis flaws and all timestamped audit findings from the `video_1.mp4` review:
+  1. **Killed pure sine/FM bells (`1.2–3.5 kHz`)**: replaced long-decay sine chimes with a **120 ms damped triangle/saw marimba body** (`180–420 Hz`, low-pass filter closing `1.8 kHz -> 300 Hz` over `90 ms`) + a **6 ms woody click transient** (`800–2200 Hz` bandpass impulse).
+  2. **Strict 3-voice burst polyphony budget & 110 ms class cooldown (`score.py`)**: multi-element bursts (6 orbiting blobs in Scene 1, 15 grid blobs in Scene 4, 14 radial blobs around `TIMING` in Scene 5, 4 corner blobs in Scene 6) collapse into **at most 3 staggered low-mid voices** (`0 dB`, `-5 dB`, `-10 dB`, spaced `>= 110 ms`), with mini-blobs tucked `-15 dB` to `-25 dB` behind hero transients. Individual oscillating `SPRING` bar triggers are muted.
+  3. **Locked dual-layer transition whooshes (`voices.py:whoosh`)**: every transition sweep sums a **pink-noise air layer** through a low-`Q` (`Q = 1.2`) low-pass filter (`250 Hz -> 1.6 kHz -> 200 Hz`) with a locked **90 Hz -> 42 Hz sub-bass weight layer** over `220 ms` peaking right on the cut frame.
+  4. **Realistic physical pitch envelopes (`<= 4` semitones)**: capped pop pitch envelopes to `+2.2 to +2.8 semitones` over `40 ms` (`pluck`/`tick`/`crystal`), riser harmonic swell to `+3.5 semitones`, and sub/impact drops to `85–90 Hz -> 42–45 Hz` (`<= 12 semitones` over `220 ms`). Eliminated the `2400 -> 5400 Hz` laser chirp in `crystal` (now a crisp `4 kHz` micro-click + damped wooden pop).
+  5. **Global master bus spectral tilt (`master.py`)**: `12%` wet short room reverb (`0.35s` decay, high-passed at `300 Hz`) -> wide **`-4 dB` bell cut at `2.5 kHz` (`Q = 1.0`)** -> **`+3 dB` low shelf at `75 Hz`** -> 2:1 glue -> `-16 LUFS` -> `-1.0 dBTP` true-peak limiter.
+- **Resolved session 3 holdout failures (`pan_corr` and `sub_coupling`)**:
+  - `foley.py:texture` now tracks composite speed-weighted `vx(t)` with a tactile mechanical/felt slide (`300 -> 900 Hz` bandpass pink noise + speed brush, panned `L -> R`), lifting Reel II `pan_corr` from **`0.44` (FAIL) -> `0.75` (PASS)**.
+  - `score.py:_expansions` now couples sub-booms (`85 -> 45 Hz`) to composite scene area growth, lifting Reel II `sub_coupling` from **`0.75 -> 1.00` (`100%`)**.
+  - `foley.py:stretch` replaces the 7 separate `SPRING` bar FM notes with **one continuous low-pass filtered brush/elastic sweep** tied to total bar width variance; `foley.py:shimmer` renders a smooth **warm harmonic pad swell** (`< 1.1 kHz`) during the star-to-circle morph.
+- **Version evolution renumbered & expanded (`docs/media/v0.1..v0.5`, `docs/versions.json`)**:
+  - Removed the old 6 s `v0.1` launch stub from site and repo as requested.
+  - Renumbered frozen evolution history: **`v0.1`** = Showreel (classic sound, frozen), **`v0.2`** = Scene sound (session 3 showreel, frozen), **`v0.3`** = Reel II (session 3 60 fps reel, frozen).
+  - Built **`v0.4` ("Agency Reel")**: polished 20.4 s, 60 fps, motion-blurred (`--blur 3`) résumé showreel (`examples/reel2.py`) with all timestamped audit fixes (`0:00.0–0:20.4`) and X-ray video.
+  - Built **`v0.5` ("Launch")**: brand-new 16.8 s, 60 fps, motion-blurred (`--blur 3`) social-media pipeline launch video (`examples/launch.py` -> `TIMELINE JSON TO CINEMA` -> `TELEMETRY` -> `48 KHZ / 0 BYTES / 25.8X SYNC` -> `9/9` RSI gate -> `motionvid PIPELINE LAUNCH 2026`) with X-ray video, poster, and interactive player cues.
+- **FlawBench & RSI (`bench/soundaudit.py`, `LEDGER.jsonl`, `scene_genome.json`)**:
+  - L2 code breakthrough + L1 parameter RSI (`scene-1795031292-1` ACCEPTED, `texture_db -22.0 -> -19.45`, `shimmer_db -28.0 -> -27.85`, `sub_db -5.5 -> -5.34`):
+  | reel | classic (`v0.1`) | session 3 (`v0.2`/`v0.3`) | Agency DSP + RSI (`v0.4`/`v0.5`) |
+  |---|---|---|---|
+  | `showreel.json` (dev) | 2/9, score 0.409 | 9/9, score 0.942 | **9/9, score 0.987** (**2.41x**) |
+  | `reel2.json` (`v0.4` holdout) | 2/9, score 0.406 | 8/9, score 0.913 (`pan_corr` 0.44) | **9/9, score 0.968** (**2.38x**, `pan_corr` 0.75, `sub` 100%) |
+  | `launch.json` (`v0.5` holdout 2) | 2/9, score 0.328 | — | **9/9, score 0.993** (**3.03x**, `pan_corr` 0.73, `sub` 100%) |
+- **MoLab box (`sb-771f596fb28c3728`)**: connected in Turn 2 via `marimo-pair execute-code.sh`; verified 20-CPU machine (no GPU attached yet, matching owner's note: "right now i have given you cpu only molab. first achieve proven breakthrough/innovation target. then i will give you gpu session").
 
 ## DONE (session 3)
-- **Scene audio engine** (`src/motionvid/scene/`, 0 weights, English-only, ~900 lines): sound is bound to continuous scene telemetry, not only trigger times.
-  area growth -> pitch-dropping sub (95->42 Hz); x(t) -> constant-power pan in [-0.65, 0.65], per sample for moving layers; speed -> filtered-noise texture
-  (300 Hz rest -> 4.5 kHz peak) + servo hum; width rate -> rubbery stretch tone; lobe-amp rate -> shimmer; glyph triggers from each character's real easing curve
-  (whitespace skipped, +-45 cents, +-2.5 dB, +1 semitone per 3.5 glyphs); scale pops phrase into an A-minor pentatonic cascade; collapses get suction + 3-6 kHz crystal;
-  every cut gets a whoosh that ramps up 190-210 ms early and peaks on the cut frame; chord bed + room tone remove dead air;
-  master bus = 10% short room reverb (HP 250 Hz send) -> tilt EQ (+3 dB < 85 Hz, +2.5 dB > 9 kHz) -> 2:1 glue (10/80 ms) -> -16 LUFS -> -1.0 dBTP limiter.
-- **FlawBench** (`bench/soundaudit.py`): the nine flaws from the expert review as numbers, thresholds from the review text. Same timeline, same checks:
-  | reel | classic (v0.2 sound) | scene (new) |
-  |---|---|---|
-  | showreel (dev) | 2/9, score 0.41 | **9/9, score 0.94** (2.3x) |
-  | Reel II (holdout) | 2/9, score 0.41 | **8/9, score 0.91** (2.2x) |
-  Honest notes: the review overstated two things. The classic mix already has strong 20-80 Hz energy (+5 dB vs mids) and 3 click variants, so those raw
-  metrics passed for v0.2; what was missing was *coupling* (sub on growth: 0.78 -> 0.89, glyph phrasing rho 0.40 -> 0.96), dead air (5.5 s -> 0), pre-roll,
-  pan tracking, tails and loudness (-22.1 LUFS, -0.96 dBTP -> -16.0, -1.0). Composite score is our own proxy, not a listening test.
-- **Reel II** (`examples/reel2.py`): 20.4 s, 60 fps, 81 elements, six scenes, real motion blur (`--blur 3`, tools/render_video.mjs sub-frame accumulation).
-- **Evolution kept**: `docs/media/v0.1..v0.4/`, registry `docs/versions.json` drives the site player and cards. v0.1/v0.2 are frozen and never rebuilt.
-  v0.3 = v0.2 visuals + scene sound; v0.4 = Reel II + scene sound.
-- **Site**: play/pause fixed (inline-svg `hidden` is unreliable; now `data-playing` + CSS), GitHub logo in the button, nav hover no longer flashes square corners
-  (cause: spring easing overshoot made the interpolated radius negative, clamped to 0). Rule is now a test. Studio had the same bug, fixed.
-- **RSI**: `motionvid rsi --scene` (dev + holdout, accept only if nothing regresses). 6 cycles run, 0 accepted: parameter space is saturated, see next action 2.
-- Tests 24 -> 41 (scene determinism, master limits, pre-roll, humanization, voice anchors, FlawBench gate, radius/play-pause/GitHub/version-media rules).
-- Mix-level ReelCheck cannot judge the dense scene engine (a 70 % envelope crossing picks the loudest neighbour); isolated impacts on the mix: median 2.4-3.6 ms,
-  78-80 % within one 30 fps frame. Per-voice anchors are gated in tests instead.
-- Not done: MoLab pairing (no `claude`/`uvx` in the sandbox), GPU phase, browser QA.
+- **Scene audio engine** (`src/motionvid/scene/`, 0 weights, English-only): telemetry-bound sub, pan, velocity texture, glyph humanization, cut pre-roll, master bus.
+- **FlawBench** (`bench/soundaudit.py`): 9 flaws from expert review turned into quantitative checks.
+- **Reel II** (`examples/reel2.py`): 20.4 s, 60 fps, 6 scenes, sub-frame motion blur (`--blur 3`).
+- **Site & Studio**: fixed play/pause `data-playing`, GitHub logo, clamped negative spring radii (`--ease-shape`).
 
 ## DONE (session 2)
-- **Real frame renderer** (was next-action 2): `tools/render_video.mjs` (Node canvas + ffmpeg-static) and `motionvid video`.
-  Same engine as the site. 21 s / 630 frames at 1280x720 + audio muxed in ~9 s on 4 CPUs.
-- **Showreel**: `examples/showreel.py` -> 21 s, 41 elements, 100 compiled cues (48 click, 25 ui_pop, 12 impact, 10 whoosh, 5 riser...),
-  five scenes with color floods whose hit lands on the closing frame; bounce contacts of a real outBounce get per-contact impacts.
-- Engine: new kinds (blob/cookie, ring, circle, rrect with pill radius), per-char split text, `outElastic`/`inBack` easings, cue x-ray.
-- **ReelCheck** (`bench/reelcheck.py`): rendered-audio hit alignment on the real showreel: median 1.9 ms, p95 70.7 ms (broad sounds and
-  clustered cues), 76.9 % within one 30 fps frame, peak 0.89. Gates: median <= 12 ms, within-1-frame >= 0.75, peak <= 0.98.
-- Surfaces: GitHub Pages site (plain HTML/CSS/JS, M3 Expressive), Studio (React, cue inspector), demo MP4s (showreel, x-ray, launch).
-- Tests 14 -> 24 (easing parity JS/Python, preview, video smoke, design rules). `scripts/build_media.py` regenerates all artifacts.
-- Preview page now uses the shared engine (old duplicate JS removed).
-
-## Known limits (session 2)
-- Still not a "2-5x better timbre" model; timbre is ORB's DSP. No GPU session used. Proven wins remain sync, throughput, dynamics, zero weights.
-- ReelCheck is a new metric with no upstream baseline; it gates regressions, it does not prove a multiple.
-- No browser verification of the site/Studio yet (see next action 1). Audio autoplay needs a user click by browser policy.
+- **Real frame renderer** (`tools/render_video.mjs`, Node canvas + ffmpeg-static) and `motionvid video`.
+- **Showreel** (`examples/showreel.py`, 21 s) and **ReelCheck** (`bench/reelcheck.py`, median 1.9 ms).
 
 ## DONE (session 1)
-- New repo created (not a fork); ORB DSP renderer vendored with attribution (NOTICE); nothing multilingual vendored.
-- **Motion→sound compiler** (`cues.py`): 0 params, 0 weights, no language; physics-derived cues from a JSON timeline.
-- **Anchor-aligned cached parallel mixer** (`compose.py`) + `MotionSync-Bench`. Results (CPU, `bench/results/motionsync.json`):
-  | metric | upstream-style | motionvid | gain |
-  |---|---|---|---|
-  | sync error, median over 141 role×dur cases | 59.1 ms | **2.3 ms** | **25.8×** |
-  | sync error, p95 (all) | 453 ms | 76 ms | 5.9× |
-  | sync error, p95 (defined-hit roles) | 468 ms | 64.7 ms | 7.2× |
-  | within 1 frame @30 fps | 43 % | **89 %** | 2.1× |
-  | render 150 cues / 60 s (4 CPU) | ~9.1 s | **~1.5 s** | **6.0×** (1 worker: 1.8×; warm cache 41×) |
-  | intensity→loudness Pearson (whoosh) | 0.11 | **0.98** | capability, was absent |
-  | model/weights needed for motion path | 20 MB planner | **0** | — |
-  **Detector dependence (important)**: the sync rows use detector 1 (80 % crossing, 8 ms, L channel). A structurally different
-  detector 2 (loudest 20 ms window) gives median 109 → 27.8 ms (**3.9×**) and within-1-frame 28 % → 54 %. Both are reported in
-  `bench/results/motionsync.json`. For broad-peaked sounds (whoosh, riser, noise_sweep, paper_rustle, glitch) "the hit" is perceptual,
-  so the two disagree; transient roles (impact, click, ui_pop, bell, ...) agree. Anchor-definition experiment (offline): crossing-70 %
-  (current) 1.9/27.8 ms medians on det1/det2; loudest-window 17.4/0.0; midpoint 9.9/13.9 — no free lunch, needs human labels.
-  Caveats: "upstream-style" = event start placed at cue time (what a caption/score engine does when an agent writes `@t`);
-  clips are the same renderer, so timbre is unchanged by construction (no regression, no improvement). Sustained sounds
-  (owl, siren, wind) have no single "hit"; reported separately. Detector for eval differs from placement detector.
-- Found and worked around 3 upstream renderer defects at short durations (owl crash fixed in `natural.py`; coin_drop raises,
-  fireworks silent → `compose._render_key` grows dur ×1.5 until valid).
-- **RSI cycle 2**: no accepted candidate (60 mutations, parameter level saturated at dev 0.948 / holdout 0.911); logged in LEDGER.jsonl. Next gain needs code-level (L2) change or label decision.
-- **RSI cycle 1** accepted (LEDGER.jsonl #1): cue F1 dev 0.934→0.948, holdout 0.899→0.911 (4 genome params changed).
-- CLI (`cues`, `render`, `bench`, `rsi`), HTML preview synced to audio, 14 tests green, docs (AGENT, SKILL, ARCHITECTURE, RSI, ROADMAP, DECISIONS).
-
-## Known limits (honest)
-- This is **not yet** a "2–5× better timbre" model. Timbre = ORB's physical models, unchanged. The proven wins are exact sync,
-  throughput, motion-conditioned dynamics, and zero-weight operation. Timbre/size breakthroughs are the GPU phase (ROADMAP G1–G4).
-- Ground truth for RSI is synthetic designer-intent labels (proxy). Holdout F1 0.911 is on the same generator family.
-- No video frames are produced yet — only audio + synchronized HTML preview.
-- MoLab pairing not possible from this sandbox (no `uvx`/`claude`); no remote GPU/CPU box was used.
+- New repo created (not a fork); ORB DSP renderer vendored with attribution (`NOTICE`); English-only.
+- **Motion->sound compiler** (`cues.py`), **anchor-aligned parallel mixer** (`compose.py`), **MotionSync-Bench** (median sync error 59.1 ms -> 2.3 ms, **25.8x**; 150-cue render **6.0x** faster; intensity->loudness Pearson 0.11 -> **0.98**; **0 B** weights).

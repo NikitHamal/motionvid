@@ -24,7 +24,7 @@ def _eval(G: dict) -> dict:
     from bench.soundaudit import run
 
     out = {}
-    for name, f in (("dev", "showreel.json"), ("hold", "reel2.json")):
+    for name, f in (("dev", "showreel.json"), ("hold", "reel2.json"), ("launch", "launch.json")):
         r = run(ROOT / "examples" / f, G, classic=False)["scene"]
         out[name] = {"score": r["score"], "passes": r["passes"]}
     return out
@@ -47,7 +47,8 @@ def cycles(n: int = 1, seed: int | None = None) -> list[dict]:
         H, keys = mutate(G, rng)
         cand = _eval(H)
         ok = (cand["dev"]["score"] > base["dev"]["score"] + 0.002 and cand["hold"]["score"] >= base["hold"]["score"]
-              and cand["dev"]["passes"] >= base["dev"]["passes"] and cand["hold"]["passes"] >= base["hold"]["passes"])
+              and cand["launch"]["score"] >= base["launch"]["score"]
+              and all(cand[k]["passes"] >= base[k]["passes"] for k in ("dev", "hold", "launch")))
         rec = {"cycle": f"scene-{int(time.time())}-{i}", "ts": int(time.time()), "accepted": bool(ok), "kind": "scene_genome", "mutated": keys,
                "before": base, "after": cand, "changes": {k: [round(G[k], 3), round(H[k], 3)] for k in keys}}
         if ok:
