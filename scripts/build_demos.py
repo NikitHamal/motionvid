@@ -20,12 +20,11 @@ MEDIA = ROOT / "docs" / "media" / "demos"
 # id: (title, brief, width, poster time, blur)
 DEMOS = {
     "lumen": ("Lumen", "Fintech app launch", 1280, 24.0, 3),
-    "orbit": ("Orbit", "SaaS analytics dashboard", 1280, 14.0, 3),
-    "forge": ("Forge", "Developer tool", 1280, 17.0, 3),
-    "bloom": ("Bloom", "Wellness app, vertical 9:16", 720, 16.0, 3),
-    "cadence": ("Cadence", "3D hardware reveal", 1280, 20.0, 3),
-    "parcel": ("Parcel", "Delivery service", 1280, 16.0, 3),
-    "kit": ("motionvid kit", "Pipeline launch", 1280, 18.0, 3),
+    "orbit": ("Orbit", "SaaS analytics dashboard", 1280, 10.0, 3),
+    "forge": ("Forge", "Developer tool", 1280, 9.5, 3),
+    "bloom": ("Bloom", "Wellness app, vertical 9:16", 720, 17.0, 3),
+    "cadence": ("Cadence", "3D hardware reveal", 1280, 11.0, 3),
+    "parcel": ("Parcel", "Delivery service", 1280, 9.0, 3),
 }
 
 

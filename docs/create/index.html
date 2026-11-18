@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create - motionvid</title>
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../site.css">
+  <link rel="stylesheet" href="create.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="../">motionvid</a>
+    <nav class="seg"><a href="../#demos">Demos</a><a href="../#videos">Evolution</a><a href="./" aria-current="page">Create</a></nav>
+    <a class="btn tonal" href="https://github.com/NikitHamal/motionvid">GitHub</a>
+  </header>
+  <main class="create">
+    <section class="panel">
+      <textarea id="prompt" rows="5" aria-label="Prompt">Lumen, a payments app with instant transfers, virtual cards and zero fees</textarea>
+      <div class="row2">
+        <div class="seg" id="fmt"><button aria-pressed="true" data-v="0">16:9</button><button aria-pressed="false" data-v="1">9:16</button></div>
+        <button class="btn" id="go">Generate</button>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="acts" id="acts"></div>
+    </section>
+    <section class="stagecol">
+      <div class="player" id="player">
+        <canvas id="stage" width="1280" height="720" aria-label="Preview"></canvas>
+        <div class="bar">
+          <button class="fab" id="play" data-playing="false" aria-label="Play">
+            <svg class="i ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="i ico-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <input id="scrub" type="range" min="0" max="26" step="0.01" value="0" aria-label="Seek">
+          <output id="time">0:00</output>
+        </div>
+      </div>
+      <div class="row2 out">
+        <button class="btn tonal" id="dl">timeline.json</button>
+        <button class="btn tonal" id="cmd">Render command</button>
+        <button class="btn tonal" id="agent">Agent prompt</button>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="create.js"></script>
+</body>
+</html>

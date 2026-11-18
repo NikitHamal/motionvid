@@ -74,6 +74,17 @@ function cards() {
   }
 }
 
+async function demos() {
+  const host = $('demos');
+  for (const d of await (await fetch('demos.json')).json()) {
+    const f = document.createElement('figure');
+    f.style.setProperty('--ar', `${d.aspect[0]} / ${d.aspect[1]}`);
+    if (d.aspect[1] > d.aspect[0]) f.className = 'tall';
+    f.innerHTML = `<video controls preload="none" poster="${d.poster}" src="${d.video}"></video><figcaption>${d.title}<em>${Math.round(d.duration)}s</em></figcaption>`;
+    host.append(f);
+  }
+}
+
 function flaws(fb) {
   const host = $('flaws');
   const names = { sub_coupling: 'Sub-bass on growth', air_vs_mid_db: 'Air above 9 kHz', dead_air_s: 'Dead air', pan_corr: 'Pan follows x',
@@ -81,9 +92,9 @@ function flaws(fb) {
   const units = { sub_coupling: (x) => `${Math.round(x * 100)}%`, air_vs_mid_db: (x) => `${x.toFixed(0)} dB`, dead_air_s: (x) => `${x.toFixed(1)} s`,
     pan_corr: (x) => x.toFixed(2), motion_bright_corr: (x) => x.toFixed(2), preroll_rise_db: (x) => `${x.toFixed(0)} dB`, glyph_ramp_rho: (x) => x.toFixed(2),
     tail_300ms_db: (x) => `${x.toFixed(0)} dB`, master_lufs_err: (x) => `${x.toFixed(1)} LU` };
-  const cols = [fb.showreel.classic, fb.v02_scene || fb.showreel.scene, fb.v03_scene || fb.reel2.scene, fb.reel2.scene, fb.launch ? fb.launch.scene : fb.reel2.scene, fb.showreel2.scene, fb.launch2.scene];
+  const cols = [fb.showreel.classic, fb.v02_scene || fb.showreel.scene, fb.v03_scene || fb.reel2.scene, fb.reel2.scene, fb.launch ? fb.launch.scene : fb.reel2.scene, fb.showreel2.scene, fb.launch2.scene, (fb.launch3 || fb.launch2).scene];
   const cell = (r, key) => `<span class="v ${r.detail[key] ? 'ok' : 'no'}">${units[key](r[key])}</span>`;
-  host.innerHTML = '<div class="row head"><span>Check</span><span>v0.1</span><span>v0.2</span><span>v0.3</span><span>v0.4</span><span>v0.5</span><span>v0.6</span><span>v0.7</span></div>' +
+  host.innerHTML = '<div class="row head"><span>Check</span><span>v0.1</span><span>v0.2</span><span>v0.3</span><span>v0.4</span><span>v0.5</span><span>v0.6</span><span>v0.7</span><span>v0.8</span></div>' +
     Object.keys(names).map((key) => `<div class="row"><span>${names[key]}</span>${cols.map((c) => cell(c, key)).join('')}</div>`).join('');
 }
 
@@ -100,6 +111,7 @@ function studio(a) {
 versions = await (await fetch('versions.json')).json();
 studio(await (await fetch('media/studio_audit.json')).json());
 cards();
+await demos();
 flaws(await (await fetch('media/flawbench.json')).json());
 const playable = versions.filter((v) => v.player);
 $('ver').innerHTML = playable.map((v) => `<button aria-pressed="false" data-id="${v.id}">${v.id}</button>`).join('');

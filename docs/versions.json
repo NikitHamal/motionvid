@@ -5,5 +5,6 @@
   {"id": "v0.4", "title": "Agency Reel", "video": "media/v0.4/reel.mp4", "xray": "media/v0.4/reel-xray.mp4", "poster": "media/v0.4/poster.png", "player": {"timeline": "media/v0.4/reel.json", "cues": "media/v0.4/reel.cues.json", "audio": "media/v0.4/reel.m4a"}},
   {"id": "v0.5", "title": "Launch", "video": "media/v0.5/reel.mp4", "xray": "media/v0.5/reel-xray.mp4", "poster": "media/v0.5/poster.png", "player": {"timeline": "media/v0.5/reel.json", "cues": "media/v0.5/reel.cues.json", "audio": "media/v0.5/reel.m4a"}},
   {"id": "v0.6", "title": "Studio Reel", "video": "media/v0.6/reel.mp4", "xray": "media/v0.6/reel-xray.mp4", "poster": "media/v0.6/poster.png", "player": {"timeline": "media/v0.6/reel.json", "cues": "media/v0.6/reel.cues.json", "audio": "media/v0.6/reel.m4a"}},
-  {"id": "v0.7", "title": "Studio Launch", "video": "media/v0.7/reel.mp4", "xray": "media/v0.7/reel-xray.mp4", "poster": "media/v0.7/poster.png", "player": {"timeline": "media/v0.7/reel.json", "cues": "media/v0.7/reel.cues.json", "audio": "media/v0.7/reel.m4a"}}
+  {"id": "v0.7", "title": "Studio Launch", "video": "media/v0.7/reel.mp4", "xray": "media/v0.7/reel-xray.mp4", "poster": "media/v0.7/poster.png", "player": {"timeline": "media/v0.7/reel.json", "cues": "media/v0.7/reel.cues.json", "audio": "media/v0.7/reel.m4a"}},
+  {"id": "v0.8", "title": "Kit Launch", "video": "media/v0.8/reel.mp4", "xray": "media/v0.8/reel-xray.mp4", "poster": "media/v0.8/poster.png", "player": {"timeline": "media/v0.8/reel.json", "cues": "media/v0.8/reel.cues.json", "audio": "media/v0.8/reel.m4a"}}
 ]

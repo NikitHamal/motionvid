@@ -38,5 +38,65 @@
    "cues": "media/demos/orbit/reel.cues.json",
    "audio": "media/demos/orbit/reel.m4a"
   }
+ },
+ {
+  "id": "forge",
+  "title": "Forge",
+  "brief": "Developer tool",
+  "duration": 34,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 76,
+  "elements": 53,
+  "video": "media/demos/forge/reel.mp4",
+  "poster": "media/demos/forge/poster.png",
+  "player": {
+   "timeline": "media/demos/forge/reel.json",
+   "cues": "media/demos/forge/reel.cues.json",
+   "audio": "media/demos/forge/reel.m4a"
+  }
+ },
+ {
+  "id": "bloom",
+  "title": "Bloom",
+  "brief": "Wellness app, vertical 9:16",
+  "duration": 32,
+  "fps": 60,
+  "aspect": [
+   1080,
+   1920
+  ],
+  "sfx": 34,
+  "elements": 33,
+  "video": "media/demos/bloom/reel.mp4",
+  "poster": "media/demos/bloom/poster.png",
+  "player": {
+   "timeline": "media/demos/bloom/reel.json",
+   "cues": "media/demos/bloom/reel.cues.json",
+   "audio": "media/demos/bloom/reel.m4a"
+  }
+ },
+ {
+  "id": "parcel",
+  "title": "Parcel",
+  "brief": "Delivery service",
+  "duration": 34,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 32,
+  "elements": 40,
+  "video": "media/demos/parcel/reel.mp4",
+  "poster": "media/demos/parcel/poster.png",
+  "player": {
+   "timeline": "media/demos/parcel/reel.json",
+   "cues": "media/demos/parcel/reel.cues.json",
+   "audio": "media/demos/parcel/reel.m4a"
+  }
  }
 ]

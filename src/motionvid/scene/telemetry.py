@@ -50,7 +50,7 @@ def build(tl: dict[str, Any]) -> list[Tel]:
         g = lambda n, d: np.array(sample(el, n, tsl, d))  # noqa: E731
         x, y = g("x", W / 2), g("y", H / 2)
         w = g("w", float(el.get("w") or 160))
-        h = g("h", float(el["h"])) if ("h" in el or "h" in el.get("tracks", {})) else w.copy()
+        h = g("h", float(el.get("h", el.get("w") or 160))) if ("h" in el or "h" in el.get("tracks", {})) else w.copy()
         sc = g("scale", 1.0)
         op = np.clip(g("opacity", 1.0), 0, 1)
         shaped = el.get("kind") in SHAPES and el.get("kind") != "ring"

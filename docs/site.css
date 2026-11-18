@@ -75,3 +75,12 @@ footer a { color: var(--primary); }
 .reveal { opacity: 0; transform: translateY(32px) scale(0.97); transition: opacity 400ms, transform var(--spring); }
 .reveal.in { opacity: 1; transform: none; }
 .tile.reveal { transition: opacity 400ms, transform var(--spring), border-radius 320ms var(--ease-shape); }
+
+/* demos gallery */
+.demos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: start; margin-top: 12px; }
+.demos figure { margin: 0; border-radius: var(--shape-xl); overflow: hidden; background: var(--surface-low); }
+.demos figure.tall { grid-row: span 2; }
+.demos video { display: block; width: 100%; height: auto; aspect-ratio: var(--ar, 16 / 9); object-fit: cover; background: var(--surface-high); }
+.demos figcaption { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 20px 18px; font-size: 24px; font-weight: 800; }
+.demos figcaption em { font-style: normal; font-size: 16px; color: var(--on-surface-muted); }
+@media (max-width: 900px) { .demos { grid-template-columns: 1fr; } .demos figure.tall { grid-row: auto; } }
