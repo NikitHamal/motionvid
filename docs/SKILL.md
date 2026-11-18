@@ -1,4 +1,4 @@
-# motionvid skill v2: make a top-tier motion video with sound from a prompt
+# motionvid skill v3: make a top-tier motion video with sound from a prompt
 
 You are the motion designer. Write a Python scene with `motionvid.kit`, check it as a contact sheet, render it. Motion and sound are written together, so they cannot drift apart. Look rules: `docs/DESIGN.md`. Reference scenes: `examples/demos/*.py` (atlas, pulse, ledgerly, noir, terra, kernel).
 
@@ -42,3 +42,20 @@ Brief fields: name, category, 3 features, one stat, CTA. Category picks the pale
 
 ## Anti-patterns
 Stacked text walls, more than 3 colors in an act, linear easing, a transition without a hit, silent UI actions, a static 3D object, the same hero object in two acts, an act shorter than 6 s, a device with an empty screen, text over untinted footage, a hero that is not centered in its act, tiny photos (a photo is a hero: 600 px+).
+
+## 3D v3 (session 9): smooth procedural heroes
+Prims (all lit per face, solid facets, no shadows): `wave` (height field terrain/energy/data field), `blob` (morphing sphere), `knot` (torus-knot tube, `p q R r`), `helix` (spiral tube), `ribbon` (twisted band, `both=True`). Common options: `ramp=[colors]` (+ `cycle=n`) maps a solid color ramp over `u` (curve position, height, longitude); `ao=0..1` darkens valleys; `speed` animates time, or drive `ph` as a track; `amp` is a track (grow on arrival with `spring`). Element-level light: `rim=0.3` (Fresnel edge light), `hemi=0.5` (sky/ground ambient; use on `wave` and `blob`).
+- Keep ramps warm or earthy (`ink moss butter coral`, `moss sage cream white`, `lime butter coral cream`). No blue/purple.
+- `wave`: `rx -24..-30`, `w 1250-1700`, `amp 90-230`, `seg 44-56`; `ry` drift +-20 deg. `blob`: `r 150-300`, `amp 0.2-0.28`, 72 segments. `knot`: `R 200-300`, `r = 0.25 R`, `gloss 18`. Dynamic prims cost 1.5-3k faces per frame: fine at 60 fps, avoid more than 3 per scene.
+- Hero ledger (never reuse the same hero as the previous video in the same category): atlas cube+globe, pulse rings+tower, ledgerly tower+coins, noir carousel, terra extruded leaf, kernel racks+hex, helio blob sun+wave+globe, summit terrain+bottle+cube, mosaic blob+phones+wave, tempo knot+equalizer+helix, quill ribbon+helix+blob.
+
+## Layout checks that caught real defects (run them on every contact sheet)
+1. Width of a headline = `chars * 0.5 * size`; keep it inside the frame with 6 % margin and clear of the hero by one hero radius. Fix by lowering size, not by moving the hero off screen.
+2. A hero's bounding box (`size`) must not overlap a text block's x range; place text left and hero right (or stack in vertical).
+3. Counters must not sit on a moving 3D object; give them their own corner.
+4. Device screens must show the action at the sampled frame (counter running, typed line, press).
+5. Text on a photo or footage needs a flat `tint`. Headline colors on lime/butter backgrounds are `ink`, never `cream`.
+6. Orbit radius plus object radius must stay inside the frame at every angle.
+
+## Formats
+`16:9` 1920x1080, `9:16` 1080x1920, `4:5` 1080x1350, `1:1` 1080x1080. Planner: `plan(prompt, vertical, seed, {aspect, long})`; `long` adds a full-bleed photo act (38 s). Python kit: `Scene(dur, bg, width=, height=)`.

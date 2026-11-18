@@ -42,7 +42,7 @@ S.wipe(40.0, "moss", "y", 1)
 
 # Act 5 (40-50): laptop
 b = 40.0
-S.headline("e1", "Ship in a click.", b + 0.4, 170, 135, "cream", dur=1.0)
+S.headline("e1", "Ship in a click.", b + 0.4, 170, 120, "cream", dur=1.0)
 mesh.mesh(S, "e_l", b + 0.5, 540, 760, mesh.laptop3d(screens.dashboard(S, 893, 542, b + 1.4, "moss", "butter"), 1000), 1300, rx=-12, ry=spin(b + 0.4, b + 9.4, -26, 18), persp=2200)
 mesh.mesh(S, "e_k", b + 1.2, 540, 1215, [part("knot", ramp=["butter", "coral", "cream", "butter"], cycle=2, R=90, r=24, p=2, q=3, gloss=16)], 500, rx=-20, ry=spin(b + 1.1, b + 9.4, 0, 200), persp=2000, rim=0.3)
 S.iris(50.0, "coral", 540, 760)

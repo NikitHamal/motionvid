@@ -25,8 +25,9 @@ BUILDS = {
     "v0.7": ("examples/launch2.json", 3, 16.8, "scene"),
     "v0.8": ("examples/launch3.json", 3, 14.5, "scene"),
     "v0.9": ("examples/launch4.json", 3, 15.0, "scene"),
+    "v0.10": ("examples/launch5.json", 3, 17.0, "scene"),
 }
-DEFAULT = ("v0.6", "v0.7", "v0.8", "v0.9")
+DEFAULT = ("v0.6", "v0.7", "v0.8", "v0.9", "v0.10")
 
 
 def sh(*a: str) -> None:
@@ -65,6 +66,7 @@ def flawbench() -> None:
         "launch2": run(ROOT / "examples" / "launch2.json", classic=False),
         "launch3": run(ROOT / "examples" / "launch3.json", classic=False),
         "launch4": run(ROOT / "examples" / "launch4.json", classic=False),
+        "launch5": run(ROOT / "examples" / "launch5.json", classic=False),
     }
     if v02_scene:
         res["v02_scene"] = v02_scene

@@ -106,5 +106,17 @@
    "cues": "media/v0.9/reel.cues.json",
    "audio": "media/v0.9/reel.m4a"
   }
+ },
+ {
+  "id": "v0.10",
+  "title": "Prism Launch",
+  "video": "media/v0.10/reel.mp4",
+  "xray": "media/v0.10/reel-xray.mp4",
+  "poster": "media/v0.10/poster.png",
+  "player": {
+   "timeline": "media/v0.10/reel.json",
+   "cues": "media/v0.10/reel.cues.json",
+   "audio": "media/v0.10/reel.m4a"
+  }
  }
 ]
