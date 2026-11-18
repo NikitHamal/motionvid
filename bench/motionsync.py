@@ -34,6 +34,15 @@ def detect_ms(mix: np.ndarray, frac: float = 0.8, win_ms: float = 8.0) -> float:
     return float(np.argmax(env >= frac * env.max())) / SR * 1000.0
 
 
+def detect_peak_ms(mix: np.ndarray, win_ms: float = 20.0) -> float:
+    """Second, structurally different detector: time of the loudest 20 ms RMS window (both channels)."""
+    x = np.sqrt(np.mean(mix.astype(np.float64) ** 2, axis=1))
+    w = int(win_ms * SR / 1000)
+    c = np.cumsum(np.concatenate([[0.0], x**2]))
+    env = np.sqrt((c[w:] - c[:-w]) / w)
+    return (float(np.argmax(env)) + w / 2) / SR * 1000.0
+
+
 def sustained(mix: np.ndarray) -> bool:
     """True if the loud part is spread over > 250 ms: the 'hit' of such a sound is not a point."""
     x = np.abs(mix).max(axis=1).astype(np.float64)
@@ -52,6 +61,7 @@ def sync(cue_t: float = 2.0, durs=(0.3, 0.8, 1.6)) -> dict:
             for name, anchor in (("naive", False), ("anchor", True)):
                 mix, _ = C.render_cues([cue], 4.0, anchor=anchor)
                 r[name] = detect_ms(mix) - cue_t * 1000.0
+                r[name + "_peak"] = detect_peak_ms(mix) - cue_t * 1000.0
                 if name == "anchor":
                     r["sustained"] = sustained(mix)
             rows.append(r)
@@ -63,6 +73,10 @@ def sync(cue_t: float = 2.0, durs=(0.3, 0.8, 1.6)) -> dict:
         out[name] = {"median_abs_ms": float(np.median(a)), "p95_abs_ms": float(np.percentile(a, 95)),
                      "max_abs_ms": float(a.max()), "within_5ms": float(np.mean(a <= 5.0)),
                      "within_1_frame_30fps": float(np.mean(a <= 33.3))}
+    for name in ("naive", "anchor"):
+        a = np.abs([r[name + "_peak"] for r in rows])
+        out[name + "_peakdetector"] = {"median_abs_ms": float(np.median(a)), "p95_abs_ms": float(np.percentile(a, 95)),
+                                       "within_1_frame_30fps": float(np.mean(a <= 33.3))}
     out["worst_naive"] = sorted(rows, key=lambda r: -abs(r["naive"]))[:5]
     out["worst_anchor"] = sorted(rows, key=lambda r: -abs(r["anchor"]))[:5]
     return out

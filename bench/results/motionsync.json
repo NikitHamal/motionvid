@@ -31,40 +31,60 @@
       "within_5ms": 0.7481481481481481,
       "within_1_frame_30fps": 0.8888888888888888
     },
+    "naive_peakdetector": {
+      "median_abs_ms": 109.375,
+      "p95_abs_ms": 654.75,
+      "within_1_frame_30fps": 0.28368794326241137
+    },
+    "anchor_peakdetector": {
+      "median_abs_ms": 27.8125,
+      "p95_abs_ms": 381.9375,
+      "within_1_frame_30fps": 0.5390070921985816
+    },
     "worst_naive": [
       {
         "role": "paper_rustle",
         "dur": 1.6,
         "naive": 857.75,
+        "naive_peak": 868.9791666666665,
         "anchor": 645.604166666667,
+        "anchor_peak": 656.833333333333,
         "sustained": false
       },
       {
         "role": "riser",
         "dur": 1.6,
         "naive": 652.0,
+        "naive_peak": 668.1458333333335,
         "anchor": 76.39583333333303,
+        "anchor_peak": 92.54166666666652,
         "sustained": false
       },
       {
         "role": "owl",
         "dur": 1.6,
         "naive": 612.4375,
+        "naive_peak": 646.145833333333,
         "anchor": 182.3125,
+        "anchor_peak": 216.02083333333348,
         "sustained": false
       },
       {
         "role": "whoosh",
         "dur": 1.6,
         "naive": 607.75,
+        "naive_peak": 654.75,
         "anchor": 56.875,
+        "anchor_peak": 103.875,
         "sustained": false
       },
       {
         "role": "swell",
         "dur": 1.6,
         "naive": 600.8958333333335,
+        "naive_peak": 656.6875,
         "anchor": 14.729166666666742,
+        "anchor_peak": 70.52083333333303,
         "sustained": false
       }
     ],
@@ -73,35 +93,45 @@
         "role": "paper_rustle",
         "dur": 1.6,
         "naive": 857.75,
+        "naive_peak": 868.9791666666665,
         "anchor": 645.604166666667,
+        "anchor_peak": 656.833333333333,
         "sustained": false
       },
       {
         "role": "glitch",
         "dur": 1.6,
         "naive": 395.875,
+        "naive_peak": 262.8125,
         "anchor": 395.875,
+        "anchor_peak": 262.8125,
         "sustained": true
       },
       {
         "role": "glitch",
         "dur": 0.8,
         "naive": 195.8125,
+        "naive_peak": 130.02083333333348,
         "anchor": 195.8125,
+        "anchor_peak": 130.02083333333348,
         "sustained": false
       },
       {
         "role": "owl",
         "dur": 1.6,
         "naive": 612.4375,
+        "naive_peak": 646.145833333333,
         "anchor": 182.3125,
+        "anchor_peak": 216.02083333333348,
         "sustained": false
       },
       {
         "role": "glitch",
         "dur": 0.3,
         "naive": 95.45833333333303,
+        "naive_peak": 70.02083333333348,
         "anchor": 95.45833333333303,
+        "anchor_peak": 70.02083333333348,
         "sustained": false
       }
     ]
@@ -110,17 +140,17 @@
     "cues": 150,
     "seconds": 60.0,
     "cpus": 4,
-    "upstream_s": 9.050853942000003,
-    "cold_1worker_s": 4.8144587549999756,
-    "cold_s": 1.5924965680000014,
-    "warm_s": 0.22146113699994885,
-    "speedup_cold_1worker": 1.8799317644170055,
-    "speedup_cold": 5.683437015733648,
-    "speedup_warm": 40.868813664593866,
+    "upstream_s": 9.397344599000007,
+    "cold_1worker_s": 5.206963588999997,
+    "cold_s": 1.56605316699995,
+    "warm_s": 0.23045243499996104,
+    "speedup_cold_1worker": 1.8047647997486338,
+    "speedup_cold": 6.000654892836283,
+    "speedup_warm": 40.77780561963512,
     "cache": {
       "entries": 71
     },
-    "realtime_factor_cold": 37.67669030229266
+    "realtime_factor_cold": 38.312875491283954
   },
   "dynamics": {
     "fixed_gain_pearson": 0.1088206543381845,
@@ -131,7 +161,7 @@
     "sync_p95_improvement_x": 5.930460867193915,
     "defined_hit_p95_improvement_x": 7.237635239567248,
     "defined_hit_within_5ms": 0.7481481481481481,
-    "throughput_cold_x": 5.683437015733648,
-    "throughput_warm_x": 40.868813664593866
+    "throughput_cold_x": 6.000654892836283,
+    "throughput_warm_x": 40.77780561963512
   }
 }
