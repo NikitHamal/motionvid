@@ -1,13 +1,35 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 5 (in progress) · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 5 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
 
 ## Next actions (do top first)
-0. **Session 5 exact `video_1.mp4` (`launch.py` / `v0.5`) 5-bug synthesis & timing fix**:
-   - Enforce offset rules in `score.py`: `suction` anticipation sweep (`start = event.time - 0.25s`, hard-cut to silence at `event.time`), `whoosh` on scene cuts (`start = event.time - 0.16s`, peak filter at `event.time`, tail `+0.18s`), and lock `sub.time === impact.time === cut.time` (`0 ms` offset at `3.20s`, `6.60s`, `10.20s`).
-   - Rebuild the 4 core synth presets (`voices.py`): `whoosh`/`suction` pink noise -> 24 dB/oct resonant LPF (`Q = 2.2`) sweeping exponentially (`140 Hz -> 3.4 kHz` for `suction`, `2.6 kHz -> 120 Hz` for `whoosh`); `impact + sub` (`92 -> 36 Hz` over `190 ms` + triangle `165 -> 62 Hz` over `55 ms` + `5 ms` HP click `> 2.2 kHz` through `tanh`); `text_tick` (`18 ms` bandpass noise `1.4-2.8 kHz`, `3 ms` attack, `15 ms` exp decay, `+-3 dB` jitter, zero pitch drop); `crystal` (`2093 Hz + 3136 Hz`, `+7 cents` detune, `120 ms` glassy decay + stereo shimmer).
-   - Continuous motion bed (`foley.py`): drive a continuous warm filtered noise + root-fifth drone bed (`cutoff = 180 + motion_energy * 1400 Hz`, `gain = -34 + motion_energy * 16 dB`, panned by `pan_x`) so `3.5-5.8s`, `8.1-9.4s`, and `10.6-12.6s` never drop to dead air.
-   - Climax timing (`score.py` / `launch.py`): trigger final `riser` from `12.85s -> 13.40s` into `impact` at `13.40s` (`motionvid` reveal) and remove all new triggers after `15.40s` (clean reverb/chord decay tail `15.80-16.80s`).
 1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train tiny English-only text->timeline planner (`<= 3 MB` int8); see `docs/ROADMAP.md` G1-G4. Keep 0-byte Agency DSP engine as the baseline gate.
+2. **Occlusion-aware telemetry**: mute or low-pass background shapes partially covered by an expanding foreground hero shape before the full-frame cut closes.
+3. **Human listening validation**: collect pairwise human preference ratings across `v0.1`..`v0.5` to calibrate FlawBench weights against human ears.
+4. **Beat-locked music bed & MCP server**: expose `motionvid` timeline authoring + render + FlawBench audit as an MCP tool server for autonomous video agents.
+
+## DONE (session 5)
+- **Resolved all 5 root synthesis & timing bugs audited on `video_1.mp4` (`v0.5` Launch / `v0.4` Agency Reel)**:
+  1. **Enforced exact scheduler offset rules (`src/motionvid/scene/score.py`, `docs/engine/xray.js`)**:
+     - `suction`: anticipation sweep starting `250 ms` before collapse (`start = event.time - 0.25s`, `end = event.time`, hard-gated at `0.0s` offset right when `crystal` hits). On `launch.json`, `suction` now fires at **`5.75s -> 6.00s`** and **`12.47s -> 12.72s`**, never on top of `crystal` at `6.00s` / `12.72s`.
+     - `whoosh` (on scene cuts): `start = cut.time - 0.16s` (`pre = 0.16s`), peak filter cutoff at `cut.time`, tail out `+0.18s` (`post = 0.18s`).
+     - `sub + impact`: locked `sub.time === impact.time === cut.time` with **`0 ms` offset** at **`3.20s`**, **`6.60s`**, **`10.20s`**, and **`13.40s`** (eliminating the `130 ms` early `sub` pre-bloom at `3.07s`, `6.47s`, `10.05s`, and isolated bar sub rumbles at `4.53s`/`5.50s`). `xray.js` stacks co-timed `sub` and `impact` bars vertically on the debug HUD.
+  2. **Rebuilt the 4 core synth presets (`src/motionvid/scene/voices.py`)**:
+     - `whoosh` / `suction`: pink noise -> **24 dB/oct (4-pole) resonant Low-Pass Filter** (`Q = 2.2`) sweeping exponentially `140 Hz -> 3.4 kHz` (`suction`, hard-gated at end) and `2.6 kHz -> 120 Hz` (`whoosh`).
+     - `impact + sub`: sum of **sine sub-drop** (`92 Hz -> 36 Hz` over `190 ms`) + **triangle mid-punch** (`165 Hz -> 62 Hz` over `55 ms`) + **`5 ms` high-passed click** (`> 2.2 kHz`) through a soft-clipper (`tanh`).
+     - `text_tick` (`tick`, split from `pluck`): ultra-short (`18–30 ms`) bandpass-filtered noise (`1.4 kHz – 2.8 kHz`) + stationary damped resonator (`3 ms` attack, `15 ms` exponential decay, `+-3 dB` random velocity jitter, **zero sine pitch drop**). Kept stationary pitched marimba `pluck` strictly for **1 hero arrival per scene** (4 hero arrivals across the 5 scenes of `launch.json`, zero text plucks).
+     - `crystal` (`6.00s`, `12.72s`): two detuned high-frequency sine/triangle partials (`2,093 Hz` + `3,136 Hz`, `+7 cents` detune) with `120 ms` glassy decay and Haas/quadrature stereo shimmer.
+  3. **Added continuous motion bed driven by `motionvid` curves (`src/motionvid/scene/telemetry.py`, `foley.py`)**:
+     - `telemetry.py:motion_curves()` exports `motion_energy` (`0.0 – 1.0` per 240 Hz frame from frame-to-frame bounding-box velocity + morph delta) and `pan_x` (`-1.0` to `+1.0`).
+     - `foley.py:motion_bed()` drives a continuous warm filtered noise + root-fifth drone bed (`110/165/220 Hz` + pink noise) through a low-pass filter (`cutoff = 180 Hz + motion_energy * 1400 Hz`, `gain = -34 dB + motion_energy * 16 dB`, panned by `pan_x`), keeping `3.5s–5.8s` (`240 HZ` 5-bar wave), `8.1s–9.4s` (sliding white blob), and `10.6s–12.6s` (orbiting morphing shapes) rich and tactile (`> -32 dBFS` RMS in every window).
+  4. **Moved final climax `riser + impact` to `13.40s` (`examples/launch.py`, `score.py`)**:
+     - `riser` triggers at **`12.85s -> 13.40s`** (`dur = 0.55s`) right into `impact + sub + whoosh` at **`13.40s`** for the `motionvid` hero reveal; removed the `15.80s`/`15.85s` fade-out triggers and enforced zero new triggers after `15.40s` so `15.80s–16.80s` is a clean reverb/chord decay tail.
+  5. **Rebuilt `v0.4` & `v0.5` media + FlawBench & RSI (`docs/media/v0.4`, `docs/media/v0.5`, `docs/media/flawbench.json`, `LEDGER.jsonl`)**:
+     | reel | classic (`v0.1`) | session 4 | session 5 (5-bug fix + RSI) |
+     |---|---|---|---|
+     | `showreel.json` (dev) | 2/9, score 0.409 | 9/9, score 0.987 | **9/9, score 0.996** (**2.44x**, `pan` 0.96, `bright` 0.68, `glyph` 1.00) |
+     | `reel2.json` (`v0.4` holdout) | 2/9, score 0.406 | 9/9, score 0.968 | **9/9, score 0.997** (**2.46x**, `pan` 0.96, `bright` 0.87, `glyph` 1.00) |
+     | `launch.json` (`v0.5` holdout 2) | 2/9, score 0.328 | 9/9, score 0.993 | **9/9, score 1.000** (**3.05x**, `pan` 0.95, `bright` 0.83, `glyph` 1.00) |
+  6. **Added regression gate `test_launch_v05_five_root_bugs_fixed` (`tests/test_scene.py`)**: 43/43 pytest gates green.
 2. **Occlusion-aware telemetry**: mute or low-pass background shapes partially covered by an expanding foreground hero shape before the full-frame cut closes.
 3. **Human listening validation**: collect pairwise human preference ratings across `v0.1`..`v0.5` to calibrate FlawBench weights against human ears.
 4. **Beat-locked music bed & MCP server**: expose `motionvid` timeline authoring + render + FlawBench audit as an MCP tool server for autonomous video agents.

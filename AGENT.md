@@ -21,10 +21,10 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
 - `src/motionvid/compose.py` anchor-aligned, cached, parallel mixer. `src/motionvid/sonic/` vendored DSP (see NOTICE).
 - `src/motionvid/rsi/` ground truth (`gt.py`) + loop (`loop.py`) + `scene_loop.py`. `bench/motionsync.py` sync/throughput/dynamics bench.
 - `src/motionvid/scene/` the Agency DSP scene audio engine (default):
-  - `telemetry.py`: 240 Hz per-element & composite signals.
-  - `score.py`: discrete events with musical phrasing, 3-voice burst polyphony budget, 110 ms class cooldown, hero wooden transients.
-  - `foley.py`: composite continuous layers (tactile L->R felt slide, single low-pass elastic bar brush, warm harmonic morph pad).
-  - `voices.py`: agency-grade DSP voices (120 ms damped triangle/saw marimba bodies `180-420 Hz` with `1.8 kHz -> 300 Hz` LP over `90 ms` + `6 ms` woody click; dual-layer pink-noise `Q=1.2` LP + `90 -> 42 Hz` sub-drop whooshes; realistic `<= 4` semitone pitch sweeps).
+  - `telemetry.py`: 240 Hz per-element signals + `motion_curves()` (`motion_energy` `0.0..1.0` from bbox velocity + morph delta, `pan_x` `-1.0..+1.0`).
+  - `score.py`: discrete events with exact offset rules (`suction` at `collapse - 0.25s` hard-gated at `collapse`, `whoosh` `pre=0.16s, post=0.18s`, locked `sub.time === impact.time === cut.time` with `0 ms` offset, `<= 1` hero `pluck` per scene, non-pitched `tick` text reveals, no triggers after `15.40s` on `launch.json`).
+  - `foley.py`: continuous `motion_bed` (`pink noise + root-fifth drone` through `cutoff = 180 + motion_energy * 1400 Hz`, `gain = -34 + motion_energy * 16 dB`, panned by `pan_x`) + dB-linear tactile `L->R` felt/brush slide, elastic bar stretch, warm morph pad.
+  - `voices.py`: agency-grade DSP voices (`whoosh`/`suction` 24 dB/oct resonant LPF `Q=2.2` exponential sweeps `140 Hz -> 3.4 kHz` and `2.6 kHz -> 120 Hz`; `impact+sub` `92 -> 36 Hz` over `190 ms` + triangle `165 -> 62 Hz` over `55 ms` + `5 ms` HP click `> 2.2 kHz` through `tanh`; zero-pitch-drop `text_tick` in `1.4-2.8 kHz`; detuned `2093 + 3136 Hz` `+7 cents` `crystal` with `120 ms` glassy decay + stereo shimmer).
   - `master.py`: `12%` wet short room reverb (`0.35s` decay, HP `300 Hz`) -> `-4 dB` bell cut at `2.5 kHz` (`Q=1.0`) -> `+3 dB` low shelf at `75 Hz` -> 2:1 glue -> `-16 LUFS` -> `-1.0 dBTP` true-peak limiter.
   - `params.py` + `scene_genome.json`: tunable parameters (RSI tunes these across `showreel.json`, `reel2.json`, and `launch.json`).
 - `bench/soundaudit.py` FlawBench (9 audio flaws as numbers, classic vs scene).
@@ -36,7 +36,7 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
 - Video: `python -m motionvid video tl.json out/ --xray --blur 3` -> `final.mp4` (+`xray.mp4`). Audio by Python, frames by Node, mux by ffmpeg-static.
 - Site: `docs/index.html` (GitHub Pages, plain HTML/CSS/JS). Studio: `npm run build` -> `dist/index.html` (single file).
 - Media: `python scripts/build_media.py` rebuilds `v0.4` and `v0.5` in `docs/media/` (+ `flawbench.json`). `v0.1`, `v0.2`, and `v0.3` are frozen: never rebuild or delete any version.
-- Gates: `pytest -q` (42 tests), FlawBench via `python bench/soundaudit.py` and `python bench/reelcheck.py`.
+- Gates: `pytest -q` (43 tests), FlawBench via `python bench/soundaudit.py` and `python bench/reelcheck.py`.
 
 ## Design & Audio rules: see `docs/DESIGN.md` (tested in `tests/test_rules.py` and `tests/test_scene.py`)
 Material 3 Expressive: solid color containers, extra-large shapes, spring motion, Bricolage Grotesque. No box/text shadows, no emojis,

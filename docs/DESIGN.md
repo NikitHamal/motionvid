@@ -11,13 +11,20 @@
 - Material 3 Expressive: solid containers, extra-large shapes, spring motion, big type.
 
 ## Agency DSP & Audio Synthesis Rules
-1. **No Pure Sine/FM Bells (`1.2–3.5 kHz`)**: Use a **120 ms damped triangle/saw marimba body** (`180–420 Hz`, low-pass filter closing `1.8 kHz -> 300 Hz` over `90 ms`) + a **6 ms woody click transient** (`800–2200 Hz` bandpass impulse).
-2. **Strict 3-Voice Burst Polyphony Budget & Cooldown (`110 ms`)**: Never sonify individual particles or oscillating bars one-to-one. Collapse multi-element bursts within `400 ms` into **at most 3 staggered low-mid voices** (`0 dB`, `-5 dB`, `-10 dB`, `>= 110 ms` spacing), tucking mini-blobs `-15 dB` to `-25 dB` behind hero transients. Mute individual oscillating bar triggers in favor of one composite continuous low-pass brush/elastic sweep.
-3. **Never Emit Bandpass Noise Without a Sub-Layer**: Every transition whoosh sums two locked layers:
-   - **Air layer**: Pink noise through a low-`Q` (`Q = 1.2`) low-pass filter sweeping `250 Hz -> 1.6 kHz -> 200 Hz`.
-   - **Weight layer**: Sine wave sweeping `90 Hz -> 42 Hz` over `220 ms` peaking right on the cut frame.
-4. **Constrain Pitch Sweeps to Realistic Physics (`<= 4` Semitones)**: Cap scale/pop pitch envelopes to `+2 to +4 semitones` over `35–60 ms` (`pop`), harmonic risers to `<= 4 semitones`, and heavy impacts/sub-drops to `-5 to -12 semitones` over `180–300 ms`. No upward cartoon laser chirps.
-5. **Global Spectral Tilt & Space**: Master bus runs `12%` wet short room reverb (`0.35s` decay, high-passed at `300 Hz`) -> wide bell cut at **`2.5 kHz` (`-4 dB`, `Q = 1.0`)** -> low shelf boost at **`75 Hz` (`+3 dB`)** -> 2:1 glue -> `-16 LUFS` -> `-1.0 dBTP` true-peak limiter.
+1. **Scheduler Offset Rules (`score.py`)**:
+   - `suction`: anticipation sweep with `start = event.time - 0.25s`, `end = event.time` (hard gate at `0.0s` offset right when `crystal` hits).
+   - `whoosh` (on scene cuts): `start = event.time - 0.16s`, peak filter cutoff at `event.time`, tail out `+0.18s`.
+   - `sub` + `impact`: lock `sub.time === impact.time === cut.time` with `0 ms` offset between them (stacked vertically on the X-ray HUD).
+   - Climax & fade-out: trigger final `riser` from `12.85s -> 13.40s` into `impact` at `13.40s` for the brand reveal; zero new triggers after `15.40s`.
+2. **4 Core Synth Presets (`voices.py`)**:
+   - `whoosh` / `suction`: pink noise -> **24 dB/oct resonant Low-Pass Filter** (`Q = 2.2`) sweeping exponentially `140 Hz -> 3.4 kHz` (`suction`) or `2.6 kHz -> 120 Hz` (`whoosh`).
+   - `impact` + `sub`: sum a **sine sub-drop** (`92 Hz -> 36 Hz` over `190 ms`) + a **triangle mid-punch** (`165 Hz -> 62 Hz` over `55 ms`) + a **`5 ms` high-passed click** (`> 2.2 kHz`) through a soft-clipper (`tanh`).
+   - `text_tick` (`tick`, split from `pluck`): ultra-short (`18–30 ms`) bandpass-filtered noise (`1.4 kHz – 2.8 kHz`) + stationary damped resonator (`3 ms` attack, `15 ms` exponential decay, `+-3 dB` velocity jitter, **zero sine pitch drop**). Keep stationary pitched marimba `pluck` strictly for **1 hero arrival per scene**.
+   - `crystal`: layer two detuned high-frequency sine/triangle partials (`2,093 Hz` + `3,136 Hz`, `+7 cents` detune) with a `120 ms` glassy decay and stereo shimmer.
+3. **Continuous Motion Bed (`telemetry.py` + `foley.py`)**:
+   - Export `motion_energy` (`0.0 – 1.0` per frame from bbox velocity + morph delta) and `pan_x` (`-1.0` to `+1.0`).
+   - Drive a continuous warm filtered noise + root-fifth drone bed through an LPF (`cutoff = 180 Hz + motion_energy * 1400 Hz`, `gain = -34 dB + motion_energy * 16 dB`, panned by `pan_x`).
+4. **Global Spectral Tilt & Space (`master.py`)**: Master bus runs `12%` wet short room reverb (`0.35s` decay, high-passed at `300 Hz`) -> wide bell cut at **`2.5 kHz` (`-4 dB`, `Q = 1.0`)** -> low shelf boost at **`75 Hz` (`+3 dB`)** -> 2:1 glue -> `-16 LUFS` -> `-1.0 dBTP` true-peak limiter.
 
 ## Product & Evolution Preferences
 - Keep every evolution version (`v0.1`..`v0.5`; old 6 s `v0.1` launch stub removed and versions renumbered so `v0.1` = Showreel, `v0.2` = Scene sound, `v0.3` = Reel II, `v0.4` = Agency Reel, `v0.5` = Launch).
