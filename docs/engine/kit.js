@@ -1,6 +1,6 @@
 // motionvid kit (JS twin of src/motionvid/kit/core.py): builds timelines in the browser. Same track rules, same recipes.
 export const PAL = { cream: '#F6EFE3', ink: '#17130F', coral: '#FF6A45', lime: '#C9F13B', butter: '#FFD54A', pink: '#FF9DBB', mint: '#3DDBA7', clay: '#D9573B', moss: '#2F5D3A', sand: '#E9DCC3', white: '#FFFFFF', tomato: '#E8402A', sage: '#BFD8B8' };
-const NUM = ['x', 'y', 'z', 'scale', 'opacity', 'rotation', 'rx', 'ry', 'rz'], STATIC = ['pts', 'items', 'faces', 'fmt', 'type'];
+const NUM = ['x', 'y', 'z', 'scale', 'opacity', 'rotation', 'rx', 'ry', 'rz'], STATIC = ['pts', 'items', 'faces', 'fmt', 'type', 'parts', 'light', 'screen'];
 export const k = (t, v, ease) => ({ t: +t.toFixed(4), v: +v.toFixed(3), ...(ease ? { ease } : {}) });
 
 export function item(kind, color, props = {}) {
@@ -62,6 +62,12 @@ export class Scene {
     const big = 2.4 * Math.max(this.W, this.H), c = axis === 'x' ? this.W / 2 : this.H / 2;
     const pos = [[tEnd - dur, c - sign * big * 0.99], [tEnd, c, 'm3Acc']];
     this.add(`wipe${this.tl.cuts.length}`, 'rrect', color, axis === 'x' ? { x: pos, y: this.H / 2, w: big, h: this.H + 40 } : { y: pos, x: this.W / 2, w: this.W + 40, h: big });
+    this.tl.cuts.push({ t: +tEnd.toFixed(4), kind: 'cut' });
+  }
+  slats(tEnd, color, n = 6, dur = 0.55) {
+    this.hideScene(tEnd);
+    const hh = this.H / n, c = this.tl.cuts.length;
+    for (let i = 0; i < n; i++) { const e = tEnd - (n - 1 - i) * 0.05; this.add(`slat${c}_${i}`, 'rrect', color, { x: this.W / 2, y: hh * (i + 0.5), h: hh + 6, w: [[e - dur, 0], [e, this.W + 40, 'm3Acc']] }); }
     this.tl.cuts.push({ t: +tEnd.toFixed(4), kind: 'cut' });
   }
   build() { return this.tl; }

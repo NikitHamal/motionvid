@@ -1,11 +1,14 @@
 import { drawFrame } from '../engine/render.js';
 import { plan } from '../engine/planner.js';
 import { Preview } from '../engine/webaudio.js';
+import { assets } from '../engine/assets.js';
+
+assets.base = '../';  // photos live in docs/media/assets
 
 const $ = (id) => document.getElementById(id);
 const stage = $('stage'), ctx = stage.getContext('2d'), scrub = $('scrub'), playBtn = $('play');
 const synth = new Preview();
-let tl = null, acts = [], vertical = false, prompt = '';
+let tl = null, acts = [], vertical = false, prompt = '', seed = 0;
 const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
 function paint() {
@@ -37,23 +40,24 @@ function thumbs() {
 function generate() {
   synth.stop(); synth.from = 2.4;
   prompt = $('prompt').value;
-  const r = plan(prompt, vertical);
+  const r = plan(prompt, vertical, seed);
   tl = r.tl; acts = r.acts;
   stage.width = vertical ? 540 : 1280; stage.height = vertical ? 960 : 720;
   document.querySelector('.stagecol').dataset.v = vertical ? '1' : '0';
   scrub.max = tl.duration;
-  $('chips').innerHTML = [r.brief.name, r.brief.cat, `${r.brief.feats.length} features`].map((s) => `<span>${s}</span>`).join('');
+  $('chips').innerHTML = [r.brief.name, r.brief.cat, `${r.brief.dev} + ${r.brief.scr}`, `variant ${seed + 1}`].map((s) => `<span>${s}</span>`).join('');
   thumbs();
 }
 
 playBtn.onclick = () => { if (!tl) return; if (synth.playing) synth.stop(); else synth.play(tl, synth.from >= tl.duration - 0.05 ? 0 : synth.from); };
 scrub.oninput = () => { const was = synth.playing; synth.stop(); synth.from = Number(scrub.value); if (was) synth.play(tl, synth.from); };
-$('go').onclick = generate;
+$('go').onclick = () => { seed = 0; generate(); };
+$('reroll').onclick = () => { seed += 1; generate(); };
 $('fmt').onclick = (e) => { const b = e.target.closest('button'); if (!b) return; vertical = b.dataset.v === '1'; for (const x of $('fmt').children) x.setAttribute('aria-pressed', String(x === b)); generate(); };
 $('dl').onclick = () => { const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(new Blob([JSON.stringify(tl)], { type: 'application/json' })), download: 'timeline.json' }); a.click(); };
 const copy = (id, s) => { navigator.clipboard?.writeText(s); $(id).dataset.done = 'true'; setTimeout(() => delete $(id).dataset.done, 1200); };
-$('cmd').onclick = () => copy('cmd', 'python -m motionvid video timeline.json out/ --blur 3');
-$('agent').onclick = () => copy('agent', `Read docs/SKILL.md, then write a motionvid timeline with motionvid.kit for: "${prompt}". Render it with python -m motionvid video.`);
+$('cmd').onclick = () => copy('cmd', 'python -m motionvid video timeline.json out/ --width 1280 --blur 3');
+$('agent').onclick = () => copy('agent', 'Read AGENT.md and docs/SKILL.md, then write examples/demos/<name>.py with motionvid.kit (real photos, real UI screens, 3D mesh) for: "' + prompt + '". Check it with scripts/build_demos.py sheet, then render it.');
 
 await document.fonts.load('800 40px "Bricolage Grotesque"');
 await document.fonts.load('700 40px "Bricolage Grotesque"');
