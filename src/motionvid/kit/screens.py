@@ -44,8 +44,8 @@ def travel_feed(S: Scene, w: float, h: float, t0: float, photos: list[str], titl
     for i, name in enumerate(photos[1:3]):
         out.append(photo(name, w * 0.415, h * 0.22, w * 0.08, zoom=[(t0, 1.0), (t0 + 9, 1.16, "inOutSine")], x=(-0.22 if i == 0 else 0.22) * w, y=top + h * 0.72, z=1))
     out.append(text("from", "ink", h * 0.022, x=-w * 0.36, y=top + h * 0.605, weight=600, align="left", z=2))
-    c = counter("ink", h * 0.04, -w * 0.18, top + h * 0.605, price[0], price[1], t0 + 1.0, 2.0, pre="$")
-    c["z"] = 2
+    c = counter("ink", h * 0.04, -w * 0.4 + h * 0.08, top + h * 0.605, price[0], price[1], t0 + 1.0, 2.0, pre="$")
+    c["z"], c["align"] = 2, "left"
     out.append(c)
     S.count(c, t0 + 1.0, t0 + 3.0, price[0], price[1], ticks=6)
     return [rise(o, t0 + 0.2 + i * 0.06, 40) for i, o in enumerate(out)] + nav(w, h, t0, 4)
@@ -106,9 +106,9 @@ def dashboard(S: Scene, w: float, h: float, t0: float, accent: str = "moss", hi:
     return [rise(o, t0 + 0.1 + (i % 6) * 0.05, 26) if "h" not in (o.get("tracks") or {}) and o["kind"] != "text" or o["kind"] == "text" and "num" not in (o.get("tracks") or {}) else o for i, o in enumerate(out)]
 
 
-def site_home(S: Scene, w: float, h: float, t0: float, hero: str, title: str = "Move faster", accent: str = "coral", ink: str = "ink", bg: str = "cream") -> list:
+def site_home(S: Scene, w: float, h: float, t0: float, hero: str, title: str = "Move faster", accent: str = "coral", ink: str = "ink", bg: str = "cream", brand: str = "brand") -> list:
     L, T = -w / 2, -h / 2
-    out = [text("brand", ink, h * 0.05, x=L + w * 0.06, y=T + h * 0.075, weight=800, align="left", z=2)]
+    out = [text(brand, ink, h * 0.05, x=L + w * 0.06, y=T + h * 0.075, weight=800, align="left", z=2)]
     for i, lab in enumerate(("Product", "Pricing", "Docs")):
         out.append(text(lab, ink, h * 0.032, x=L + w * (0.46 + i * 0.1), y=T + h * 0.075, weight=600, align="left", z=2))
     out += [pill(w * 0.12, h * 0.07, accent, x=w * 0.4, y=T + h * 0.075, z=2), text("Start", ink, h * 0.032, x=w * 0.4, y=T + h * 0.075, weight=800, z=3)]

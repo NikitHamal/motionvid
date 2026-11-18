@@ -218,5 +218,25 @@
    "cues": "media/demos/terra/reel.cues.json",
    "audio": "media/demos/terra/reel.m4a"
   }
+ },
+ {
+  "id": "kernel",
+  "title": "Kernel",
+  "brief": "Developer infrastructure, code editor and racks",
+  "duration": 58,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 114,
+  "elements": 27,
+  "video": "media/demos/kernel/reel.mp4",
+  "poster": "media/demos/kernel/poster.png",
+  "player": {
+   "timeline": "media/demos/kernel/reel.json",
+   "cues": "media/demos/kernel/reel.cues.json",
+   "audio": "media/demos/kernel/reel.m4a"
+  }
  }
 ]

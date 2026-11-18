@@ -10,7 +10,11 @@ const CATS = [  // [id, regex, palette(5), hook line 1, hook line 2, device, scr
   ['dashboard', /dashboard|analytic|saas|crm|metric|report|data|b2b/i, ['sage', 'ink', 'lime', 'butter', 'ink'], 'Every metric.', 'One screen.', 'laptop', 'dash', ['analytics', 'desk', 'laptop'], ['bars', 'globe', 'cube']],
   ['dev', /dev|code|api|cli|deploy|git|engineer|software|agent|infra|cloud/i, ['ink', 'lime', 'coral', 'cream', 'lime'], 'Ship', 'agents.', 'laptop', 'code', ['racks', 'laptop', 'desk'], ['rack', 'torus', 'globe']],
   ['wellness', /health|habit|fitness|well|yoga|sleep|mind|meditat|run|sport|workout/i, ['ink', 'lime', 'coral', 'cream', 'lime'], 'Move', 'more.', 'phone', 'activity', ['jogger', 'park', 'sunrise'], ['torus', 'bars', 'coins']],
-  ['climate', /climate|green|earth|energy|carbon|solar|city|mobility|nature/i, ['cream', 'moss', 'butter', 'sage', 'moss'], 'Cities that', 'breathe.', 'laptop', 'dash', ['lake', 'rockies', 'lake2'], ['globe', 'bars', 'cube']],
+  ['climate', /climate|green|earth|energy|carbon|solar|city|mobility|nature/i, ['cream', 'moss', 'butter', 'sage', 'moss'], 'Cities that', 'breathe.', 'laptop', 'dash', ['lake', 'rockies', 'lake2'], ['wave', 'globe', 'bars', 'cube']],
+  ['music', /music|song|podcast|audio|beat|playlist|radio|sound/i, ['coral', 'ink', 'butter', 'lime', 'ink'], 'Feel', 'the beat.', 'phone', 'activity', ['studio1', 'studio2', 'studio3'], ['knot', 'helix', 'bars']],
+  ['creative', /design|creative|studio|art\b|portfolio|canvas|figma|illustrat/i, ['pink', 'cream', 'ink', 'butter', 'coral'], 'Make', 'it yours.', 'phone', 'feed', ['fash1', 'fash2', 'studio1'], ['blob', 'cube', 'ribbon']],
+  ['writing', /writ|docs?\b|notes?\b|blog|content|copy|email|editor|assistant|chat/i, ['ink', 'lime', 'cream', 'butter', 'ink'], 'Words', 'on demand.', 'laptop', 'code', ['desk', 'laptop', 'studio3'], ['ribbon', 'helix', 'blob']],
+  ['outdoor', /outdoor|hike|camp|gear|mountain|adventure|trail|bike|ski/i, ['sand', 'moss', 'butter', 'tomato', 'ink'], 'Higher', 'ground.', 'phone', 'activity', ['rockies', 'lake', 'sunrise'], ['wave', 'cube', 'globe']],
   ['generic', /./, ['cream', 'ink', 'lime', 'coral', 'ink'], 'Meet', 'the future.', 'phone', 'feed', ['lake', 'sunrise', 'desk'], ['cube', 'torus', 'globe']],
 ];
 const DARK = new Set(['ink', 'clay', 'tomato', 'moss']);
@@ -34,19 +38,25 @@ const CUT = ['iris', 'wipe', 'slats'];
 
 // Hero object for a prompt: a different 3D object per category and per seed, spinning over the act.
 function hero(S, B, kind, id, t, x, y, size, t1) {
-  const [, , , , ] = B.pal, ph = B.photos, sp = spin(t, t1, -34, 34);
+  const [, a2, a3, a4, a5] = B.pal, ph = B.photos, sp = spin(t, t1, -34, 34);
   const P = {
     cube: () => [...cubePhotos(size * 0.5, { front: ph[0], right: ph[1], left: ph[2], back: ph[0], top: ph[1] }), ...orbit((i) => part('gem', ['butter', 'cream', 'lime'][i], { r: 40, h: 72, gloss: 22 }), 3, size * 0.5, t + 0.6, t1, 1)],
     globe: () => globe(size * 0.36, 'moss', 'butter'), coins: () => coins(t + 0.6, size * 0.3, ['clay', 'cream', 'moss', 'clay', 'cream']), bars: () => bars3d([0.3, 0.45, 0.4, 0.62, 0.78, 1], t + 0.6, size * 0.8, size * 0.55, ['coral', 'ink', 'butter']),
     torus: () => torusRings(t + 0.5, size * 0.4, ['lime', 'ink', 'cream']), rack: () => rack(size * 0.26, 5),
+    knot: () => [part('knot', null, { ramp: [a2, a3, a4, a5, a2], cycle: 3, R: size * 0.2, r: size * 0.055, p: 2, q: 3, gloss: 18 })],
+    blob: () => [part('blob', null, { ramp: [a2, a3, a4, a2], cycle: 2, r: size * 0.26, amp: 0.26, speed: 1.3, gloss: 16 })],
+    wave: () => [part('wave', null, { ramp: ['ink', 'moss', 'butter', 'coral'], ao: 0.5, w: size * 1.0, d: size * 0.75, amp: [[t + 0.4, 8], [t + 2.4, size * 0.1, 'spring']], speed: 1, seg: 48 })],
+    helix: () => [part('helix', null, { ramp: [a2, a3, a4], R: size * 0.2, r: size * 0.04, h: size * 0.62, turns: 3, gloss: 14 })],
+    ribbon: () => [part('ribbon', null, { ramp: [a2, a3, a4, a5, a2], both: true, w: size * 0.3, len: size * 0.9, R: size * 0.2, turns: 1.6, speed: 0.8, seg: 100 })],
     carousel: () => orbit((i) => part('rbox', 'ink', { w: 250, h: 350, d: 12, r: 24, screen: ['front', 'back'].map((f) => ({ face: f, items: [photo(ph[i % 3], 230, 330, 16)], w: 230, h: 330, r: 16, bg: '#E9DCC3' })) }), 6, size * 0.42, t + 0.5, t1, 0.5, true),
   }[kind]();
-  return mesh(S, id, t, x, y, P, size, { rx: -16, ry: sp, persp: 2100 });
+  const X = { wave: { rx: -27, hemi: 0.6 }, knot: { rim: 0.35 }, blob: { rim: 0.3, hemi: 0.5 }, helix: { rim: 0.3 }, ribbon: { rim: 0.4 } }[kind] || {};
+  return mesh(S, id, t, x, y, P, size, { rx: -16, ry: sp, persp: 2100, ...X });
 }
 
-export function plan(prompt, vertical = false, seed = 0) {
+export function plan(prompt, vertical = false, seed = 0, o = {}) {
   const B = brief(prompt), h = hash(prompt) + seed * 7, [a1, a2, a3, a4, a5] = B.pal;
-  const V = vertical, W = V ? 1080 : 1920, H = V ? 1920 : 1080, cx = W / 2, dur = 30;
+  const V = vertical || o.aspect === '4:5', W = V ? 1080 : 1920, H = o.aspect === '4:5' ? 1350 : V ? 1920 : 1080, cx = W / 2, L = o.long ? 8 : 0, dur = 30 + L;
   const S = new Scene(dur, a1, { width: W, height: H }), acts = [];
   const hA = B.heroes[h % B.heroes.length], hB = B.heroes[(h + 1) % B.heroes.length];
   const cut = (t, col, x, y, i) => { const m = CUT[(h + i) % 3]; if (m === 'iris') S.iris(t, col, x, y); else if (m === 'wipe') S.wipe(t, col, i % 2 ? 'y' : 'x', 1); else S.slats(t, col); };
@@ -72,18 +82,26 @@ export function plan(prompt, vertical = false, seed = 0) {
   const cards = orbit((i) => part('rbox', 'ink', { w: 320, h: 440, d: 14, r: 28, screen: ['front', 'back'].map((f) => ({ face: f, items: [photo(B.photos[i % 3], 296, 416, 20, b)], w: 296, h: 416, r: 20, bg: '#E9DCC3' })) }), 6, V ? 330 : 560, b + 0.6, b + 6.8, 0.5, true);
   mesh(S, 'f_c', b + 0.4, cx, V ? H * 0.52 : H * 0.6, cards, V ? 1500 : 1600, { rx: -14, ry: [[b + 0.4, 0]], persp: 2100 });
   cut(20, a4, cx, H * 0.5, 2); acts.push(['Photos', 13, 20]);
+  // 3b moment: a full-bleed real photo and a second hero (long cuts only)
+  if (L) {
+    b = 20;
+    const bg = S.add('m_i', 'image', null, { src: `media/assets/${B.photos[1]}.jpg`, w: W, h: H, x: cx, y: H / 2, zoom: [[b, 1], [b + 7.5, 1.2, 'inOutSine']], tint: '#17130F', tintA: 0.34 });
+    S.appear(bg, b + 0.1, { sound: null, frm: 1 });
+    S.headline('m_1', B.feats[2], b + 0.6, V ? H * 0.14 : H * 0.44, fit(B.feats[2], V ? W * 0.9 : W * 0.7, V ? 190 : 230), 'cream', {});
+    cut(28, a4, cx, H * 0.5, 4); acts.push(['Moment', 20, 28]);
+  }
   // 4 proof (20-25)
-  b = 20;
+  b = 20 + L;
   const big = S.add('r_n', 'text', fg(a4), { text: '', size: fit('+' + B.stat.v + B.stat.suf, V ? W * 0.85 : W * 0.5, 300), x: V ? cx : W * 0.3, y: V ? H * 0.2 : H * 0.48, weight: 800, fmt: { pre: '+', suf: B.stat.suf, dec: B.stat.v % 1 ? 1 : 0 }, num: [[b + 0.8, 0], [b + 2.6, B.stat.v, 'm3Dec']] });
   S.appear(big, b + 0.8, { sound: null, frm: 0.9 }); S.count(big, b + 0.8, b + 2.6, 0, B.stat.v, 8); S.sfx(b + 3.0, 'chime', 0.6, -12, 0, { freq: 660 });
-  hero(S, B, hB, 'r_h', b + 0.4, V ? cx : W * 0.72, V ? H * 0.64 : H * 0.54, V ? 1100 : 900, 25);
-  cut(25, a5, cx, H * 0.5, 3); acts.push(['Proof', 20, 25]);
+  hero(S, B, hB, 'r_h', b + 0.4, V ? cx : W * 0.72, V ? H * 0.64 : H * 0.54, V ? 1100 : 900, 25 + L);
+  cut(25 + L, a5, cx, H * 0.5, 3); acts.push(['Proof', 20 + L, 25 + L]);
   // 5 brand (25-30)
-  b = 25;
+  b = 25 + L;
   S.headline('b_n', B.name.toLowerCase(), b + 0.5, H * 0.46, fit(B.name, W * 0.85, 300), fg(a5), { mode: 'split', dur: 1.1 });
   const cb = S.group('b_b', [pill(560, 140, 'coral'), text(B.cta, 'ink', 58, 0, 0, { weight: 800 })], { x: cx, y: H * 0.46 + (V ? 330 : 260), w: 560, h: 140 }); S.appear(cb, b + 1.6, { x: cx });
   S.add('outro', 'rrect', 'ink', { w: W, h: H, x: cx, y: H / 2, opacity: [[dur - 1, 0], [dur, 1, 'inQuad']] });
-  acts.push(['Brand', 25, 30]);
+  acts.push(['Brand', 25 + L, dur]);
   return { tl: S.build(), acts, brief: B };
 }
 function put2(el, name, frames) { const t = (el.tracks ||= {}); t[name] = [...(t[name] || []), ...frames.map((f) => k(...f))].sort((a, b) => a.t - b.t); }

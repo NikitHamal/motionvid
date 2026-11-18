@@ -17,3 +17,5 @@ textarea { width: 100%; resize: vertical; border: 0; border-radius: var(--shape-
 .stagecol[data-v="1"] .player canvas { width: auto; max-width: 100%; }
 #cmd[data-done="true"], #agent[data-done="true"] { background: var(--mint-container); }
 @media (max-width: 900px) { .create { grid-template-columns: 1fr; } }
+.projects { display: flex; flex-wrap: wrap; gap: 8px; }
+.stagecol[data-a="4:5"] .player canvas { width: auto; max-width: 100%; }

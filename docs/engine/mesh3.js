@@ -23,7 +23,7 @@ export function wave(v, ph) {
   return out;
 }
 export function blob(v, ph) {
-  const nu = v.seg || 48, nv = Math.round(nu / 2), out = [], A = v.amp ?? 0.22;
+  const nu = v.seg || 72, nv = Math.round(nu / 2), out = [], A = v.amp ?? 0.22;
   const rad = (th, ps) => {
     const x = Math.cos(ps) * Math.cos(th), y = Math.sin(ps), z = Math.cos(ps) * Math.sin(th);
     return v.r * (1 + A * (0.5 * Math.sin(2.1 * x + ph) * Math.cos(1.7 * y - ph * 0.8) + 0.35 * Math.sin(3.2 * z + ph * 1.3 + x) + 0.2 * Math.sin(4.1 * y - 2.2 * x + ph * 0.6)));

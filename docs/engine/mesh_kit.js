@@ -10,6 +10,7 @@ export function part(prim, color, o = {}) {
     else if (n === 'pos' || n === 'rot') out[n] = [...v];
     else if (AX.includes(n) && typeof v === 'number') out.pos[AX.indexOf(n)] = v;
     else if (RT.includes(n) && typeof v === 'number') out.rot[RT.indexOf(n)] = v;
+    else if (n === 'ramp') out.ramp = v.map((c) => PAL[c] || c);
     else if (n === 'faces') out.faces = Object.fromEntries(Object.entries(v).map(([a, b]) => [a, PAL[b] || b]));
     else out[n] = v;
   }
