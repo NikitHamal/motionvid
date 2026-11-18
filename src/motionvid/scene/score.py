@@ -1,7 +1,4 @@
-"""Scene telemetry -> discrete sound events (what happens), with musical phrasing and humanization.
-
-Events: {t, role, gain_db, pan, seed, why, p}. `t` is when the HIT is heard. Roles map to voices.py.
-"""
+"""Scene telemetry -> discrete sound events, with musical phrasing, burst grouping, and strict 3-voice polyphony budget."""
 
 from __future__ import annotations
 
@@ -15,15 +12,19 @@ from ..timeline import sample
 from .telemetry import HZ, SHAPES, Tel, first_cross
 
 PENT = (0, 3, 5, 7, 10)  # A minor pentatonic, semitones above A
+WOODY_HZ = (220.0, 261.6, 280.0, 329.6, 340.0, 392.0, 420.0)
 
 
 def seed_of(*parts: Any) -> int:
     return int(hashlib.sha1("|".join(map(str, parts)).encode()).hexdigest()[:7], 16)
 
 
-def note_hz(deg: int, octave: int = 1) -> float:
+def note_hz(deg: int, octave: int = 0) -> float:
     o, d = divmod(int(deg), 5)
-    return 220.0 * 2 ** ((PENT[d] + 12 * (o + octave - 1)) / 12)
+    f = 220.0 * 2 ** ((PENT[d] + 12 * (o + octave)) / 12)
+    while f > 420.0:
+        f *= 0.5
+    return max(180.0, f)
 
 
 def snap_pent(f: float) -> float:
@@ -56,43 +57,50 @@ def _transitions(tl, tels, G):
         pre = G["preroll_s"] * (1.12 if s > 0.8 else 1.0)
         out.append(_ev(tc, "whoosh", G["whoosh_db"] + 3 * s, 0.0, f"cut:{kind} pre-roll {pre * 1000:.0f} ms", pre=pre, post=0.55, s=s))
         out.append(_ev(tc, "impact", G["impact_db"] + 2 * s, 0.0, f"cut:{kind} mass {s:.2f}", s=s))
-        if kind in ("flash", "cut"):
-            out.append(_ev(tc + 0.012, "crystal", G["crystal_db"] - 4, 0.0, f"cut:{kind} air"))
     return out
 
 
 def _expansions(tels, G):
     out = []
-    for T in tels:
-        if T.kind not in SHAPES or T.kind == "ring":
-            continue
-        A, n, i = T.area, len(T.area), 0
-        while i < n - 1:
-            j = min(n - 1, i + int(0.9 * HZ))
-            if A[i:j + 1].max() - A[i] >= 0.02 and A[min(n - 1, i + 1)] > A[i] + 1e-9:
-                k = i + int(np.argmax(A[i:j + 1]))
-                dA = float(A[k] - A[i])
-                if A[k] < 2.0:  # full-frame floods get their sub from the cut impact
-                    s = min(1.0, math.sqrt(dA) / 0.9)
-                    t = first_cross(A, A[i] + 0.85 * dA, i, k) / HZ
-                    out.append(_ev(t, "sub", G["sub_db"] - 16 * (1 - s), pan_of(float(T.xn[k]), G),
-                                   f"{T.id}: area +{dA * 100:.1f}% of frame", s=s, f0=G["sub_f0"] + 30 * (1 - s), f1=G["sub_f1"] + 28 * (1 - s)))
-                i = k + int(0.3 * HZ)
-            else:
-                i += 1
+    shaped = [T for T in tels if T.kind != "text"]
+    if not shaped:
+        return out
+    # Composite scene area growth (captures both single hero blobs and multi-element bursts as one sub-boom 85->45 Hz)
+    n = len(shaped[0].ts)
+    tot_a = sum(T.area for T in shaped)
+    step = int(0.25 * HZ)
+    rise = tot_a[step:] - tot_a[:-step]
+    cl: list[int] = []
+    for idx in list(np.flatnonzero(rise >= 0.02)) + [10 ** 9]:
+        if cl and (idx == 10 ** 9 or (idx - cl[-1]) / HZ > 0.3):
+            best = cl[int(np.argmax(rise[cl]))]
+            t = (best + 0.5 * step) / HZ
+            dA = float(rise[best])
+            s = min(1.0, math.sqrt(max(0.02, dA)) / 0.65)
+            k = min(n - 1, best + step // 2)
+            w_a = sum(float(T.area[k]) for T in shaped) + 1e-9
+            xn = sum(float(T.area[k] * T.xn[k]) for T in shaped) / w_a
+            out.append(_ev(t, "sub", G["sub_db"] - 8 * (1 - s), pan_of(xn, G),
+                           f"scene: area +{dA * 100:.1f}% sub-boom", s=s, f0=G["sub_f0"], f1=G["sub_f1"]))
+            cl = []
+        if idx != 10 ** 9:
+            cl.append(idx)
     return out
 
 
 def _spread(T: Tel, G) -> float:
     xn = float(T.xn[len(T.xn) // 2])
     base = pan_of(xn, G)
-    return base + (((seed_of(T.id) % 1000) / 1000) - 0.5) * 0.7 if abs(xn - 0.5) < 0.02 and T.x.std() < 1e-3 else base
+    return base + (((seed_of(T.id) % 1000) / 1000) - 0.5) * 0.5 if abs(xn - 0.5) < 0.02 and T.x.std() < 1e-3 else base
 
 
 def _notes(tels, G):
     notes = []
     for T in tels:
         if (T.kind == "text" and (T.el.get("split") or T.el.get("type"))) or (T.kind == "circle" and T.area.max() >= 2.0):
+            continue
+        # Mute individual oscillating spring bars (handled by composite continuous brush sweep + collapse click)
+        if T.kind == "rrect" and len(T.el.get("tracks", {}).get("w", [])) > 2:
             continue
         mass = (lambda k: math.sqrt(float(T.area[k]))) if T.kind != "text" else (lambda k: min(1.0, float(T.el.get("size", 96)) / 600))
         sc, n, i, popped = T.scale, len(T.scale), 0, False
@@ -102,7 +110,7 @@ def _notes(tels, G):
                 k = i + int(np.argmax(sc[i:j + 1]))
                 notes.append((first_cross(sc, sc[i] + 0.85 * (sc[k] - sc[i]), i, k) / HZ, T, mass(k)))
                 popped = True
-                i = k + int(0.25 * HZ)
+                i = k + int(0.45 * HZ)
             else:
                 i += 1
         if popped:
@@ -116,20 +124,34 @@ def _notes(tels, G):
 
 
 def _phrases(notes, G):
-    out, prev, idx = [], -9.0, 0
-    for t, T, s in sorted(notes, key=lambda n: n[0]):
-        idx = 0 if t - prev > 0.5 else idx + 1
-        prev = t
-        oct_ = 0 if s > 0.5 else (2 if s < 0.12 else 1)
-        rng = np.random.default_rng(seed_of(T.id, round(t, 3)))
-        f = note_hz(idx % 10, oct_) * 2 ** (rng.uniform(-G["jitter_cents"], G["jitter_cents"]) / 1200 / 3)
-        g = G["pluck_db"] + rng.uniform(-1.5, 1.5) + (1.5 if idx == 0 else 0)
-        out.append(_ev(t, "pluck", g, _spread(T, G), f"{T.id}: pop, note {idx} of phrase", freq=f, bell=T.kind == "ring", dur=0.9 if T.kind == "ring" else 0.45))
+    """Rule 2: Group multi-element bursts within 400 ms into <= 3 staggered low-mid voices (0 dB, -5 dB, -10 dB)."""
+    out = []
+    raw = sorted(notes, key=lambda n: n[0])
+    cd = G.get("cooldown_s", 0.11)
+    idx = 0
+    while raw:
+        t0 = raw[0][0]
+        grp = [r for r in raw if r[0] - t0 <= 0.42]
+        raw = raw[len(grp):]
+        # Sort burst so hero shapes come first, capped at 3 voices max
+        grp_sorted = sorted(grp, key=lambda r: (-round(r[2], 2), r[0]))[:3]
+        grp_sorted.sort(key=lambda r: r[0])
+        last_t = -9.0
+        for v_i, (t, T, s) in enumerate(grp_sorted):
+            t_emit = max(t, last_t + cd) if v_i > 0 else t
+            last_t = t_emit
+            f = WOODY_HZ[(idx + v_i) % len(WOODY_HZ)]
+            atten = -5.0 * v_i - (10.0 if s < 0.18 else 0.0)
+            g = G["pluck_db"] + atten
+            out.append(_ev(t_emit, "pluck", g, _spread(T, G), f"{T.id}: damped woody pop #{v_i + 1}/{len(grp)}",
+                           freq=f, bell=False, dur=0.18))
+        idx += 1
     return out
 
 
 def _typography(tl, tels, G):
     out, W = [], tl["width"]
+    hero_idx = 0
     for T in tels:
         el = T.el
         if T.kind != "text":
@@ -143,18 +165,28 @@ def _typography(tl, tels, G):
                 cp = np.clip(p * (1 + st * len(chars)) - i * st, 0, 1)
                 if not c.isspace() and cp.max() >= 0.35:
                     times.append((i, c, float(np.argmax(cp >= 0.35)) / HZ))
+            if times:
+                # Hero low-mid wooden thud (280 Hz & 340 Hz) or 2-note motif for brand reveal
+                f_hero = 280.0 if hero_idx % 2 == 0 else 340.0
+                hero_idx += 1
+                out.append(_ev(times[0][2], "pluck", G["pluck_db"] + 1.5, 0.0, f"{T.id}: hero wooden thud",
+                               freq=f_hero, bell=False, dur=0.18))
+                if text.lower() == "motionvid" and len(times) >= 4:
+                    out.append(_ev(times[len(times) // 2][2], "pluck", G["pluck_db"] + 1.0, 0.12,
+                                   f"{T.id}: signature motif", freq=340.0, bell=False, dur=0.2))
         elif el.get("type"):
             ty = el["type"]
             times = [(i, c, ty["t"] + i / ty["cps"]) for i, c in enumerate(text[:int(ty["n"])]) if not c.isspace()]
         if not times:
             continue
-        base = snap_pent(float(np.clip(900 * (120 / size) ** 0.3, 450, 1400)))
+        base = snap_pent(float(np.clip(520 * (120 / size) ** 0.2, 430, 680)))
         tot = len(text) * 0.58 * size
+        is_split = bool(el.get("split"))
         for k, (i, c, t) in enumerate(times):
             rng = np.random.default_rng(seed_of(T.id, i))
             f = base * 2 ** (math.floor(k / G["semitone_every"]) / 12) * 2 ** (rng.uniform(-G["jitter_cents"], G["jitter_cents"]) / 1200)
             xc = float(np.interp(t, T.ts, T.x)) - tot / 2 + (i + 0.5) * 0.58 * size
-            g = G["tick_db"] + rng.uniform(-G["vel_jitter_db"], G["vel_jitter_db"]) + (2.0 if k == 0 else 0) - 0.15 * min(k, 15) + (2 if size > 200 else 0)
+            g = G["tick_db"] - (5.0 if is_split else 0.0) + rng.uniform(-G["vel_jitter_db"], G["vel_jitter_db"]) - 0.12 * min(k, 15)
             out.append(_ev(t, "tick", g, pan_of(xc / W, G), f"{T.id}: glyph {c!r} #{k}", freq=f))
     return out
 
@@ -179,11 +211,11 @@ def _contractions(tels, G):
     out, raw = [], sorted(raw)
     while raw:
         t0 = raw[0][0]
-        grp = [r for r in raw if r[0] - t0 < 0.1]
+        grp = [r for r in raw if r[0] - t0 < 0.15]
         raw = raw[len(grp):]
         t, m, xn = float(np.mean([r[0] for r in grp])), min(4, len(grp)), float(np.mean([r[1] for r in grp]))
-        out.append(_ev(t, "suction", G["suction_db"] + 2 * m, pan_of(xn, G), f"{len(grp)} shape(s) collapse", dur=0.45))
-        out.append(_ev(t, "crystal", G["crystal_db"] + 1.5 * m, pan_of(xn, G), "collapse payoff"))
+        out.append(_ev(t, "suction", G["suction_db"] + 1.5 * m, pan_of(xn, G), f"{len(grp)} shape(s) collapse", dur=0.38))
+        out.append(_ev(t, "crystal", G["crystal_db"] + 1.0 * m, pan_of(xn, G), "collapse 4 kHz micro-click"))
     return out
 
 
@@ -202,6 +234,6 @@ def _hints(tl, G):
 
 
 def build_events(tl: dict[str, Any], tels: list[Tel], G: dict[str, float]) -> list[dict[str, Any]]:
-    ev = _transitions(tl, tels, G) + _expansions(tels, G) + _phrases(_notes(tels, G), G) + _typography(tl, tels, G)
-    ev += _contractions(tels, G) + _hints(tl, G)
-    return sorted(ev, key=lambda e: (e["t"], e["role"]))
+    evs = [*_transitions(tl, tels, G), *_expansions(tels, G), *_phrases(_notes(tels, G), G),
+           *_typography(tl, tels, G), *_contractions(tels, G), *_hints(tl, G)]
+    return sorted([e for e in evs if 0 <= e["t"] <= tl["duration"]], key=lambda e: (e["t"], e["role"]))

@@ -71,6 +71,24 @@ def test_voice_hit_lands_within_one_frame_of_anchor(role, mk):
 def test_flawbench_scene_beats_classic_without_regressing():
     import soundaudit
 
-    r = soundaudit.run(ROOT / "examples" / "showreel.json")
-    assert r["scene"]["passes"] >= 8 and r["scene"]["passes"] >= r["classic"]["passes"] + 4
-    assert r["scene"]["score"] >= 2.0 * r["classic"]["score"]
+    for name in ("showreel.json", "reel2.json"):
+        r = soundaudit.run(ROOT / "examples" / name)
+        assert r["scene"]["passes"] == 9 and r["scene"]["passes"] >= r["classic"]["passes"] + 6
+        assert r["scene"]["score"] >= 2.2 * r["classic"]["score"]
+
+
+def test_agency_dsp_rules_polyphony_and_timbre(out):
+    _, info = out
+    plucks = [e for e in info["events"] if e["role"] == "pluck"]
+    assert plucks and all(180.0 <= e["p"]["freq"] <= 420.0 and not e["p"]["bell"] for e in plucks)
+    # Check 3-voice burst polyphony cap on non-tick discrete shape pops
+    pt = sorted(e["t"] for e in plucks if "hero" not in e["why"] and "motif" not in e["why"])
+    for i in range(len(pt) - 3):
+        assert pt[i + 3] - pt[i] >= 0.3, f"More than 3 shape pops in 300ms at {pt[i]}"
+    # Verify whoosh contains locked sub-bass weight layer (< 100 Hz)
+    w_sig, _ = V.whoosh(0.19, 0.5, 0.8, np.random.default_rng(7))
+    sp = np.abs(np.fft.rfft(w_sig))
+    freqs = np.fft.rfftfreq(len(w_sig), 1 / 48000)
+    sub_e = float((sp[(freqs >= 35) & (freqs <= 100)] ** 2).mean())
+    mid_e = float((sp[(freqs >= 1500) & (freqs <= 3500)] ** 2).mean())
+    assert sub_e > mid_e, "Whoosh must have locked sub-bass weight layer stronger than high-mid hiss"

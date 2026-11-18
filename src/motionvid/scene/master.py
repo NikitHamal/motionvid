@@ -1,4 +1,4 @@
-"""Mastering bus: short room reverb (HP 250 Hz send) -> tilt EQ -> glue compressor -> loudness -> room tone -> true-peak limiter."""
+"""Mastering bus: 12% short room reverb (0.35s decay, HP 300 Hz) -> -4 dB @ 2.5 kHz bell cut + +3 dB @ 75 Hz shelf -> glue -> -16 LUFS -> -1.0 dBTP."""
 
 from __future__ import annotations
 
@@ -9,16 +9,25 @@ from scipy.signal import butter, fftconvolve, lfilter, resample_poly, sosfilt
 from .voices import SR, TAU
 
 
-def reverb(x: np.ndarray, wet: float, t60: float, seed: int = 11) -> np.ndarray:
+def reverb(x: np.ndarray, wet: float = 0.12, t60: float = 0.35, seed: int = 11) -> np.ndarray:
     rng = np.random.default_rng(seed)
     n = int((t60 * 1.3 + 0.012) * SR)
     t = np.arange(n) / SR
     env = np.exp(-6.9 * np.maximum(t - 0.012, 0) / t60) * (t >= 0.012)
     ir = lfilter([0.6], [1, -0.4], rng.standard_normal((n, 2)) * env[:, None], axis=0)
     ir /= np.sqrt((ir ** 2).sum(axis=0, keepdims=True))
-    send = sosfilt(butter(2, 250, "hp", fs=SR, output="sos"), x, axis=0)
+    send = sosfilt(butter(2, 300, "hp", fs=SR, output="sos"), x, axis=0)
     wet_sig = np.stack([fftconvolve(send[:, c], ir[:, c])[: len(x)] for c in range(2)], axis=1)
     return x + wet * wet_sig
+
+
+def bell(x: np.ndarray, f: float = 2500.0, gain_db: float = -4.0, q: float = 1.0) -> np.ndarray:
+    """RBJ peaking EQ biquad: wide -4 dB cut at 2.5 kHz (Q=1.0) removes harsh MIDI synth bite."""
+    A, w = 10 ** (gain_db / 40), TAU * f / SR
+    c, al = np.cos(w), np.sin(w) / (2 * q)
+    b = [1 + al * A, -2 * c, 1 - al * A]
+    a = [1 + al / A, -2 * c, 1 - al / A]
+    return lfilter(np.array(b) / a[0], np.array(a) / a[0], x, axis=0)
 
 
 def shelf(x: np.ndarray, f: float, gain_db: float, high: bool) -> np.ndarray:
@@ -89,13 +98,14 @@ def room_tone(n: int, dbfs: float, seed: int = 5) -> np.ndarray:
     rng = np.random.default_rng(seed)
     pink = lfilter([0.049922035, -0.095993537, 0.050612699, -0.004408786], [1, -2.494956002, 2.017265875, -0.522189400],
                    rng.standard_normal((n, 2)), axis=0)
-    pink = sosfilt(butter(2, 3000, "lp", fs=SR, output="sos"), pink, axis=0)
+    pink = sosfilt(butter(2, 2400, "lp", fs=SR, output="sos"), pink, axis=0)
     return pink * (10 ** (dbfs / 20) / np.sqrt((pink ** 2).mean()))
 
 
 def master(mix: np.ndarray, G: dict[str, float]) -> tuple[np.ndarray, dict[str, float]]:
     x = reverb(mix, G["reverb_wet"], G["reverb_t60"])
-    x = shelf(shelf(x, 85, G["tilt_low_db"], False), 9000, G["tilt_high_db"], True)
+    x = bell(x, 2500.0, G.get("bell_2500_db", -4.0), 1.0)
+    x = shelf(shelf(x, 75.0, G["tilt_low_db"], False), 9500.0, G["tilt_high_db"], True)
     x, gr = glue(x, G["glue_ratio"])
     x *= 10 ** ((G["target_lufs"] - lufs(x)) / 20)
     x = x + room_tone(len(x), G["room_dbfs"])
