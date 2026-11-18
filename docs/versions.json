@@ -1,9 +1,10 @@
 [
-  {"id": "v0.1", "title": "Launch", "video": "media/v0.1/launch.mp4"},
-  {"id": "v0.2", "title": "Showreel", "video": "media/v0.2/showreel.mp4", "xray": "media/v0.2/showreel-xray.mp4",
-   "poster": "media/v0.2/poster.png", "player": {"timeline": "media/v0.2/showreel.json", "cues": "media/v0.2/showreel.cues.json", "audio": "media/v0.2/showreel.m4a"}},
-  {"id": "v0.3", "title": "Scene sound", "video": "media/v0.3/reel.mp4", "poster": "media/v0.3/poster.png",
+  {"id": "v0.1", "title": "Showreel", "video": "media/v0.1/showreel.mp4", "xray": "media/v0.1/showreel-xray.mp4",
+   "poster": "media/v0.1/poster.png", "player": {"timeline": "media/v0.1/showreel.json", "cues": "media/v0.1/showreel.cues.json", "audio": "media/v0.1/showreel.m4a"}},
+  {"id": "v0.2", "title": "Scene sound", "video": "media/v0.2/reel.mp4", "xray": "media/v0.2/reel-xray.mp4", "poster": "media/v0.2/poster.png",
+   "player": {"timeline": "media/v0.2/reel.json", "cues": "media/v0.2/reel.cues.json", "audio": "media/v0.2/reel.m4a"}},
+  {"id": "v0.3", "title": "Reel II", "video": "media/v0.3/reel.mp4", "xray": "media/v0.3/reel-xray.mp4", "poster": "media/v0.3/poster.png",
    "player": {"timeline": "media/v0.3/reel.json", "cues": "media/v0.3/reel.cues.json", "audio": "media/v0.3/reel.m4a"}},
-  {"id": "v0.4", "title": "Reel II", "video": "media/v0.4/reel.mp4", "xray": "media/v0.4/reel-xray.mp4", "poster": "media/v0.4/poster.png",
+  {"id": "v0.4", "title": "Reel III", "video": "media/v0.4/reel.mp4", "xray": "media/v0.4/reel-xray.mp4", "poster": "media/v0.4/poster.png",
    "player": {"timeline": "media/v0.4/reel.json", "cues": "media/v0.4/reel.cues.json", "audio": "media/v0.4/reel.m4a"}}
 ]
