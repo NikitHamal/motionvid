@@ -23,12 +23,13 @@
   --shape-sm: 12px;
   --shape-lg: 28px;
   --shape-xl: 48px;
-  --shape-full: 999px;
+  --shape-full: 999px; /* static use only; never transition a radius from or to this value */
 
   /* expressive spring: overshoots, then settles */
   --spring-fast: 280ms linear(0, 0.42 12%, 0.92 28%, 1.08 44%, 0.99 62%, 1.01 80%, 1);
   --spring: 520ms linear(0, 0.3 8%, 0.82 20%, 1.1 34%, 1.04 48%, 0.98 62%, 1.005 80%, 1);
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-shape: cubic-bezier(0.2, 0, 0, 1);
 
   --font: "Bricolage Grotesque", system-ui, sans-serif;
 }
@@ -52,17 +53,20 @@ body { margin: 0; }
 button { font: inherit; color: inherit; cursor: pointer; border: 0; }
 :focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
 
-/* shared M3E components */
-.btn { display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 28px; border-radius: var(--shape-full);
-  background: var(--primary-container); color: var(--on-container); font-weight: 700; font-size: 18px;
-  transition: border-radius var(--spring-fast), transform var(--spring-fast), background-color 160ms; text-decoration: none; }
-.btn:hover { border-radius: var(--shape-lg); }
-.btn:active { border-radius: var(--shape-sm); transform: scale(0.96); }
+/* shared M3E components.
+   Shape rule: a corner is never unrounded, not even for one frame. Radius transitions use --ease-shape (no overshoot, so the
+   interpolated radius can never go negative) and only move between two real radii. Springs may move transforms, never radii. */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; padding: 0 28px; border-radius: 28px;
+  background: var(--primary-container); color: var(--on-container); font-weight: 700; font-size: 18px; text-decoration: none;
+  transition: border-radius 240ms var(--ease-shape), transform var(--spring-fast), background-color 160ms; }
+.btn:hover { border-radius: 18px; }
+.btn:active { border-radius: 14px; transform: scale(0.96); }
 .btn.tonal { background: var(--surface-high); color: var(--on-surface); }
-.seg { display: inline-flex; padding: 4px; gap: 4px; background: var(--surface-high); border-radius: var(--shape-full); }
-.seg button { height: 44px; padding: 0 22px; border-radius: var(--shape-full); background: transparent; font-weight: 700;
-  transition: background-color 200ms, border-radius var(--spring-fast); }
+.btn svg.i { width: 22px; height: 22px; }
+.seg { display: inline-flex; padding: 4px; gap: 4px; background: var(--surface-high); border-radius: 26px; }
+.seg button, .seg a { height: 44px; padding: 0 22px; border-radius: 22px; background: transparent; font-weight: 700; display: inline-grid; place-items: center;
+  color: inherit; text-decoration: none; transition: background-color 200ms, border-radius 240ms var(--ease-shape); }
 .seg button[aria-pressed="true"] { background: var(--on-surface); color: var(--surface); }
-.seg button:not([aria-pressed="true"]):hover { background: var(--outline); }
+.seg button:not([aria-pressed="true"]):hover, .seg a:hover { background: var(--outline); border-radius: 16px; }
 svg.i { width: 24px; height: 24px; fill: currentColor; flex: none; }
 @media (prefers-reduced-motion: reduce) { * { transition-duration: 1ms !important; animation-duration: 1ms !important; } }

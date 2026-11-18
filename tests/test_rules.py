@@ -53,3 +53,41 @@ def test_no_blue_or_purple_gradients():
                         assert h is None or not 200 <= h <= 310, f"{p.name}: {line.strip()}"
                     else:
                         assert False, f"{p.name}: {line.strip()}"
+
+
+def test_radius_transitions_never_overshoot():
+    """A spring overshoots below zero, which clamps a radius to 0: corners flash unrounded. Radii use --ease-shape only."""
+    for p in [*ROOT.glob("docs/*.css"), *ROOT.glob("src/*.css")]:
+        for line in p.read_text().splitlines():
+            m = re.search(r"transition:([^;]*)", line)
+            if m:
+                for part in m.group(1).split(","):
+                    if "border-radius" in part:
+                        assert "--spring" not in part and "linear(" not in part, f"{p.name}: {line.strip()}"
+
+
+def test_no_unrounded_hover_or_active_shapes():
+    for p in ROOT.glob("docs/*.css"):
+        for line in p.read_text().splitlines():
+            if re.search(r":(hover|active)[^{]*\{[^}]*border-radius:\s*0(px)?\s*[;}]", line):
+                raise AssertionError(f"{p.name}: {line.strip()}")
+
+
+def test_play_pause_uses_state_attribute_not_hidden_svg():
+    html_, js = (ROOT / "docs/index.html").read_text(), (ROOT / "docs/app.js").read_text()
+    assert not re.search(r"<svg[^>]*(?<![-\w])hidden\b", html_), "hidden does not reliably hide inline svg"
+    assert "data-playing" in html_ and "dataset.playing" in js
+
+
+def test_github_button_has_logo():
+    nav = re.search(r"<header class=\"nav\">.*?</header>", (ROOT / "docs/index.html").read_text(), re.S).group(0)
+    assert "github.com/NikitHamal/motionvid" in nav and "<svg" in nav
+
+
+def test_every_version_has_its_media():
+    import json
+
+    for v in json.loads((ROOT / "docs/versions.json").read_text()):
+        paths = [v["video"], v.get("xray"), *(v.get("player") or {}).values()]
+        for rel in filter(None, paths):
+            assert (ROOT / "docs" / rel).exists(), rel

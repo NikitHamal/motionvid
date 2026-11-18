@@ -13,9 +13,12 @@
   <header class="nav">
     <a class="brand" href="#top">motionvid</a>
     <nav class="seg" aria-label="Sections">
-      <a href="#reel">Reel</a><a href="#numbers">Numbers</a><a href="#videos">Videos</a><a href="#pipeline">Pipeline</a>
+      <a href="#reel">Reel</a><a href="#videos">Evolution</a><a href="#flaws">Flaws</a><a href="#numbers">Numbers</a><a href="#pipeline">Pipeline</a>
     </nav>
-    <a class="btn tonal" href="https://github.com/NikitHamal/motionvid">GitHub</a>
+    <a class="btn tonal" href="https://github.com/NikitHamal/motionvid">
+      <svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
   </header>
 
   <main id="top">
@@ -23,39 +26,37 @@
       <svg class="spin" viewBox="-110 -110 220 220" aria-hidden="true"><path id="cookie" fill="var(--primary-container)"/></svg>
       <h1>motion<span>vid</span></h1>
       <div class="player" id="player">
-        <canvas id="stage" width="1280" height="720" aria-label="Showreel"></canvas>
+        <canvas id="stage" width="1280" height="720" aria-label="Reel"></canvas>
         <div class="bar">
-          <button class="fab" id="play" aria-label="Play with sound">
-            <svg class="i" id="ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg class="i" id="ico-pause" viewBox="0 0 24 24" hidden><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          <button class="fab" id="play" data-playing="false" aria-label="Play">
+            <svg class="i ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="i ico-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
           </button>
           <input id="scrub" type="range" min="0" max="21" step="0.01" value="0" aria-label="Seek">
           <output id="time">0:00</output>
+          <div class="seg" id="ver"></div>
           <div class="seg" id="mode"><button aria-pressed="true" data-m="clean">Clean</button><button aria-pressed="false" data-m="xray">X-ray</button></div>
         </div>
-        <audio id="audio" src="media/showreel.m4a" preload="auto"></audio>
+        <audio id="audio" preload="auto"></audio>
       </div>
     </section>
 
-    <section id="numbers" class="tiles">
-      <article class="tile c1"><b>25.8x</b><span>sync error</span><i>3.9x strict detector</i></article>
-      <article class="tile c2"><b>6.0x</b><span>render speed</span><i>41x warm cache</i></article>
-      <article class="tile c3"><b>0.98</b><span>intensity to loudness</span><i>was 0.11</i></article>
-      <article class="tile c4"><b>0 B</b><span>model weights</span><i>physics, not tokens</i></article>
-    </section>
+    <section id="videos" class="videos"></section>
+    <section id="flaws" class="flaws"></section>
 
-    <section id="videos" class="videos">
-      <figure><video controls preload="none" poster="media/poster.png" src="media/showreel.mp4"></video><figcaption>Showreel</figcaption></figure>
-      <figure><video controls preload="none" src="media/showreel-xray.mp4"></video><figcaption>X-ray</figcaption></figure>
-      <figure><video controls preload="none" src="media/launch.mp4"></video><figcaption>Launch</figcaption></figure>
+    <section id="numbers" class="tiles">
+      <article class="tile c1"><b>4.5x</b><span>flaws fixed</span><i>2 to 9 of 9</i></article>
+      <article class="tile c2"><b>25.8x</b><span>sync error</span><i>3.9x strict detector</i></article>
+      <article class="tile c3"><b>2.3x</b><span>sound score</span><i>0.41 to 0.94</i></article>
+      <article class="tile c4"><b>0 B</b><span>model weights</span><i>physics, not tokens</i></article>
     </section>
 
     <section id="pipeline" class="steps">
       <article><em>1</em><h3>Timeline</h3><code>reel.json</code></article>
-      <article><em>2</em><h3>Cues</h3><code>peak speed, stop, pop</code></article>
-      <article><em>3</em><h3>Sound</h3><code>48 kHz DSP</code></article>
+      <article><em>2</em><h3>Telemetry</h3><code>area, x, speed, rate</code></article>
+      <article><em>3</em><h3>Sound</h3><code>48 kHz DSP + master bus</code></article>
       <article><em>4</em><h3>Video</h3><code>canvas + ffmpeg</code></article>
-      <pre class="cmd" id="cmd">python -m motionvid video reel.json out/ --xray</pre>
+      <pre class="cmd" id="cmd">python -m motionvid video reel.json out/ --xray --blur 3</pre>
     </section>
   </main>
 
