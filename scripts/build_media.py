@@ -1,13 +1,14 @@
-"""Build the evolution media in docs/media/<version>/. Old versions are frozen: v0.1 and v0.2 are never rebuilt.
+"""Build the evolution media in docs/media/<version>/. Old versions are frozen: v0.1, v0.2 and v0.3 are never rebuilt.
 
-    python scripts/build_media.py              # builds v0.3 and v0.4, writes docs/media/flawbench.json
-    python scripts/build_media.py v0.4         # one version
+    python scripts/build_media.py              # builds v0.4 and v0.5, writes docs/media/flawbench.json
+    python scripts/build_media.py v0.5         # one version
 Needs: numpy, scipy, node + `npm install` (ffmpeg-static, @napi-rs/canvas).
 """
 
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -17,11 +18,14 @@ ROOT = Path(__file__).resolve().parents[1]
 MEDIA = ROOT / "docs" / "media"
 FFMPEG = ROOT / "node_modules" / "ffmpeg-static" / "ffmpeg"
 # version -> (timeline, blur sub-frames, poster time)
-BUILDS = {"v0.3": ("examples/showreel.json", 1, 15.2), "v0.4": ("examples/reel2.json", 3, 16.0)}
+BUILDS = {
+    "v0.4": ("examples/reel2.json", 3, 15.6),
+    "v0.5": ("examples/launch.json", 3, 14.8),
+}
 
 
 def sh(*a: str) -> None:
-    subprocess.run(list(a), cwd=ROOT, check=True)
+    subprocess.run(list(a), cwd=ROOT, env={**os.environ, "PYTHONPATH": str(ROOT / "src")}, check=True)
 
 
 def build(v: str) -> None:
@@ -40,7 +44,19 @@ def flawbench() -> None:
     sys.path.insert(0, str(ROOT))
     from bench.soundaudit import run
 
-    res = {"showreel": run(ROOT / "examples" / "showreel.json"), "reel2": run(ROOT / "examples" / "reel2.json")}
+    old = json.loads((MEDIA / "flawbench.json").read_text()) if (MEDIA / "flawbench.json").exists() else {}
+    # Preserve frozen v0.2 and v0.3 scene numbers if present; add v0.4 (reel2) and v0.5 (launch)
+    v02_scene = old.get("v02_scene") or old.get("showreel", {}).get("scene")
+    v03_scene = old.get("v03_scene") or old.get("reel2", {}).get("scene")
+    res = {
+        "showreel": run(ROOT / "examples" / "showreel.json"),
+        "reel2": run(ROOT / "examples" / "reel2.json"),
+        "launch": run(ROOT / "examples" / "launch.json"),
+    }
+    if v02_scene:
+        res["v02_scene"] = v02_scene
+    if v03_scene:
+        res["v03_scene"] = v03_scene
     (MEDIA / "flawbench.json").write_text(json.dumps(res, indent=1))
 
 

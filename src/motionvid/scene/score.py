@@ -141,10 +141,11 @@ def _phrases(notes, G):
             t_emit = max(t, last_t + cd) if v_i > 0 else t
             last_t = t_emit
             f = WOODY_HZ[(idx + v_i) % len(WOODY_HZ)]
-            atten = -5.0 * v_i - (10.0 if s < 0.18 else 0.0)
+            # Rule 2 & Timestamp Audit: mini-blob bursts (s < 0.18) tucked -14 to -18 dB behind hero transients; 3 staggered voices (0, -5, -10 dB)
+            atten = -5.0 * v_i - (15.0 if s < 0.18 else 0.0)
             g = G["pluck_db"] + atten
             out.append(_ev(t_emit, "pluck", g, _spread(T, G), f"{T.id}: damped woody pop #{v_i + 1}/{len(grp)}",
-                           freq=f, bell=False, dur=0.18))
+                           freq=f, bell=False, dur=0.16))
         idx += 1
     return out
 
@@ -169,11 +170,11 @@ def _typography(tl, tels, G):
                 # Hero low-mid wooden thud (280 Hz & 340 Hz) or 2-note motif for brand reveal
                 f_hero = 280.0 if hero_idx % 2 == 0 else 340.0
                 hero_idx += 1
-                out.append(_ev(times[0][2], "pluck", G["pluck_db"] + 1.5, 0.0, f"{T.id}: hero wooden thud",
-                               freq=f_hero, bell=False, dur=0.18))
+                out.append(_ev(max(0.0, times[0][2] - 0.02), "pluck", G["pluck_db"] + 1.0, 0.0, f"{T.id}: hero wooden thud",
+                               freq=f_hero, bell=False, dur=0.14))
                 if text.lower() == "motionvid" and len(times) >= 4:
-                    out.append(_ev(times[len(times) // 2][2], "pluck", G["pluck_db"] + 1.0, 0.12,
-                                   f"{T.id}: signature motif", freq=340.0, bell=False, dur=0.2))
+                    out.append(_ev(times[-1][2] + 0.06, "pluck", G["pluck_db"] + 0.5, 0.12,
+                                   f"{T.id}: signature motif", freq=340.0, bell=False, dur=0.16))
         elif el.get("type"):
             ty = el["type"]
             times = [(i, c, ty["t"] + i / ty["cps"]) for i, c in enumerate(text[:int(ty["n"])]) if not c.isspace()]
