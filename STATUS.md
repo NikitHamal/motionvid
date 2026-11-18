@@ -1,5 +1,10 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 7 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 8 (in progress) · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
+
+## Session 8 plan (in progress; check DONE below before redoing)
+1. Mesh 3D engine (`docs/engine/mesh.js`: rounded solids, torus, icosphere, extrusions, textured screens), image + footage layers (`assets.js`).
+2. Kit: `kit/screens.py` real UI screens, `kit/three.py` meshes. 6 new 45 s+ demos with real photos/footage.
+3. Skill v2 (`docs/SKILL.md`), Create page upgrade, v0.9 launch.
 
 ## Next actions (do top first)
 1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train a tiny English-only text->timeline planner (`<= 3 MB` int8) to replace the rule-based `docs/engine/planner.js`; see `docs/ROADMAP.md` G1-G4. Keep the 0-byte Agency DSP engine as the baseline gate.
