@@ -1,0 +1,1236 @@
+[
+  {
+    "t": 0.2042,
+    "role": "sub",
+    "gain_db": -5.5,
+    "pan": -0.011,
+    "seed": 211141537,
+    "why": "scene: area +42.6% sub-boom",
+    "p": {
+      "s": 1.0,
+      "f0": 85.0,
+      "f1": 45.0
+    }
+  },
+  {
+    "t": 0.2125,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": -0.186,
+    "seed": 157530738,
+    "why": "hero_pill: damped woody pop #1/4",
+    "p": {
+      "freq": 220.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 0.3225,
+    "role": "pluck",
+    "gain_db": -19.0,
+    "pan": -0.42,
+    "seed": 262349962,
+    "why": "cookie_l: damped woody pop #2/4",
+    "p": {
+      "freq": 261.6,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 0.4325,
+    "role": "pluck",
+    "gain_db": -24.0,
+    "pan": 0.42,
+    "seed": 35568885,
+    "why": "cookie_r: damped woody pop #3/4",
+    "p": {
+      "freq": 280.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 0.6967,
+    "role": "pluck",
+    "gain_db": -13.0,
+    "pan": 0.0,
+    "seed": 191579908,
+    "why": "hook1: hero wooden thud",
+    "p": {
+      "freq": 280.0,
+      "bell": false,
+      "dur": 0.14
+    }
+  },
+  {
+    "t": 0.7167,
+    "role": "tick",
+    "gain_db": -27.27,
+    "pan": -0.296,
+    "seed": 45073213,
+    "why": "hook1: glyph 'T' #0",
+    "p": {
+      "freq": 434.8499074143915
+    }
+  },
+  {
+    "t": 0.7583,
+    "role": "tick",
+    "gain_db": -27.0,
+    "pan": -0.211,
+    "seed": 103473640,
+    "why": "hook1: glyph 'I' #1",
+    "p": {
+      "freq": 446.5649218211117
+    }
+  },
+  {
+    "t": 0.8,
+    "role": "tick",
+    "gain_db": -28.42,
+    "pan": -0.127,
+    "seed": 17410710,
+    "why": "hook1: glyph 'M' #2",
+    "p": {
+      "freq": 433.79615161197665
+    }
+  },
+  {
+    "t": 0.8417,
+    "role": "tick",
+    "gain_db": -28.66,
+    "pan": -0.042,
+    "seed": 17588966,
+    "why": "hook1: glyph 'E' #3",
+    "p": {
+      "freq": 431.2758897938178
+    }
+  },
+  {
+    "t": 0.8833,
+    "role": "tick",
+    "gain_db": -26.25,
+    "pan": 0.042,
+    "seed": 52592376,
+    "why": "hook1: glyph 'L' #4",
+    "p": {
+      "freq": 460.65324726526177
+    }
+  },
+  {
+    "t": 0.9,
+    "role": "pluck",
+    "gain_db": -29.0,
+    "pan": -0.05,
+    "seed": 231601638,
+    "why": "a1_ring1: damped woody pop #1/1",
+    "p": {
+      "freq": 261.6,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 0.925,
+    "role": "tick",
+    "gain_db": -27.48,
+    "pan": 0.127,
+    "seed": 143262773,
+    "why": "hook1: glyph 'I' #5",
+    "p": {
+      "freq": 460.60388600918253
+    }
+  },
+  {
+    "t": 0.9667,
+    "role": "tick",
+    "gain_db": -26.23,
+    "pan": 0.211,
+    "seed": 118743886,
+    "why": "hook1: glyph 'N' #6",
+    "p": {
+      "freq": 463.3445683296746
+    }
+  },
+  {
+    "t": 1.0083,
+    "role": "tick",
+    "gain_db": -26.67,
+    "pan": 0.296,
+    "seed": 9504906,
+    "why": "hook1: glyph 'E' #7",
+    "p": {
+      "freq": 498.15063779322594
+    }
+  },
+  {
+    "t": 1.45,
+    "role": "tick",
+    "gain_db": -21.18,
+    "pan": -0.281,
+    "seed": 185124969,
+    "why": "hook2: glyph 'J' #0",
+    "p": {
+      "freq": 523.8118304120815
+    }
+  },
+  {
+    "t": 1.5214,
+    "role": "tick",
+    "gain_db": -20.82,
+    "pan": -0.238,
+    "seed": 2059487,
+    "why": "hook2: glyph 'S' #1",
+    "p": {
+      "freq": 519.4777748927665
+    }
+  },
+  {
+    "t": 1.5929,
+    "role": "tick",
+    "gain_db": -23.99,
+    "pan": -0.194,
+    "seed": 64495966,
+    "why": "hook2: glyph 'O' #2",
+    "p": {
+      "freq": 520.8646869829983
+    }
+  },
+  {
+    "t": 1.6643,
+    "role": "tick",
+    "gain_db": -23.2,
+    "pan": -0.151,
+    "seed": 64973686,
+    "why": "hook2: glyph 'N' #3",
+    "p": {
+      "freq": 519.7021942929714
+    }
+  },
+  {
+    "t": 1.8071,
+    "role": "tick",
+    "gain_db": -24.41,
+    "pan": -0.065,
+    "seed": 129513241,
+    "why": "hook2: glyph 'T' #4",
+    "p": {
+      "freq": 552.6022507246261
+    }
+  },
+  {
+    "t": 1.8786,
+    "role": "tick",
+    "gain_db": -21.68,
+    "pan": -0.022,
+    "seed": 5549986,
+    "why": "hook2: glyph 'O' #5",
+    "p": {
+      "freq": 551.0267363243478
+    }
+  },
+  {
+    "t": 2.0214,
+    "role": "tick",
+    "gain_db": -22.85,
+    "pan": 0.065,
+    "seed": 195629131,
+    "why": "hook2: glyph 'C' #6",
+    "p": {
+      "freq": 559.5967054773465
+    }
+  },
+  {
+    "t": 2.0929,
+    "role": "tick",
+    "gain_db": -24.17,
+    "pan": 0.108,
+    "seed": 161400232,
+    "why": "hook2: glyph 'I' #7",
+    "p": {
+      "freq": 577.5424990163991
+    }
+  },
+  {
+    "t": 2.1643,
+    "role": "tick",
+    "gain_db": -24.05,
+    "pan": 0.151,
+    "seed": 20595977,
+    "why": "hook2: glyph 'N' #8",
+    "p": {
+      "freq": 584.2515355730128
+    }
+  },
+  {
+    "t": 2.2357,
+    "role": "tick",
+    "gain_db": -21.54,
+    "pan": 0.194,
+    "seed": 176636822,
+    "why": "hook2: glyph 'E' #9",
+    "p": {
+      "freq": 578.2903350481786
+    }
+  },
+  {
+    "t": 2.3071,
+    "role": "tick",
+    "gain_db": -23.76,
+    "pan": 0.238,
+    "seed": 187335278,
+    "why": "hook2: glyph 'M' #10",
+    "p": {
+      "freq": 578.7259789713859
+    }
+  },
+  {
+    "t": 2.3786,
+    "role": "tick",
+    "gain_db": -24.98,
+    "pan": 0.281,
+    "seed": 187816048,
+    "why": "hook2: glyph 'A' #11",
+    "p": {
+      "freq": 627.3071410937258
+    }
+  },
+  {
+    "t": 3.0667,
+    "role": "sub",
+    "gain_db": -5.5,
+    "pan": -0.011,
+    "seed": 159997003,
+    "why": "scene: area +299.7% sub-boom",
+    "p": {
+      "s": 1.0,
+      "f0": 85.0,
+      "f1": 45.0
+    }
+  },
+  {
+    "t": 3.2,
+    "role": "impact",
+    "gain_db": -4.5,
+    "pan": 0.0,
+    "seed": 211896455,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 3.2,
+    "role": "whoosh",
+    "gain_db": -6.5,
+    "pan": 0.0,
+    "seed": 177845583,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 3.405,
+    "role": "pluck",
+    "gain_db": -13.0,
+    "pan": 0.0,
+    "seed": 218140821,
+    "why": "tel_title: hero wooden thud",
+    "p": {
+      "freq": 340.0,
+      "bell": false,
+      "dur": 0.14
+    }
+  },
+  {
+    "t": 3.425,
+    "role": "tick",
+    "gain_db": -28.55,
+    "pan": -0.196,
+    "seed": 163105400,
+    "why": "tel_title: glyph '2' #0",
+    "p": {
+      "freq": 438.05219433957217
+    }
+  },
+  {
+    "t": 3.4625,
+    "role": "tick",
+    "gain_db": -26.28,
+    "pan": -0.118,
+    "seed": 5570544,
+    "why": "tel_title: glyph '4' #1",
+    "p": {
+      "freq": 444.6969589090068
+    }
+  },
+  {
+    "t": 3.5,
+    "role": "tick",
+    "gain_db": -28.95,
+    "pan": -0.039,
+    "seed": 62877659,
+    "why": "tel_title: glyph '0' #2",
+    "p": {
+      "freq": 448.8376279744162
+    }
+  },
+  {
+    "t": 3.575,
+    "role": "tick",
+    "gain_db": -26.25,
+    "pan": 0.118,
+    "seed": 174057070,
+    "why": "tel_title: glyph 'H' #3",
+    "p": {
+      "freq": 438.8223026286903
+    }
+  },
+  {
+    "t": 3.6125,
+    "role": "tick",
+    "gain_db": -29.04,
+    "pan": 0.196,
+    "seed": 81890986,
+    "why": "tel_title: glyph 'Z' #4",
+    "p": {
+      "freq": 469.1881885556969
+    }
+  },
+  {
+    "t": 4.5333,
+    "role": "sub",
+    "gain_db": -9.45,
+    "pan": -0.004,
+    "seed": 114856741,
+    "why": "scene: area +10.8% sub-boom",
+    "p": {
+      "s": 0.506455348544705,
+      "f0": 85.0,
+      "f1": 45.0
+    }
+  },
+  {
+    "t": 5.4958,
+    "role": "sub",
+    "gain_db": -11.65,
+    "pan": -0.004,
+    "seed": 30290774,
+    "why": "scene: area +2.3% sub-boom",
+    "p": {
+      "s": 0.23172036951699598,
+      "f0": 85.0,
+      "f1": 45.0
+    }
+  },
+  {
+    "t": 5.9983,
+    "role": "crystal",
+    "gain_db": -12.5,
+    "pan": 0.0,
+    "seed": 181274773,
+    "why": "collapse 4 kHz micro-click",
+    "p": {}
+  },
+  {
+    "t": 5.9983,
+    "role": "suction",
+    "gain_db": -7.5,
+    "pan": 0.0,
+    "seed": 244455931,
+    "why": "5 shape(s) collapse",
+    "p": {
+      "dur": 0.38
+    }
+  },
+  {
+    "t": 6.4667,
+    "role": "sub",
+    "gain_db": -5.5,
+    "pan": -0.004,
+    "seed": 144608675,
+    "why": "scene: area +299.7% sub-boom",
+    "p": {
+      "s": 1.0,
+      "f0": 85.0,
+      "f1": 45.0
+    }
+  },
+  {
+    "t": 6.6,
+    "role": "impact",
+    "gain_db": -4.5,
+    "pan": 0.0,
+    "seed": 71128267,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 6.6,
+    "role": "whoosh",
+    "gain_db": -6.5,
+    "pan": 0.0,
+    "seed": 87887695,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 6.95,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": -0.209,
+    "seed": 36241360,
+    "why": "stat0: damped woody pop #1/1",
+    "p": {
+      "freq": 280.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 7.3,
+    "role": "impact",
+    "gain_db": -6.0,
+    "pan": -0.6,
+    "seed": 114196169,
+    "why": "agent hint",
+    "p": {
+      "s": 0.8181818181818182
+    }
+  },
+  {
+    "t": 7.7,
+    "role": "impact",
+    "gain_db": -10.0,
+    "pan": -0.6,
+    "seed": 253424601,
+    "why": "agent hint",
+    "p": {
+      "s": 0.6363636363636364
+    }
+  },
+  {
+    "t": 7.85,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.053,
+    "seed": 12243383,
+    "why": "stat1: damped woody pop #1/1",
+    "p": {
+      "freq": 329.6,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 7.9,
+    "role": "impact",
+    "gain_db": -14.0,
+    "pan": -0.6,
+    "seed": 20815616,
+    "why": "agent hint",
+    "p": {
+      "s": 0.45454545454545453
+    }
+  },
+  {
+    "t": 8.0,
+    "role": "impact",
+    "gain_db": -19.0,
+    "pan": -0.6,
+    "seed": 40336711,
+    "why": "agent hint",
+    "p": {
+      "s": 0.22727272727272727
+    }
+  },
+  {
+    "t": 8.75,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.193,
+    "seed": 17393271,
+    "why": "stat2: damped woody pop #1/1",
+    "p": {
+      "freq": 340.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 9.6333,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.454,
+    "seed": 210229488,
+    "why": "sync_badge: damped woody pop #1/1",
+    "p": {
+      "freq": 392.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 10.0458,
+    "role": "sub",
+    "gain_db": -5.5,
+    "pan": 0.009,
+    "seed": 152998259,
+    "why": "scene: area +299.7% sub-boom",
+    "p": {
+      "s": 1.0,
+      "f0": 85.0,
+      "f1": 45.0
+    }
+  },
+  {
+    "t": 10.2,
+    "role": "impact",
+    "gain_db": -4.5,
+    "pan": 0.0,
+    "seed": 132272194,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 10.2,
+    "role": "whoosh",
+    "gain_db": -6.5,
+    "pan": 0.0,
+    "seed": 72673210,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 10.3958,
+    "role": "pluck",
+    "gain_db": -29.0,
+    "pan": 0.284,
+    "seed": 211065822,
+    "why": "node0: damped woody pop #1/8",
+    "p": {
+      "freq": 420.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 10.5058,
+    "role": "pluck",
+    "gain_db": -34.0,
+    "pan": -0.284,
+    "seed": 37168399,
+    "why": "node4: damped woody pop #2/8",
+    "p": {
+      "freq": 220.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 10.6158,
+    "role": "pluck",
+    "gain_db": -39.0,
+    "pan": 0.201,
+    "seed": 216277747,
+    "why": "node1: damped woody pop #3/8",
+    "p": {
+      "freq": 261.6,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 12.58,
+    "role": "riser",
+    "gain_db": -14.0,
+    "pan": 0.0,
+    "seed": 36185323,
+    "why": "agent hint",
+    "p": {
+      "dur": 0.7
+    }
+  },
+  {
+    "t": 12.6625,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.211,
+    "seed": 191681787,
+    "why": "rsi_core: damped woody pop #1/1",
+    "p": {
+      "freq": 220.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 12.7167,
+    "role": "crystal",
+    "gain_db": -12.5,
+    "pan": 0.0,
+    "seed": 29873440,
+    "why": "collapse 4 kHz micro-click",
+    "p": {}
+  },
+  {
+    "t": 12.7167,
+    "role": "suction",
+    "gain_db": -7.5,
+    "pan": 0.0,
+    "seed": 30424505,
+    "why": "8 shape(s) collapse",
+    "p": {
+      "dur": 0.38
+    }
+  },
+  {
+    "t": 12.7508,
+    "role": "pluck",
+    "gain_db": -13.0,
+    "pan": 0.0,
+    "seed": 34884926,
+    "why": "rsi_txt: hero wooden thud",
+    "p": {
+      "freq": 280.0,
+      "bell": false,
+      "dur": 0.14
+    }
+  },
+  {
+    "t": 12.7708,
+    "role": "tick",
+    "gain_db": -28.73,
+    "pan": -0.243,
+    "seed": 182331547,
+    "why": "rsi_txt: glyph '9' #0",
+    "p": {
+      "freq": 439.98904695678226
+    }
+  },
+  {
+    "t": 12.8458,
+    "role": "tick",
+    "gain_db": -25.39,
+    "pan": 0.0,
+    "seed": 206965339,
+    "why": "rsi_txt: glyph '/' #1",
+    "p": {
+      "freq": 442.26053805740366
+    }
+  },
+  {
+    "t": 12.9208,
+    "role": "tick",
+    "gain_db": -26.49,
+    "pan": 0.243,
+    "seed": 82572941,
+    "why": "rsi_txt: glyph '9' #2",
+    "p": {
+      "freq": 448.69888134294723
+    }
+  },
+  {
+    "t": 13.4,
+    "role": "impact",
+    "gain_db": -4.5,
+    "pan": 0.0,
+    "seed": 95684347,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    }
+  },
+  {
+    "t": 13.4,
+    "role": "whoosh",
+    "gain_db": -6.5,
+    "pan": 0.0,
+    "seed": 187558597,
+    "why": "cut:cut pre-roll 213 ms",
+    "p": {
+      "pre": 0.21280000000000002,
+      "post": 0.55,
+      "s": 1.0
+    }
+  },
+  {
+    "t": 13.4083,
+    "role": "sub",
+    "gain_db": -5.5,
+    "pan": 0.098,
+    "seed": 247250879,
+    "why": "scene: area +361.6% sub-boom",
+    "p": {
+      "s": 1.0,
+      "f0": 85.0,
+      "f1": 45.0
+    }
+  },
+  {
+    "t": 13.5167,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.219,
+    "seed": 138841116,
+    "why": "fin_halo: damped woody pop #1/2",
+    "p": {
+      "freq": 261.6,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 13.75,
+    "role": "pluck",
+    "gain_db": -34.0,
+    "pan": -0.092,
+    "seed": 100644406,
+    "why": "fin_r0: damped woody pop #2/2",
+    "p": {
+      "freq": 280.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 13.805,
+    "role": "pluck",
+    "gain_db": -13.0,
+    "pan": 0.0,
+    "seed": 168493444,
+    "why": "brand: hero wooden thud",
+    "p": {
+      "freq": 340.0,
+      "bell": false,
+      "dur": 0.14
+    }
+  },
+  {
+    "t": 13.825,
+    "role": "tick",
+    "gain_db": -26.65,
+    "pan": -0.416,
+    "seed": 50827328,
+    "why": "brand: glyph 'm' #0",
+    "p": {
+      "freq": 443.9061557655044
+    }
+  },
+  {
+    "t": 13.8625,
+    "role": "tick",
+    "gain_db": -28.93,
+    "pan": -0.312,
+    "seed": 109342478,
+    "why": "brand: glyph 'o' #1",
+    "p": {
+      "freq": 447.4367399968763
+    }
+  },
+  {
+    "t": 13.9042,
+    "role": "tick",
+    "gain_db": -26.06,
+    "pan": -0.208,
+    "seed": 198734766,
+    "why": "brand: glyph 't' #2",
+    "p": {
+      "freq": 447.58246217195887
+    }
+  },
+  {
+    "t": 13.9417,
+    "role": "tick",
+    "gain_db": -27.56,
+    "pan": -0.104,
+    "seed": 22909448,
+    "why": "brand: glyph 'i' #3",
+    "p": {
+      "freq": 444.17167672645144
+    }
+  },
+  {
+    "t": 13.9833,
+    "role": "tick",
+    "gain_db": -29.33,
+    "pan": 0.0,
+    "seed": 103034389,
+    "why": "brand: glyph 'o' #4",
+    "p": {
+      "freq": 465.4363082917845
+    }
+  },
+  {
+    "t": 14.0208,
+    "role": "tick",
+    "gain_db": -26.11,
+    "pan": 0.104,
+    "seed": 267254677,
+    "why": "brand: glyph 'n' #5",
+    "p": {
+      "freq": 469.6362053559185
+    }
+  },
+  {
+    "t": 14.0625,
+    "role": "tick",
+    "gain_db": -26.62,
+    "pan": 0.208,
+    "seed": 720796,
+    "why": "brand: glyph 'v' #6",
+    "p": {
+      "freq": 463.19160931138964
+    }
+  },
+  {
+    "t": 14.0833,
+    "role": "pluck",
+    "gain_db": -29.0,
+    "pan": -0.055,
+    "seed": 263947070,
+    "why": "fin_r1: damped woody pop #1/2",
+    "p": {
+      "freq": 280.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 14.1,
+    "role": "tick",
+    "gain_db": -25.99,
+    "pan": 0.312,
+    "seed": 193811513,
+    "why": "brand: glyph 'i' #7",
+    "p": {
+      "freq": 492.1785085434304
+    }
+  },
+  {
+    "t": 14.1417,
+    "role": "tick",
+    "gain_db": -29.62,
+    "pan": 0.416,
+    "seed": 42932392,
+    "why": "brand: glyph 'd' #8",
+    "p": {
+      "freq": 484.57146738436063
+    }
+  },
+  {
+    "t": 14.2017,
+    "role": "pluck",
+    "gain_db": -13.5,
+    "pan": 0.12,
+    "seed": 7307407,
+    "why": "brand: signature motif",
+    "p": {
+      "freq": 340.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 14.4,
+    "role": "pluck",
+    "gain_db": -34.0,
+    "pan": 0.193,
+    "seed": 57048371,
+    "why": "fin_r2: damped woody pop #2/2",
+    "p": {
+      "freq": 329.6,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 14.55,
+    "role": "tick",
+    "gain_db": -20.55,
+    "pan": -0.306,
+    "seed": 21897523,
+    "why": "cta: glyph 'P' #0",
+    "p": {
+      "freq": 584.3206192436573
+    }
+  },
+  {
+    "t": 14.6125,
+    "role": "tick",
+    "gain_db": -23.03,
+    "pan": -0.274,
+    "seed": 260321223,
+    "why": "cta: glyph 'I' #1",
+    "p": {
+      "freq": 597.144079097074
+    }
+  },
+  {
+    "t": 14.675,
+    "role": "tick",
+    "gain_db": -23.39,
+    "pan": -0.242,
+    "seed": 250531897,
+    "why": "cta: glyph 'P' #2",
+    "p": {
+      "freq": 598.509323548529
+    }
+  },
+  {
+    "t": 14.7375,
+    "role": "tick",
+    "gain_db": -23.58,
+    "pan": -0.209,
+    "seed": 167553775,
+    "why": "cta: glyph 'E' #3",
+    "p": {
+      "freq": 583.629034872203
+    }
+  },
+  {
+    "t": 14.8,
+    "role": "tick",
+    "gain_db": -20.61,
+    "pan": -0.177,
+    "seed": 50639699,
+    "why": "cta: glyph 'L' #4",
+    "p": {
+      "freq": 620.2987677842785
+    }
+  },
+  {
+    "t": 14.8625,
+    "role": "tick",
+    "gain_db": -24.34,
+    "pan": -0.145,
+    "seed": 65789314,
+    "why": "cta: glyph 'I' #5",
+    "p": {
+      "freq": 618.7417274379347
+    }
+  },
+  {
+    "t": 14.925,
+    "role": "tick",
+    "gain_db": -20.8,
+    "pan": -0.113,
+    "seed": 261189213,
+    "why": "cta: glyph 'N' #6",
+    "p": {
+      "freq": 625.8334153268097
+    }
+  },
+  {
+    "t": 14.9875,
+    "role": "tick",
+    "gain_db": -22.48,
+    "pan": -0.081,
+    "seed": 60467400,
+    "why": "cta: glyph 'E' #7",
+    "p": {
+      "freq": 669.1154620271031
+    }
+  },
+  {
+    "t": 15.0792,
+    "role": "pluck",
+    "gain_db": -29.0,
+    "pan": -0.481,
+    "seed": 186597579,
+    "why": "seal0: damped woody pop #1/4",
+    "p": {
+      "freq": 329.6,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 15.1125,
+    "role": "tick",
+    "gain_db": -24.83,
+    "pan": -0.016,
+    "seed": 9830511,
+    "why": "cta: glyph 'L' #8",
+    "p": {
+      "freq": 661.3471922130709
+    }
+  },
+  {
+    "t": 15.1458,
+    "role": "sub",
+    "gain_db": -11.27,
+    "pan": 0.094,
+    "seed": 224610667,
+    "why": "scene: area +3.3% sub-boom",
+    "p": {
+      "s": 0.27931837488407923,
+      "f0": 85.0,
+      "f1": 45.0
+    }
+  },
+  {
+    "t": 15.175,
+    "role": "tick",
+    "gain_db": -21.46,
+    "pan": 0.016,
+    "seed": 226979621,
+    "why": "cta: glyph 'A' #9",
+    "p": {
+      "freq": 651.7274373846863
+    }
+  },
+  {
+    "t": 15.2,
+    "role": "pluck",
+    "gain_db": -34.0,
+    "pan": 0.488,
+    "seed": 42381274,
+    "why": "seal1: damped woody pop #2/4",
+    "p": {
+      "freq": 340.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 15.2375,
+    "role": "tick",
+    "gain_db": -23.35,
+    "pan": 0.048,
+    "seed": 168362596,
+    "why": "cta: glyph 'U' #10",
+    "p": {
+      "freq": 670.3000988225735
+    }
+  },
+  {
+    "t": 15.3,
+    "role": "tick",
+    "gain_db": -21.74,
+    "pan": 0.081,
+    "seed": 149589552,
+    "why": "cta: glyph 'N' #11",
+    "p": {
+      "freq": 691.3650885840017
+    }
+  },
+  {
+    "t": 15.3208,
+    "role": "pluck",
+    "gain_db": -39.0,
+    "pan": 0.433,
+    "seed": 169740834,
+    "why": "seal2: damped woody pop #3/4",
+    "p": {
+      "freq": 392.0,
+      "bell": false,
+      "dur": 0.16
+    }
+  },
+  {
+    "t": 15.3625,
+    "role": "tick",
+    "gain_db": -21.99,
+    "pan": 0.113,
+    "seed": 7639467,
+    "why": "cta: glyph 'C' #12",
+    "p": {
+      "freq": 705.5916590161108
+    }
+  },
+  {
+    "t": 15.425,
+    "role": "tick",
+    "gain_db": -24.77,
+    "pan": 0.145,
+    "seed": 21632950,
+    "why": "cta: glyph 'H' #13",
+    "p": {
+      "freq": 700.3845110042437
+    }
+  },
+  {
+    "t": 15.55,
+    "role": "tick",
+    "gain_db": -23.4,
+    "pan": 0.209,
+    "seed": 104883772,
+    "why": "cta: glyph '2' #14",
+    "p": {
+      "freq": 748.5455167238024
+    }
+  },
+  {
+    "t": 15.6125,
+    "role": "tick",
+    "gain_db": -23.11,
+    "pan": 0.242,
+    "seed": 22655692,
+    "why": "cta: glyph '0' #15",
+    "p": {
+      "freq": 749.841720768048
+    }
+  },
+  {
+    "t": 15.675,
+    "role": "tick",
+    "gain_db": -24.08,
+    "pan": 0.274,
+    "seed": 240120814,
+    "why": "cta: glyph '2' #16",
+    "p": {
+      "freq": 742.9559920930325
+    }
+  },
+  {
+    "t": 15.7375,
+    "role": "tick",
+    "gain_db": -25.45,
+    "pan": 0.306,
+    "seed": 63856189,
+    "why": "cta: glyph '6' #17",
+    "p": {
+      "freq": 728.3976210875499
+    }
+  },
+  {
+    "t": 15.8,
+    "role": "riser",
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 35736956,
+    "why": "agent hint",
+    "p": {
+      "dur": 0.75
+    }
+  },
+  {
+    "t": 15.85,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 165978015,
+    "why": "agent hint",
+    "p": {
+      "s": 0.8636363636363636
+    }
+  }
+]
