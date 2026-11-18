@@ -20,7 +20,7 @@ Repo: https://github.com/NikitHamal/motionvid · Last updated: session 2 · Box:
 - **ReelCheck** (`bench/reelcheck.py`): rendered-audio hit alignment on the real showreel: median 1.9 ms, p95 70.7 ms (broad sounds and
   clustered cues), 76.9 % within one 30 fps frame, peak 0.89. Gates: median <= 12 ms, within-1-frame >= 0.75, peak <= 0.98.
 - Surfaces: GitHub Pages site (plain HTML/CSS/JS, M3 Expressive), Studio (React, cue inspector), demo MP4s (showreel, x-ray, launch).
-- Tests 14 -> 34 (easing parity JS/Python, preview, video smoke, design rules). `scripts/build_media.py` regenerates all artifacts.
+- Tests 14 -> 24 (easing parity JS/Python, preview, video smoke, design rules). `scripts/build_media.py` regenerates all artifacts.
 - Preview page now uses the shared engine (old duplicate JS removed).
 
 ## Known limits (session 2)

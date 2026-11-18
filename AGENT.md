@@ -28,7 +28,7 @@ Long-term: recursive self-improvement (RSI) — the system measures itself, prop
 - Video: `python -m motionvid video tl.json out/ --xray` -> `final.mp4` (+`xray.mp4`). Audio by Python, frames by Node, mux by ffmpeg-static.
 - Site: `docs/index.html` (GitHub Pages, plain HTML/CSS/JS). Studio: `npm run build` -> `dist/index.html` (single file).
 - Media: `python scripts/build_media.py` regenerates everything in `docs/media/` from `examples/showreel.py`. Never hand-edit those files.
-- Gates: `pytest -q` (34 tests) and `python bench/reelcheck.py` (baseline in `bench/results/reelcheck.json`).
+- Gates: `pytest -q` (24 tests) and `python bench/reelcheck.py` (baseline in `bench/results/reelcheck.json`).
 
 ## Design rules (tested in tests/test_rules.py)
 Material 3 Expressive: solid color containers, extra-large shapes, spring motion, Bricolage Grotesque. No box/text shadows, no emojis,
