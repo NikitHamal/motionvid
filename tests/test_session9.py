@@ -67,6 +67,6 @@ def test_mcp_server_lists_and_plans():
     msgs = [{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}, {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "plan_video", "arguments": {"prompt": "Tempo, a music app", "aspect": "9:16", "long": True}}}]
     out = subprocess.run(["node", "tools/mcp_server.mjs"], cwd=ROOT, input="\n".join(json.dumps(m) for m in msgs) + "\n", capture_output=True, text=True, timeout=20).stdout.strip().splitlines()
     names = {t["name"] for t in json.loads(out[0])["result"]["tools"]}
-    assert {"skill", "plan_video", "render_poster", "render_video", "list_demos"} <= names
+    assert {"skill", "plan_video", "audit_sound", "render_poster", "render_video", "list_demos"} <= names
     plan = json.loads(json.loads(out[1])["result"]["content"][0]["text"])
     assert plan["category"] == "music" and plan["duration"] == 38 and Path(plan["timeline"]).exists()

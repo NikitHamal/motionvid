@@ -1,13 +1,44 @@
 # STATUS — motionvid (single living doc; extend in place)
-Repo: https://github.com/NikitHamal/motionvid · Last updated: session 8 · Box: 4 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
+Repo: https://github.com/NikitHamal/motionvid · Last updated: session 9 · Box: 2 CPU local + 20 CPU MoLab (`sb-771f596fb28c3728`, no GPU yet).
 
 ## Next actions (do top first)
-0. **Session 8 leftovers**: if a demo or `v0.9` media is missing in `docs/media/`, run `python scripts/build_demos.py <id>` / `python scripts/build_media.py v0.9` (one at a time, 2 GB RAM). Listen to the six new demos (no human has yet), run `python bench/soundaudit.py` on them and record numbers here.
 1. **GPU session** (when granted): learn the telemetry->parameter map from human-rated edits and train a tiny English-only text->timeline planner (`<= 3 MB` int8) to replace the rule-based `docs/engine/planner.js`; see `docs/ROADMAP.md` G1-G4. Keep the 0-byte Agency DSP engine as the baseline gate.
-2. **Create page -> real render**: the page previews with a browser synth; add a hosted render worker (same `python -m motionvid video`) and an MCP server (timeline authoring + render + audit as tools) so an agent or the page can return an mp4.
-3. **Human listening validation**: pairwise ratings across `v0.1`..`v0.8` and the 6 demos; calibrate FlawBench and StudioBench against human ears. No human has listened to rev 7 UI voices yet.
-4. **Kit gaps**: text on 3D box faces is front-only, no morphing paths, no per-glyph 3D, no image/video layers. Add them as kit recipes + engine kinds, each with a demo.
-5. **Restore `reel2` glyph phrasing** (`0.997 -> 0.951`, only `glyph_ramp_rho`), occlusion-aware telemetry, beat-locked music bed.
+2. **Hosted render worker & SaaS accounts**: wire `docs/create/` to a hosted render endpoint running `python -m motionvid video` and add brand kit file upload (logo SVG/PNG + custom font) and share links (`docs/ROADMAP.md` P2-P4).
+3. **Human listening validation**: pairwise ratings across `v0.1`..`v0.10` and the 17 demos; calibrate FlawBench and StudioBench against human ears.
+4. **Kit gaps**: morphing vector paths, per-glyph 3D extrusion, occlusion-aware telemetry, and beat-locked music bed.
+
+## DONE (session 9)
+- **Mesh v3 procedural 3D heroes** (`docs/engine/mesh3.js`, `docs/engine/mesh.js`, `src/motionvid/kit/mesh.py`): smooth procedural primitives `wave` (animated terrain/energy heightfield), `blob` (harmonic morphing sphere), `knot` (`(p,q)` torus-knot tube), `helix` (spiral tube), and `ribbon` (double-sided twisted band); solid multi-stop color ramps (`ramp`, `cycle`), valley ambient occlusion (`ao`), Fresnel rim light (`rim`), and sky/ground hemisphere ambient (`hemi`).
+- **5 new long-form demos (64–70 s, 60 fps, rev 7) + all Session 8 leftovers completed** (`docs/media/demos/`, `docs/demos.json`, now **17 published demos** total across `16:9`, `9:16`, `4:5`, `1:1`):
+  - `helio` (64 s, 16:9): solar energy — morphing blob sun with orbiting torus rings, animated wave field, laptop dashboard, real city night footage, 3D bar tower, pinned globe.
+  - `summit` (70 s, 16:9): outdoor gear — terrain flyover wave, Rockies photo, 3D bottle, real jogger footage + activity phone, site laptop, photo cube with orbiting gems.
+  - `mosaic` (66 s, 4:5 portrait `1080x1350`): design suite — morphing blob, dual 3D phones with real UI, 6-photo masonry grid, photo cube, dashboard laptop + torus knot, color wave.
+  - `tempo` (66 s, 9:16 vertical `1080x1920`): music app — torus knot hero, 11-bar 3D equalizer, activity phone, city night footage, album cover cube, spiral helix.
+  - `quill` (68 s, 16:9): AI writing SaaS — twisted ribbon, self-typing editor window, site laptop, `12x` counter + 3D tower, real desk photo, blob + helix mind.
+- **`v0.10` Prism Launch** (`examples/launch5.py`, 44 s, 60 fps, X-ray + poster): social launch video combining Mesh v3 heroes (`knot`, `wave`, `blob`, `helix`), the Create Studio as real UI, real footage, and 3D phone activity rings; registered in `docs/versions.json` and `docs/app.js`.
+- **RSI audio fixes (`src/motionvid/scene/score.py`, `foley.py`) + FlawBench audit across all 11 new demos & `v0.9`/`v0.10`**:
+  - Restored `reel2.json` rev 6 glyph phrasing (`glyph_ramp_rho` `0.54 -> 1.00`, score `0.951 -> 0.987`) by passing cross-word `kk` offset to `st` in `score.py:_typography`.
+  - Fixed off-screen directional wipe pan saturation in `foley.py:texture` (`vx_w` normalized across its sweep when starting off-screen), lifting `v0.9` (`launch4.json`) from `8/9` (`0.885`, `pan_corr -0.46`) -> **`9/9` (`0.984`, `pan_corr 0.71`)** and `noir` from `8/9` (`0.873`, `pan_corr -0.34`) -> **`9/9` (`0.964`, `pan_corr 0.65`)**.
+  | reel / demo | gates | score | pan_corr | glyph_rho | failed |
+  |---|---|---|---|---|---|
+  | `atlas` (54 s 16:9) | 9/9 | 0.965 | 0.66 | 1.00 | none |
+  | `pulse` (50 s 9:16) | 9/9 | 0.961 | 0.63 | 1.00 | none |
+  | `ledgerly` (56 s 16:9) | 9/9 | 0.969 | 0.66 | 0.98 | none |
+  | `noir` (45 s 1:1) | 9/9 | 0.964 | 0.65 | 1.00 | none |
+  | `terra` (54 s 16:9) | 9/9 | 0.965 | 0.66 | 1.00 | none |
+  | `kernel` (58 s 16:9) | 9/9 | 0.982 | 0.68 | 0.99 | none |
+  | `helio` (64 s 16:9) | 9/9 | 0.979 | 0.67 | 1.00 | none |
+  | `summit` (70 s 16:9) | 9/9 | 0.967 | 0.67 | 1.00 | none |
+  | `mosaic` (66 s 4:5) | 9/9 | 0.971 | 0.67 | 1.00 | none |
+  | `tempo` (66 s 9:16) | 9/9 | 0.964 | 0.65 | 1.00 | none |
+  | `quill` (68 s 16:9) | 9/9 | 0.988 | 0.69 | 0.98 | none |
+  | `v0.9` (`launch4.json`, 30 s) | 9/9 | 0.984 | 0.71 | 1.00 | none |
+  | `v0.10` (`launch5.json`, 44 s) | 9/9 | 0.999 | 0.83 | 0.95 | none |
+- **Create Studio v3 + MCP Server + Skill v3** (`docs/create/`, `docs/engine/planner.js`, `tools/mcp_server.mjs`, `docs/SKILL.md`):
+  - Added `4:5` (`1080x1350`) and `1:1` (`1080x1080`) aspect ratios, `38s` long cut (`Moment` full-bleed photo act), `localStorage` saved projects, Brand Kit accent override, and 4 new categories (`music`, `creative`, `writing`, `outdoor`) with v3 3D heroes (`knot`, `blob`, `wave`, `helix`, `ribbon`).
+  - Added `tools/mcp_server.mjs` (zero-dependency stdio MCP server exposing `skill`, `list_demos`, `plan_video`, `audit_sound`, `render_poster`, `render_video`).
+  - Extended `docs/SKILL.md` to v3 with procedural 3D hero rules, hero ledger, and contact-sheet layout rules (caught and fixed `summit` Act 1 spacing + Act 3 ink contrast, and `quill`/`tempo`/`mosaic` Act 3 screen arrival timing).
+  - Tests: `tests/test_session9.py` (13 gates), `83/83` pytest green.
 
 ## DONE (session 8)
 - **Mesh 3D engine** (`docs/engine/mesh.js`): kind `mesh` with `parts`; rounded boxes (bevel segments), lathe solids (cylinder, sphere, cone, capsule, gem), torus, extrusions; per-face key + fill light with optional gloss, painter sort across all parts of one element (orbiting parts pass in front of and behind a solid), flat solid colors only. Textured screens: any flat UI or photo mapped onto a face (`screen`, list allowed) with perspective subdivision. Text extrusion (`ext`) and photos inside tilted groups.

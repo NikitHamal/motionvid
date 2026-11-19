@@ -10,12 +10,14 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'out', 'mcp');
 mkdirSync(OUT, { recursive: true });
 const prompt = { type: 'string', description: 'What the video is for: product name, what it does, who it is for' };
-const common = { prompt, aspect: { type: 'string', enum: ['16:9', '9:16', '4:5'] }, long: { type: 'boolean' }, seed: { type: 'integer' } };
+const common = { prompt, aspect: { type: 'string', enum: ['16:9', '9:16', '4:5', '1:1'] }, long: { type: 'boolean' }, seed: { type: 'integer' }, accent: { type: 'string' } };
 const TOOLS = {
   skill: { description: 'Read docs/SKILL.md: the rules for top-tier motion videos. Read before writing any scene.', props: {}, run: () => readFileSync(join(ROOT, 'docs/SKILL.md'), 'utf8') },
   list_demos: { description: 'List the published demos (id, brief, duration, aspect).', props: {}, run: () => readFileSync(join(ROOT, 'docs/demos.json'), 'utf8') },
   plan_video: { description: 'Prompt to timeline JSON (path and summary). Same prompt with another seed gives another hero object.', props: common, required: ['prompt'],
-    run: (a) => { const r = plan(a.prompt, a.aspect === '9:16', a.seed || 0, { long: !!a.long, aspect: a.aspect }); const f = join(OUT, `plan_${Date.now()}.json`); writeFileSync(f, JSON.stringify(r.tl)); return JSON.stringify({ timeline: f, category: r.brief.cat, name: r.brief.name, acts: r.acts, duration: r.tl.duration }); } },
+    run: (a) => { const r = plan(a.prompt, a.aspect === '9:16', a.seed || 0, { long: !!a.long, aspect: a.aspect, accent: a.accent }); const f = join(OUT, `plan_${Date.now()}.json`); writeFileSync(f, JSON.stringify(r.tl)); return JSON.stringify({ timeline: f, category: r.brief.cat, name: r.brief.name, acts: r.acts, duration: r.tl.duration }); } },
+  audit_sound: { description: 'Run FlawBench (9 audio gates: sub-coupling, air, dead-air, pan, motion foley, pre-roll, glyph phrasing, tail, LUFS) on a timeline JSON.', props: { timeline: { type: 'string' } }, required: ['timeline'],
+    run: (a) => { const p = spawnSync('python3', ['-c', 'import json,sys,pathlib;from bench.soundaudit import run;r=run(pathlib.Path(sys.argv[1]),classic=False)["scene"];print(json.dumps({"passes":r["passes"],"of":r["of"],"score":r["score"],"lufs":round(r["lufs"],2),"detail":r["detail"]}))', a.timeline], { cwd: ROOT, env: { ...process.env, PYTHONPATH: join(ROOT, 'src') }, encoding: 'utf8' }); return p.status === 0 ? p.stdout.trim() : p.stderr.slice(-600); } },
   render_poster: { description: 'Render one frame of a timeline to PNG so you can look at it.', props: { timeline: { type: 'string' }, t: { type: 'number' }, width: { type: 'integer' } }, required: ['timeline', 't'],
     run: (a) => { const f = join(OUT, `poster_${Date.now()}.png`); const p = spawnSync('node', [join(ROOT, 'tools/render_video.mjs'), a.timeline, f, '--poster', String(a.t), '--width', String(a.width || 960)], { encoding: 'utf8' }); return p.status === 0 ? f : p.stderr; } },
   render_video: { description: 'Render the full video with sound (mp4). Slow on CPU: about 8 s of wall time per second of video at 60 fps.', props: { timeline: { type: 'string' }, width: { type: 'integer' } }, required: ['timeline'],

@@ -55,8 +55,10 @@ function hero(S, B, kind, id, t, x, y, size, t1) {
 }
 
 export function plan(prompt, vertical = false, seed = 0, o = {}) {
-  const B = brief(prompt), h = hash(prompt) + seed * 7, [a1, a2, a3, a4, a5] = B.pal;
-  const V = vertical || o.aspect === '4:5', W = V ? 1080 : 1920, H = o.aspect === '4:5' ? 1350 : V ? 1920 : 1080, cx = W / 2, L = o.long ? 8 : 0, dur = 30 + L;
+  const B = brief(prompt), h = hash(prompt) + seed * 7;
+  if (o.accent) B.pal = [B.pal[0], o.accent, B.pal[2], B.pal[3], B.pal[4]];
+  const [a1, a2, a3, a4, a5] = B.pal, acc = o.accent || 'coral';
+  const V = vertical || o.aspect === '4:5' || o.aspect === '1:1', W = V ? 1080 : 1920, H = o.aspect === '1:1' ? 1080 : o.aspect === '4:5' ? 1350 : V ? 1920 : 1080, cx = W / 2, L = o.long ? 8 : 0, dur = 30 + L;
   const S = new Scene(dur, a1, { width: W, height: H }), acts = [];
   const hA = B.heroes[h % B.heroes.length], hB = B.heroes[(h + 1) % B.heroes.length];
   const cut = (t, col, x, y, i) => { const m = CUT[(h + i) % 3]; if (m === 'iris') S.iris(t, col, x, y); else if (m === 'wipe') S.wipe(t, col, i % 2 ? 'y' : 'x', 1); else S.slats(t, col); };
@@ -73,7 +75,7 @@ export function plan(prompt, vertical = false, seed = 0, o = {}) {
   else mesh(S, 'p_d', b + 0.3, dx, V ? H * 0.55 : H * 0.54, laptop3d(sc, V ? 940 : 900), V ? 1300 : 1100, { rx: -12, ry: spin(b + 0.3, b + 7.4, -30, 10), persp: 2100 });
   const hx = V ? cx : W * 0.72;
   S.headline('p_h', B.feats[0], b + 1.0, V ? H * 0.1 : H * 0.3, fit(B.feats[0], V ? W * 0.9 : W * 0.5, 170), fg(a2), { x: hx });
-  const btn = S.group('p_b', [pill(520 * (V ? 0.8 : 1), 140, 'coral'), text(B.cta, 'ink', 58, 0, 0, { weight: 800 })], { x: hx, y: V ? H * 0.9 : H * 0.62, w: 520, h: 140 }); S.appear(btn, b + 2.6, { x: hx });
+  const btn = S.group('p_b', [pill(520 * (V ? 0.8 : 1), 140, acc), text(B.cta, 'ink', 58, 0, 0, { weight: 800 })], { x: hx, y: V ? H * 0.9 : H * 0.62, w: 520, h: 140 }); S.appear(btn, b + 2.6, { x: hx });
   put2(btn, 'scale', [[b + 4.84, 1], [b + 4.9, 0.92, 'm3Std'], [b + 5.2, 1, 'springWild']]); S.sfx(b + 4.9, 'click', 0.1, -9, S.pan(hx)); S.sfx(b + 5.4, 'notify', 0.6, -12, S.pan(hx), { freq: 660 });
   cut(13, a3, cx, H * 0.5, 1); acts.push(['Product', 5.6, 13]);
   // 3 real photos on a carousel (13-20)
