@@ -45,7 +45,7 @@ def test_sub_and_impact_stay_dry_and_whoosh_is_dark():
 def test_versions_registry_has_no_missing_media_and_no_old_launch():
     reg = json.loads((ROOT / "docs" / "versions.json").read_text())
     ids = [v["id"] for v in reg]
-    assert ids == sorted(ids) and ids[0] == "v0.1" and len(ids) == len(set(ids))
+    assert ids == sorted(ids, key=lambda s: [int(x) for x in s[1:].split(".")]) and ids[0] == "v0.1" and len(ids) == len(set(ids))
     for v in reg:
         for key in ("video", "xray", "poster"):
             assert (ROOT / "docs" / v[key]).exists(), (v["id"], key)

@@ -195,7 +195,7 @@ def _typography(tl, tels, G):
             pn = pan_of(xc / W, G) if G.get("rev", 5) < 6 else -0.35 + 0.7 * (i / max(1, len(text) - 1))
             if G.get("rev", 5) >= 6:
                 g += 7.0
-            out.append(_ev(t, "tick", g, pn, f"{T.id}: glyph {c!r} #{k}", freq=f, st=min(k, 14) / 2.0))
+            out.append(_ev(t, "tick", g, pn, f"{T.id}: glyph {c!r} #{k}", freq=f, st=min(kk, 14) / 2.0))
     return out
 
 

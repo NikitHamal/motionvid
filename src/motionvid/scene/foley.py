@@ -106,7 +106,10 @@ def texture(buf: np.ndarray, tels: list[Tel], G: dict[str, float]) -> int:
         brush_fc = (900.0 + 800.0 * sp_c) if studio else (3200.0 + 2200.0 * sp_c)
         brush = biquad_tv(rng.standard_normal(n), brush_fc, 0.85, "bp") * (10.0 ** (brush_db / 20.0))
         g_felt = 10.0 ** ((G["texture_db"] + 4.0) / 20.0)
-        xn_pan = np.clip(0.5 + (f(vx) - 0.5) * 1.55, 0.0, 1.0)
+        vx_w = f(vx)
+        if (vx_w.min() < -0.1 or vx_w.max() > 1.1) and np.ptp(vx_w) > 0.25:
+            vx_w = (vx_w - vx_w.min()) / (np.ptp(vx_w) + 1e-9)
+        xn_pan = np.clip(0.5 + (vx_w - 0.5) * 1.55, 0.0, 1.0)
         _add(buf, ts, i0, _stereo(felt * g_felt + brush, xn_pan, G))
         count += 1
     return count
