@@ -323,6 +323,80 @@
    }
   }
  },
+ "launch4": {
+  "timeline": "launch4.json",
+  "scene": {
+   "sub_vs_mid_db": 12.052,
+   "air_vs_mid_db": -20.196,
+   "dead_air_s": 0.0,
+   "longest_gap_s": 0.0,
+   "pan_corr": -0.457,
+   "pan_samples": 10,
+   "motion_bright_corr": 0.983,
+   "sub_coupling": 1.0,
+   "growth_events": 3,
+   "preroll_rise_db": 34.793,
+   "cut_peak_offset_ms": 5.021,
+   "tail_300ms_db": -18.915,
+   "glyph_ramp_rho": 0.933,
+   "glyph_groups": 5,
+   "glyphs": 53,
+   "lufs": -16.075,
+   "true_peak_dbtp": -1.0,
+   "master_lufs_err": 0.075,
+   "passes": 8,
+   "of": 9,
+   "score": 0.885,
+   "detail": {
+    "sub_coupling": true,
+    "air_vs_mid_db": true,
+    "dead_air_s": true,
+    "pan_corr": false,
+    "motion_bright_corr": true,
+    "preroll_rise_db": true,
+    "glyph_ramp_rho": true,
+    "tail_300ms_db": true,
+    "master_lufs_err": true
+   }
+  }
+ },
+ "launch5": {
+  "timeline": "launch5.json",
+  "scene": {
+   "sub_vs_mid_db": 11.628,
+   "air_vs_mid_db": -20.858,
+   "dead_air_s": 0.0,
+   "longest_gap_s": 0.0,
+   "pan_corr": 0.722,
+   "pan_samples": 20,
+   "motion_bright_corr": 0.984,
+   "sub_coupling": 1.0,
+   "growth_events": 3,
+   "preroll_rise_db": 29.393,
+   "cut_peak_offset_ms": 4.979,
+   "tail_300ms_db": -16.612,
+   "glyph_ramp_rho": 0.95,
+   "glyph_groups": 7,
+   "glyphs": 66,
+   "lufs": -15.927,
+   "true_peak_dbtp": -1.0,
+   "master_lufs_err": 0.073,
+   "passes": 9,
+   "of": 9,
+   "score": 0.988,
+   "detail": {
+    "sub_coupling": true,
+    "air_vs_mid_db": true,
+    "dead_air_s": true,
+    "pan_corr": true,
+    "motion_bright_corr": true,
+    "preroll_rise_db": true,
+    "glyph_ramp_rho": true,
+    "tail_300ms_db": true,
+    "master_lufs_err": true
+   }
+  }
+ },
  "v02_scene": {
   "sub_vs_mid_db": 2.938,
   "air_vs_mid_db": -10.06,
