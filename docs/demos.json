@@ -260,6 +260,26 @@
   }
  },
  {
+  "id": "mosaic",
+  "title": "Mosaic",
+  "brief": "Design suite, morphing blob, ribbon, portrait 4:5",
+  "duration": 66,
+  "fps": 60,
+  "aspect": [
+   1080,
+   1350
+  ],
+  "sfx": 46,
+  "elements": 37,
+  "video": "media/demos/mosaic/reel.mp4",
+  "poster": "media/demos/mosaic/poster.png",
+  "player": {
+   "timeline": "media/demos/mosaic/reel.json",
+   "cues": "media/demos/mosaic/reel.cues.json",
+   "audio": "media/demos/mosaic/reel.m4a"
+  }
+ },
+ {
   "id": "tempo",
   "title": "Tempo",
   "brief": "Music app, torus knot, equalizer, vertical 9:16",
