@@ -20,17 +20,17 @@ def fullbleed(id, name, t, kind="image", tint="#17130F", a=0.3, z=1.16, dur=9.6)
 
 
 # Act 1 (0-10): terrain
-S.headline("a1", "Higher", 0.4, 330, 250, "ink", x=520, dur=0.9)
-S.headline("a2", "ground.", 0.9, 600, 250, "moss", x=520, dur=1.0)
+S.headline("a1", "Higher", 0.4, 330, 220, "ink", x=440, dur=0.9)
+S.headline("a2", "ground.", 0.9, 590, 220, "moss", x=440, dur=1.0)
 land = [part("wave", ramp=["moss", "sage", "cream", "white"], ao=0.6, w=1250, d=900, amp=[(0.8, 20), (3, 230, "spring")], freq=1.3, speed=0.5, seg=56, y=0)]
-mesh.mesh(S, "a_t", 0.8, 1430, 650, land, 1900, rx=[(0.8, -14), (10, -34, "inOutSine")], ry=spin(0.8, 10, -26, 20), persp=2300, hemi=0.6)
+mesh.mesh(S, "a_t", 0.8, 1480, 650, land, 1900, rx=[(0.8, -14), (10, -34, "inOutSine")], ry=spin(0.8, 10, -26, 20), persp=2300, hemi=0.6)
 S.wipe(10.0, "ink", "x", 1)
 
 # Act 2 (10-20): a real mountain
 b = 10.0
 fullbleed("b_i", "rockies", b + 0.1, a=0.28)
 S.headline("b1", "Real peaks.", b + 0.6, 800, 250, "cream", x=700, dur=1.0)
-S.slats(20.0, "cream", 6)
+S.slats(20.0, "ink", 6)
 
 # Act 3 (20-30): the bottle
 b = 20.0
