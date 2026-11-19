@@ -298,5 +298,25 @@
    "cues": "media/demos/tempo/reel.cues.json",
    "audio": "media/demos/tempo/reel.m4a"
   }
+ },
+ {
+  "id": "quill",
+  "title": "Quill",
+  "brief": "AI writing SaaS, dark theme, helix, typed editor",
+  "duration": 68,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 62,
+  "elements": 29,
+  "video": "media/demos/quill/reel.mp4",
+  "poster": "media/demos/quill/poster.png",
+  "player": {
+   "timeline": "media/demos/quill/reel.json",
+   "cues": "media/demos/quill/reel.cues.json",
+   "audio": "media/demos/quill/reel.m4a"
+  }
  }
 ]
