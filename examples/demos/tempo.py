@@ -26,9 +26,9 @@ S.iris(20.0, "butter", 540, 1230)
 
 # Act 3 (20-30): the player
 b = 20.0
-S.headline("c1", "Pocket-size", b + 0.4, 240, 150, "ink", dur=1.0)
-S.headline("c2", "stage.", b + 0.9, 420, 260, "coral", dur=1.0)
-mesh.mesh(S, "c_p", b + 0.8, 540, 1250, mesh.phone3d(screens.activity(S, 420, 860, b + 1.5, "coral", "ink"), 520, 1060), 1200, rx=-8, ry=spin(b + 0.7, b + 9.4, -38, 12), persp=2200)
+S.headline("c1", "Pocket-size", b + 0.2, 240, 150, "ink", dur=0.8)
+S.headline("c2", "stage.", b + 0.4, 420, 260, "coral", dur=0.8)
+mesh.mesh(S, "c_p", b + 0.3, 540, 1250, mesh.phone3d(screens.activity(S, 420, 860, b + 0.4, "coral", "ink"), 520, 1060), 1200, rx=-8, ry=spin(b + 0.3, b + 9.4, -38, 12), persp=2200)
 S.slats(30.0, "ink", 8)
 
 # Act 4 (30-40): real city night

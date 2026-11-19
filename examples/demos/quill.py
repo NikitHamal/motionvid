@@ -26,8 +26,8 @@ S.iris(20.0, "cream", 960, 620)
 
 # Act 3 (20-30): the site
 b = 20.0
-S.headline("c1", "Publish anywhere.", b + 0.4, 130, 160, "ink", dur=1.0)
-mesh.mesh(S, "c_l", b + 0.5, 960, 650, mesh.laptop3d(screens.site_home(S, 846, 513, b + 1.4, "desk", "Write less", "lime", "ink", "cream", "Quill"), 1000, "ink", "cream"), 1300, rx=-12, ry=spin(b + 0.4, b + 9.4, -28, 16), persp=2000)
+S.headline("c1", "Publish anywhere.", b + 0.3, 130, 160, "ink", dur=0.9)
+mesh.mesh(S, "c_l", b + 0.3, 960, 650, mesh.laptop3d(screens.site_home(S, 846, 513, b + 0.4, "desk", "Write less", "lime", "ink", "cream", "Quill"), 1000, "ink", "cream"), 1300, rx=-12, ry=spin(b + 0.3, b + 9.4, -28, 16), persp=2000)
 S.slats(30.0, "butter", 6)
 
 # Act 4 (30-40): the number

@@ -24,12 +24,12 @@ S.slats(20.0, "ink", 7)
 
 # Act 3 (20-30): photo grid
 b = 20.0
-S.headline("c1", "Your brand.", b + 0.3, 130, 170, "cream", dur=1.0)
+S.headline("c1", "Your brand.", b + 0.2, 130, 170, "cream", dur=0.8)
 names = ["fash1", "studio1", "fash2", "sneaker", "studio2", "fash4"]
 for i, n in enumerate(names):
     x, y = 200 + (i % 3) * 340, 480 + (i // 3) * 450
-    S.appear(S.add(f"c_i{i}", "image", None, src=f"media/assets/{n}.jpg", w=310, h=420, r=60, x=x, y=[(b + 0.5, y + 30), (b + 9, y - 20, "inOutSine")], rotation=[-3, 2, -2, 3, -2, 2][i], zoom=[(b, 1.0), (b + 9, 1.15, "inOutSine")]), b + 0.7 + i * 0.22, frm=0.6)
-S.headline("c2", "Every size.", b + 1.6, 1240, 150, "butter", dur=1.0)
+    S.appear(S.add(f"c_i{i}", "image", None, src=f"media/assets/{n}.jpg", w=310, h=420, r=60, x=x, y=[(b + 0.2, y + 30), (b + 9, y - 20, "inOutSine")], rotation=[-3, 2, -2, 3, -2, 2][i], zoom=[(b, 1.0), (b + 9, 1.15, "inOutSine")]), b + 0.25 + i * 0.06, frm=0.6)
+S.headline("c2", "Every size.", b + 0.4, 1240, 150, "butter", dur=0.8)
 S.iris(30.0, "butter", 540, 700)
 
 # Act 4 (30-40): cube
