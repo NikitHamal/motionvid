@@ -32,10 +32,10 @@ DEMOS = {
     "terra": ("Terra", "Urban climate, city footage, extruded 3D", 1280, 12.0, 2),
     "kernel": ("Kernel", "Developer infrastructure, code editor and racks", 1280, 12.0, 2),
     "helio": ("Helio", "Solar energy, morphing sun, wave field, city footage", 1280, 13.0, 2),
-    "summit": ("Summit", "Outdoor gear, terrain flyover, real footage", 1280, 6.0, 2),
-    "mosaic": ("Mosaic", "Design suite, morphing blob, ribbon, portrait 4:5", 1080, 15.0, 2),
-    "tempo": ("Tempo", "Music app, torus knot, equalizer, vertical 9:16", 720, 14.0, 2),
-    "quill": ("Quill", "AI writing SaaS, dark theme, helix, typed editor", 1280, 35.0, 2),
+    "summit": ("Summit", "Outdoor gear, terrain flyover, real footage", 1280, 6.0, 1),
+    "mosaic": ("Mosaic", "Design suite, morphing blob, ribbon, portrait 4:5", 1080, 15.0, 1),
+    "tempo": ("Tempo", "Music app, torus knot, equalizer, vertical 9:16", 720, 14.0, 1),
+    "quill": ("Quill", "AI writing SaaS, dark theme, helix, typed editor", 1280, 35.0, 1),
 }
 
 

@@ -1,0 +1,1517 @@
+[
+  {
+    "t": 0.45,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": -0.292,
+    "seed": 145764815,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 0.6333,
+    "role": "tick",
+    "gain_db": -13.64,
+    "pan": -0.35,
+    "seed": 202629363,
+    "why": "a1: glyph 'S' #0",
+    "p": {
+      "freq": 440.3676594080697,
+      "st": 0.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 0.7917,
+    "role": "tick",
+    "gain_db": -13.74,
+    "pan": 0.35,
+    "seed": 161691565,
+    "why": "a1: glyph 'n' #2",
+    "p": {
+      "freq": 465.10558743447956,
+      "st": 1.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 0.92,
+    "role": "pop",
+    "gain_db": -13.0,
+    "pan": 0.438,
+    "seed": 191073790,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "pop"
+  },
+  {
+    "t": 0.95,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": -0.292,
+    "seed": 245973374,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 1.0208,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.406,
+    "seed": 250375265,
+    "why": "a_sun: damped woody pop #1/1",
+    "p": {
+      "freq": 220.0,
+      "bell": false,
+      "dur": 0.16
+    },
+    "name": "hero_pluck"
+  },
+  {
+    "t": 1.225,
+    "role": "tick",
+    "gain_db": -15.84,
+    "pan": -0.117,
+    "seed": 58469249,
+    "why": "a2: glyph 's' #2",
+    "p": {
+      "freq": 603.8430558271024,
+      "st": 5.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 1.3333,
+    "role": "tick",
+    "gain_db": -14.18,
+    "pan": 0.039,
+    "seed": 112670658,
+    "why": "a2: glyph 'c' #4",
+    "p": {
+      "freq": 640.4159554434353,
+      "st": 6.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 1.4417,
+    "role": "tick",
+    "gain_db": -14.55,
+    "pan": 0.194,
+    "seed": 225610985,
+    "why": "a2: glyph 'e' #6",
+    "p": {
+      "freq": 658.3176571929278,
+      "st": 7.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 1.55,
+    "role": "tick",
+    "gain_db": -12.8,
+    "pan": 0.35,
+    "seed": 116880961,
+    "why": "a2: glyph '.' #8",
+    "p": {
+      "freq": 658.2365264831872,
+      "st": 7.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 9.0,
+    "role": "air",
+    "gain_db": -20.0,
+    "pan": 0.0,
+    "seed": 29443889,
+    "why": "cut:cut room air tail",
+    "p": {
+      "s": 0.75
+    },
+    "name": "air"
+  },
+  {
+    "t": 9.0,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 152087834,
+    "why": "cut:cut mass 0.75",
+    "p": {
+      "s": 0.75
+    },
+    "name": "impact"
+  },
+  {
+    "t": 9.0,
+    "role": "sub",
+    "gain_db": -5.34,
+    "pan": 0.0,
+    "seed": 109549816,
+    "why": "cut:cut locked sub-drop",
+    "p": {
+      "s": 0.75,
+      "f0": 92.0,
+      "f1": 36.0
+    },
+    "name": "sub"
+  },
+  {
+    "t": 9.0,
+    "role": "whoosh",
+    "gain_db": -7.25,
+    "pan": 0.0,
+    "seed": 164475998,
+    "why": "cut:cut pre-roll 160 ms",
+    "p": {
+      "pre": 0.16,
+      "post": 0.22,
+      "s": 0.75
+    },
+    "name": "whoosh"
+  },
+  {
+    "t": 9.42,
+    "role": "pop",
+    "gain_db": -13.0,
+    "pan": 0.0,
+    "seed": 57112673,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "pop"
+  },
+  {
+    "t": 9.45,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 241092056,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 9.5125,
+    "role": "tick",
+    "gain_db": -13.99,
+    "pan": -0.35,
+    "seed": 265385654,
+    "why": "b1: glyph 'E' #0",
+    "p": {
+      "freq": 524.2023081939569,
+      "st": 0.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 9.5208,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.061,
+    "seed": 252681653,
+    "why": "b_w: damped woody pop #1/1",
+    "p": {
+      "freq": 261.6,
+      "bell": false,
+      "dur": 0.16
+    },
+    "name": "hero_pluck"
+  },
+  {
+    "t": 9.6667,
+    "role": "tick",
+    "gain_db": -11.01,
+    "pan": -0.185,
+    "seed": 186109645,
+    "why": "b1: glyph 'y' #4",
+    "p": {
+      "freq": 587.0034020322547,
+      "st": 2.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 9.7792,
+    "role": "tick",
+    "gain_db": -14.57,
+    "pan": -0.062,
+    "seed": 137349602,
+    "why": "b1: glyph 'o' #6",
+    "p": {
+      "freq": 621.3115050476649,
+      "st": 3.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 9.9292,
+    "role": "tick",
+    "gain_db": -15.0,
+    "pan": 0.103,
+    "seed": 142986362,
+    "why": "b1: glyph 'c' #9",
+    "p": {
+      "freq": 678.5125933773043,
+      "st": 4.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 10.0458,
+    "role": "tick",
+    "gain_db": -16.52,
+    "pan": 0.226,
+    "seed": 72381956,
+    "why": "b1: glyph 'n' #12",
+    "p": {
+      "freq": 741.7058130246505,
+      "st": 6.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 10.1583,
+    "role": "tick",
+    "gain_db": -14.02,
+    "pan": 0.35,
+    "seed": 95812710,
+    "why": "b1: glyph '.' #15",
+    "p": {
+      "freq": 782.9067361877861,
+      "st": 7.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 10.8,
+    "role": "tick",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 57760032,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 11.2138,
+    "role": "tick",
+    "gain_db": -20.6,
+    "pan": 0.0,
+    "seed": 46140692,
+    "why": "ui hint",
+    "p": {
+      "st": 0.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 11.5205,
+    "role": "tick",
+    "gain_db": -20.2,
+    "pan": 0.0,
+    "seed": 207127657,
+    "why": "ui hint",
+    "p": {
+      "st": 1.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 11.7966,
+    "role": "tick",
+    "gain_db": -19.8,
+    "pan": 0.0,
+    "seed": 137736192,
+    "why": "ui hint",
+    "p": {
+      "st": 1.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 12.0545,
+    "role": "tick",
+    "gain_db": -19.4,
+    "pan": 0.0,
+    "seed": 249806942,
+    "why": "ui hint",
+    "p": {
+      "st": 2.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 12.2997,
+    "role": "tick",
+    "gain_db": -19.0,
+    "pan": 0.0,
+    "seed": 140391347,
+    "why": "ui hint",
+    "p": {
+      "st": 2.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 12.5352,
+    "role": "tick",
+    "gain_db": -18.6,
+    "pan": 0.0,
+    "seed": 249570380,
+    "why": "ui hint",
+    "p": {
+      "st": 3.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 12.7629,
+    "role": "tick",
+    "gain_db": -18.2,
+    "pan": 0.0,
+    "seed": 262567495,
+    "why": "ui hint",
+    "p": {
+      "st": 3.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 12.9842,
+    "role": "tick",
+    "gain_db": -17.8,
+    "pan": 0.0,
+    "seed": 31337428,
+    "why": "ui hint",
+    "p": {
+      "st": 4.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 18.0,
+    "role": "air",
+    "gain_db": -19.5,
+    "pan": 0.0,
+    "seed": 56474939,
+    "why": "cut:cut room air tail",
+    "p": {
+      "s": 1.0
+    },
+    "name": "air"
+  },
+  {
+    "t": 18.0,
+    "role": "impact",
+    "gain_db": -4.5,
+    "pan": 0.0,
+    "seed": 43056795,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    },
+    "name": "impact"
+  },
+  {
+    "t": 18.0,
+    "role": "sub",
+    "gain_db": -5.34,
+    "pan": 0.0,
+    "seed": 12415020,
+    "why": "cut:cut locked sub-drop",
+    "p": {
+      "s": 1.0,
+      "f0": 92.0,
+      "f1": 36.0
+    },
+    "name": "sub"
+  },
+  {
+    "t": 18.0,
+    "role": "whoosh",
+    "gain_db": -6.5,
+    "pan": 0.0,
+    "seed": 189561483,
+    "why": "cut:cut pre-roll 160 ms",
+    "p": {
+      "pre": 0.16,
+      "post": 0.22,
+      "s": 1.0
+    },
+    "name": "whoosh"
+  },
+  {
+    "t": 18.45,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": 0.0,
+    "seed": 105469234,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 18.52,
+    "role": "pop",
+    "gain_db": -13.0,
+    "pan": 0.0,
+    "seed": 219343659,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "pop"
+  },
+  {
+    "t": 18.5208,
+    "role": "tick",
+    "gain_db": -12.31,
+    "pan": -0.35,
+    "seed": 17721620,
+    "why": "c1: glyph 'K' #0",
+    "p": {
+      "freq": 439.1149074181026,
+      "st": 0.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 18.6208,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.031,
+    "seed": 259758161,
+    "why": "c_l: damped woody pop #1/1",
+    "p": {
+      "freq": 280.0,
+      "bell": false,
+      "dur": 0.16
+    },
+    "name": "hero_pluck"
+  },
+  {
+    "t": 18.7667,
+    "role": "tick",
+    "gain_db": -12.75,
+    "pan": -0.07,
+    "seed": 126020468,
+    "why": "c1: glyph 'v' #5",
+    "p": {
+      "freq": 509.15851553193545,
+      "st": 2.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 18.8917,
+    "role": "tick",
+    "gain_db": -13.36,
+    "pan": 0.07,
+    "seed": 2367708,
+    "why": "c1: glyph 'y' #8",
+    "p": {
+      "freq": 555.3488224242789,
+      "st": 4.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 19.0167,
+    "role": "tick",
+    "gain_db": -13.8,
+    "pan": 0.21,
+    "seed": 36928853,
+    "why": "c1: glyph 'a' #10",
+    "p": {
+      "freq": 586.5298601039636,
+      "st": 5.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 19.1375,
+    "role": "tick",
+    "gain_db": -11.37,
+    "pan": 0.35,
+    "seed": 154089722,
+    "why": "c1: glyph '.' #13",
+    "p": {
+      "freq": 641.544901109751,
+      "st": 6.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 20.0,
+    "role": "tick",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 258946047,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 20.2,
+    "role": "tick",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 56945351,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 20.4,
+    "role": "tick",
+    "gain_db": -21.0,
+    "pan": 0.0,
+    "seed": 78131937,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 20.4967,
+    "role": "tick",
+    "gain_db": -20.6,
+    "pan": 0.0,
+    "seed": 148603403,
+    "why": "ui hint",
+    "p": {
+      "st": 0.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 20.6967,
+    "role": "tick",
+    "gain_db": -20.6,
+    "pan": 0.0,
+    "seed": 103598402,
+    "why": "ui hint",
+    "p": {
+      "st": 0.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 20.8648,
+    "role": "tick",
+    "gain_db": -20.2,
+    "pan": 0.0,
+    "seed": 7911017,
+    "why": "ui hint",
+    "p": {
+      "st": 1.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 21.0648,
+    "role": "tick",
+    "gain_db": -20.2,
+    "pan": 0.0,
+    "seed": 57078216,
+    "why": "ui hint",
+    "p": {
+      "st": 1.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 21.1962,
+    "role": "tick",
+    "gain_db": -19.8,
+    "pan": 0.0,
+    "seed": 125326089,
+    "why": "ui hint",
+    "p": {
+      "st": 1.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 21.3962,
+    "role": "tick",
+    "gain_db": -19.8,
+    "pan": 0.0,
+    "seed": 251748325,
+    "why": "ui hint",
+    "p": {
+      "st": 1.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 21.5057,
+    "role": "tick",
+    "gain_db": -19.4,
+    "pan": 0.0,
+    "seed": 15263832,
+    "why": "ui hint",
+    "p": {
+      "st": 2.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 21.5962,
+    "role": "tick",
+    "gain_db": -19.8,
+    "pan": 0.0,
+    "seed": 177219906,
+    "why": "ui hint",
+    "p": {
+      "st": 1.5,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 21.7057,
+    "role": "tick",
+    "gain_db": -19.4,
+    "pan": 0.0,
+    "seed": 96167396,
+    "why": "ui hint",
+    "p": {
+      "st": 2.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 21.9057,
+    "role": "tick",
+    "gain_db": -19.4,
+    "pan": 0.0,
+    "seed": 133463230,
+    "why": "ui hint",
+    "p": {
+      "st": 2.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 27.0,
+    "role": "air",
+    "gain_db": -20.0,
+    "pan": 0.0,
+    "seed": 136114585,
+    "why": "cut:cut room air tail",
+    "p": {
+      "s": 0.75
+    },
+    "name": "air"
+  },
+  {
+    "t": 27.0,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 111449801,
+    "why": "cut:cut mass 0.75",
+    "p": {
+      "s": 0.75
+    },
+    "name": "impact"
+  },
+  {
+    "t": 27.0,
+    "role": "sub",
+    "gain_db": -5.34,
+    "pan": 0.0,
+    "seed": 83088051,
+    "why": "cut:cut locked sub-drop",
+    "p": {
+      "s": 0.75,
+      "f0": 92.0,
+      "f1": 36.0
+    },
+    "name": "sub"
+  },
+  {
+    "t": 27.0,
+    "role": "whoosh",
+    "gain_db": -7.25,
+    "pan": 0.0,
+    "seed": 79140760,
+    "why": "cut:cut pre-roll 160 ms",
+    "p": {
+      "pre": 0.16,
+      "post": 0.22,
+      "s": 0.75
+    },
+    "name": "whoosh"
+  },
+  {
+    "t": 27.225,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.136,
+    "seed": 109211110,
+    "why": "d_v: damped woody pop #1/1",
+    "p": {
+      "freq": 329.6,
+      "bell": false,
+      "dur": 0.16
+    },
+    "name": "hero_pluck"
+  },
+  {
+    "t": 27.65,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": -0.19,
+    "seed": 140378791,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 27.7833,
+    "role": "tick",
+    "gain_db": -15.65,
+    "pan": -0.35,
+    "seed": 189963735,
+    "why": "d1: glyph 'C' #0",
+    "p": {
+      "freq": 440.6076476563083,
+      "st": 0.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 27.9125,
+    "role": "tick",
+    "gain_db": -10.78,
+    "pan": -0.07,
+    "seed": 135772504,
+    "why": "d1: glyph 't' #2",
+    "p": {
+      "freq": 465.8889828697248,
+      "st": 1.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 28.0375,
+    "role": "tick",
+    "gain_db": -11.91,
+    "pan": 0.21,
+    "seed": 13265111,
+    "why": "d1: glyph 'e' #4",
+    "p": {
+      "freq": 494.05934756061714,
+      "st": 2.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 28.15,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": -0.19,
+    "seed": 55171717,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 28.2625,
+    "role": "tick",
+    "gain_db": -14.94,
+    "pan": -0.35,
+    "seed": 145348677,
+    "why": "d2: glyph 'r' #0",
+    "p": {
+      "freq": 554.03948768538,
+      "st": 4.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 28.3708,
+    "role": "tick",
+    "gain_db": -13.33,
+    "pan": -0.194,
+    "seed": 186439359,
+    "why": "d2: glyph 'n' #2",
+    "p": {
+      "freq": 588.2469973885164,
+      "st": 5.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 28.4792,
+    "role": "tick",
+    "gain_db": -15.97,
+    "pan": -0.039,
+    "seed": 83980359,
+    "why": "d2: glyph 'o' #3",
+    "p": {
+      "freq": 605.9936505756316,
+      "st": 5.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 28.6417,
+    "role": "tick",
+    "gain_db": -12.17,
+    "pan": 0.194,
+    "seed": 159316804,
+    "why": "d2: glyph 'i' #5",
+    "p": {
+      "freq": 642.0196720052862,
+      "st": 6.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 28.7542,
+    "role": "tick",
+    "gain_db": -15.23,
+    "pan": 0.35,
+    "seed": 46355131,
+    "why": "d2: glyph '.' #7",
+    "p": {
+      "freq": 659.1642973652607,
+      "st": 7.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 36.0,
+    "role": "air",
+    "gain_db": -20.0,
+    "pan": 0.0,
+    "seed": 27394846,
+    "why": "cut:cut room air tail",
+    "p": {
+      "s": 0.75
+    },
+    "name": "air"
+  },
+  {
+    "t": 36.0,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 166195927,
+    "why": "cut:cut mass 0.75",
+    "p": {
+      "s": 0.75
+    },
+    "name": "impact"
+  },
+  {
+    "t": 36.0,
+    "role": "sub",
+    "gain_db": -5.34,
+    "pan": 0.0,
+    "seed": 110025070,
+    "why": "cut:cut locked sub-drop",
+    "p": {
+      "s": 0.75,
+      "f0": 92.0,
+      "f1": 36.0
+    },
+    "name": "sub"
+  },
+  {
+    "t": 36.0,
+    "role": "whoosh",
+    "gain_db": -7.25,
+    "pan": 0.0,
+    "seed": 24492843,
+    "why": "cut:cut pre-roll 160 ms",
+    "p": {
+      "pre": 0.16,
+      "post": 0.22,
+      "s": 0.75
+    },
+    "name": "whoosh"
+  },
+  {
+    "t": 36.55,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": -0.248,
+    "seed": 170013584,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 36.62,
+    "role": "pop",
+    "gain_db": -13.0,
+    "pan": 0.357,
+    "seed": 39839836,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "pop"
+  },
+  {
+    "t": 36.7208,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.332,
+    "seed": 41927028,
+    "why": "e_t: damped woody pop #1/1",
+    "p": {
+      "freq": 340.0,
+      "bell": false,
+      "dur": 0.16
+    },
+    "name": "hero_pluck"
+  },
+  {
+    "t": 36.9,
+    "role": "tick",
+    "gain_db": -12.91,
+    "pan": 0.117,
+    "seed": 2514210,
+    "why": "e1: glyph '8' #2",
+    "p": {
+      "freq": 465.4999091983136,
+      "st": 1.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 37.05,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": -0.248,
+    "seed": 155509304,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 37.1917,
+    "role": "tick",
+    "gain_db": -14.41,
+    "pan": -0.35,
+    "seed": 39988883,
+    "why": "e2: glyph 'o' #0",
+    "p": {
+      "freq": 538.405491755389,
+      "st": 3.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 37.3208,
+    "role": "tick",
+    "gain_db": -12.03,
+    "pan": -0.117,
+    "seed": 37541827,
+    "why": "e2: glyph 't' #2",
+    "p": {
+      "freq": 571.843734936192,
+      "st": 4.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 37.4542,
+    "role": "tick",
+    "gain_db": -11.23,
+    "pan": 0.117,
+    "seed": 111898236,
+    "why": "e2: glyph 'u' #4",
+    "p": {
+      "freq": 604.9080003481469,
+      "st": 5.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 37.5833,
+    "role": "tick",
+    "gain_db": -12.04,
+    "pan": 0.35,
+    "seed": 141636053,
+    "why": "e2: glyph '.' #6",
+    "p": {
+      "freq": 640.8987994614636,
+      "st": 6.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 45.0,
+    "role": "air",
+    "gain_db": -19.5,
+    "pan": 0.0,
+    "seed": 199828344,
+    "why": "cut:cut room air tail",
+    "p": {
+      "s": 1.0
+    },
+    "name": "air"
+  },
+  {
+    "t": 45.0,
+    "role": "impact",
+    "gain_db": -4.5,
+    "pan": 0.0,
+    "seed": 198689045,
+    "why": "cut:cut mass 1.00",
+    "p": {
+      "s": 1.0
+    },
+    "name": "impact"
+  },
+  {
+    "t": 45.0,
+    "role": "sub",
+    "gain_db": -5.34,
+    "pan": 0.0,
+    "seed": 9785449,
+    "why": "cut:cut locked sub-drop",
+    "p": {
+      "s": 1.0,
+      "f0": 92.0,
+      "f1": 36.0
+    },
+    "name": "sub"
+  },
+  {
+    "t": 45.0,
+    "role": "whoosh",
+    "gain_db": -6.5,
+    "pan": 0.0,
+    "seed": 247272191,
+    "why": "cut:cut pre-roll 160 ms",
+    "p": {
+      "pre": 0.16,
+      "post": 0.22,
+      "s": 1.0
+    },
+    "name": "whoosh"
+  },
+  {
+    "t": 45.32,
+    "role": "pop",
+    "gain_db": -13.0,
+    "pan": -0.321,
+    "seed": 194432905,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "pop"
+  },
+  {
+    "t": 45.4208,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": -0.298,
+    "seed": 187579124,
+    "why": "f_g: damped woody pop #1/1",
+    "p": {
+      "freq": 392.0,
+      "bell": false,
+      "dur": 0.16
+    },
+    "name": "hero_pluck"
+  },
+  {
+    "t": 45.55,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": 0.306,
+    "seed": 205755748,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 45.6542,
+    "role": "tick",
+    "gain_db": -13.84,
+    "pan": -0.35,
+    "seed": 188053568,
+    "why": "f1: glyph 'O' #0",
+    "p": {
+      "freq": 440.2616011320687,
+      "st": 0.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 45.7583,
+    "role": "tick",
+    "gain_db": -11.81,
+    "pan": -0.175,
+    "seed": 182040856,
+    "why": "f1: glyph 'e' #2",
+    "p": {
+      "freq": 466.00533837930845,
+      "st": 1.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 45.8625,
+    "role": "tick",
+    "gain_db": -14.39,
+    "pan": 0.0,
+    "seed": 165396205,
+    "why": "f1: glyph 'g' #3",
+    "p": {
+      "freq": 478.9854984437248,
+      "st": 1.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 45.9667,
+    "role": "tick",
+    "gain_db": -11.41,
+    "pan": 0.175,
+    "seed": 25592318,
+    "why": "f1: glyph 'i' #5",
+    "p": {
+      "freq": 508.94786033307764,
+      "st": 2.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 46.05,
+    "role": "swipe",
+    "gain_db": -15.0,
+    "pan": 0.306,
+    "seed": 15826462,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "swipe"
+  },
+  {
+    "t": 46.0708,
+    "role": "tick",
+    "gain_db": -13.14,
+    "pan": 0.35,
+    "seed": 180908236,
+    "why": "f1: glyph '.' #7",
+    "p": {
+      "freq": 537.3338579308503,
+      "st": 3.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 46.1625,
+    "role": "tick",
+    "gain_db": -14.65,
+    "pan": -0.35,
+    "seed": 137190161,
+    "why": "f2: glyph 'E' #0",
+    "p": {
+      "freq": 569.8572556677256,
+      "st": 4.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 46.2708,
+    "role": "tick",
+    "gain_db": -11.88,
+    "pan": -0.194,
+    "seed": 165398402,
+    "why": "f2: glyph 'e' #2",
+    "p": {
+      "freq": 604.7716576659126,
+      "st": 5.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 46.3792,
+    "role": "tick",
+    "gain_db": -10.87,
+    "pan": -0.039,
+    "seed": 59740921,
+    "why": "f2: glyph 'y' #4",
+    "p": {
+      "freq": 641.4582209951378,
+      "st": 6.5
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 46.4875,
+    "role": "tick",
+    "gain_db": -11.41,
+    "pan": 0.117,
+    "seed": 111466391,
+    "why": "f2: glyph 's' #5",
+    "p": {
+      "freq": 660.8089539214701,
+      "st": 7.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 46.5958,
+    "role": "tick",
+    "gain_db": -10.45,
+    "pan": 0.272,
+    "seed": 177248569,
+    "why": "f2: glyph 'y' #7",
+    "p": {
+      "freq": 658.5846330431868,
+      "st": 7.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 54.0,
+    "role": "air",
+    "gain_db": -20.0,
+    "pan": 0.0,
+    "seed": 242656559,
+    "why": "cut:cut room air tail",
+    "p": {
+      "s": 0.75
+    },
+    "name": "air"
+  },
+  {
+    "t": 54.0,
+    "role": "impact",
+    "gain_db": -5.0,
+    "pan": 0.0,
+    "seed": 40369054,
+    "why": "cut:cut mass 0.75",
+    "p": {
+      "s": 0.75
+    },
+    "name": "impact"
+  },
+  {
+    "t": 54.0,
+    "role": "sub",
+    "gain_db": -5.34,
+    "pan": 0.0,
+    "seed": 156860044,
+    "why": "cut:cut locked sub-drop",
+    "p": {
+      "s": 0.75,
+      "f0": 92.0,
+      "f1": 36.0
+    },
+    "name": "sub"
+  },
+  {
+    "t": 54.0,
+    "role": "whoosh",
+    "gain_db": -7.25,
+    "pan": 0.0,
+    "seed": 47666316,
+    "why": "cut:cut pre-roll 160 ms",
+    "p": {
+      "pre": 0.16,
+      "post": 0.22,
+      "s": 0.75
+    },
+    "name": "whoosh"
+  },
+  {
+    "t": 54.8417,
+    "role": "tick",
+    "gain_db": -10.94,
+    "pan": -0.35,
+    "seed": 229633254,
+    "why": "g_n: glyph 'H' #0",
+    "p": {
+      "freq": 440.69203869377543,
+      "st": 0.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 55.0083,
+    "role": "tick",
+    "gain_db": -15.55,
+    "pan": 0.0,
+    "seed": 255818577,
+    "why": "g_n: glyph 'l' #2",
+    "p": {
+      "freq": 466.6807991902102,
+      "st": 1.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 55.1708,
+    "role": "tick",
+    "gain_db": -15.72,
+    "pan": 0.35,
+    "seed": 38225498,
+    "why": "g_n: glyph 'o' #4",
+    "p": {
+      "freq": 493.5529498751138,
+      "st": 2.0
+    },
+    "name": "text_tick"
+  },
+  {
+    "t": 56.02,
+    "role": "pop",
+    "gain_db": -13.0,
+    "pan": 0.0,
+    "seed": 94917089,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "pop"
+  },
+  {
+    "t": 56.025,
+    "role": "pluck",
+    "gain_db": -14.0,
+    "pan": 0.237,
+    "seed": 243700578,
+    "why": "g_b: damped woody pop #1/1",
+    "p": {
+      "freq": 420.0,
+      "bell": false,
+      "dur": 0.16
+    },
+    "name": "hero_pluck"
+  },
+  {
+    "t": 58.2,
+    "role": "click",
+    "gain_db": -9.0,
+    "pan": 0.0,
+    "seed": 88741350,
+    "why": "ui hint",
+    "p": {
+      "st": 0.0,
+      "freq": 523.25,
+      "s": 0.5
+    },
+    "name": "click"
+  }
+]

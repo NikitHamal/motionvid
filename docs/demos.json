@@ -238,5 +238,25 @@
    "cues": "media/demos/kernel/reel.cues.json",
    "audio": "media/demos/kernel/reel.m4a"
   }
+ },
+ {
+  "id": "helio",
+  "title": "Helio",
+  "brief": "Solar energy, morphing sun, wave field, city footage",
+  "duration": 64,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 41,
+  "elements": 31,
+  "video": "media/demos/helio/reel.mp4",
+  "poster": "media/demos/helio/poster.png",
+  "player": {
+   "timeline": "media/demos/helio/reel.json",
+   "cues": "media/demos/helio/reel.cues.json",
+   "audio": "media/demos/helio/reel.m4a"
+  }
  }
 ]
