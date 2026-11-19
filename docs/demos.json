@@ -258,5 +258,25 @@
    "cues": "media/demos/helio/reel.cues.json",
    "audio": "media/demos/helio/reel.m4a"
   }
+ },
+ {
+  "id": "tempo",
+  "title": "Tempo",
+  "brief": "Music app, torus knot, equalizer, vertical 9:16",
+  "duration": 66,
+  "fps": 60,
+  "aspect": [
+   1080,
+   1920
+  ],
+  "sfx": 28,
+  "elements": 34,
+  "video": "media/demos/tempo/reel.mp4",
+  "poster": "media/demos/tempo/poster.png",
+  "player": {
+   "timeline": "media/demos/tempo/reel.json",
+   "cues": "media/demos/tempo/reel.cues.json",
+   "audio": "media/demos/tempo/reel.m4a"
+  }
  }
 ]
