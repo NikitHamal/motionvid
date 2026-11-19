@@ -260,6 +260,26 @@
   }
  },
  {
+  "id": "summit",
+  "title": "Summit",
+  "brief": "Outdoor gear, terrain flyover, real footage",
+  "duration": 70,
+  "fps": 60,
+  "aspect": [
+   1920,
+   1080
+  ],
+  "sfx": 34,
+  "elements": 36,
+  "video": "media/demos/summit/reel.mp4",
+  "poster": "media/demos/summit/poster.png",
+  "player": {
+   "timeline": "media/demos/summit/reel.json",
+   "cues": "media/demos/summit/reel.cues.json",
+   "audio": "media/demos/summit/reel.m4a"
+  }
+ },
+ {
   "id": "mosaic",
   "title": "Mosaic",
   "brief": "Design suite, morphing blob, ribbon, portrait 4:5",
